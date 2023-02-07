@@ -1,6 +1,14 @@
+import { grey } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
 
 export const defaultTheme = createTheme({
+  components: {
+    MuiButton: {
+      defaultProps: {
+        disableElevation: true,
+      },
+    },
+  },
   typography: {
     fontFamily: ["-apple-system", "BlinkMacSystemFont", "Source Sans Pro"].join(
       ","
@@ -16,6 +24,9 @@ export const defaultTheme = createTheme({
     background: {
       default: "#ffffff",
       paper: "#ffffff",
+    },
+    text: {
+      primary: grey[800],
     },
   },
 });
