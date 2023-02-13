@@ -14,13 +14,33 @@ export default function App({ Component, pageProps }) {
       <DefaultSeo
         title={SITE_NAME}
         canonical={SITE_BASE_URL}
-        description={"Your nice & cozy gaming review platform"}
+        description={"Your nice & cozy video games platform"}
         openGraph={{
           type: "website",
           siteName: SITE_NAME,
           title: OG_TITLE,
           url: SITE_BASE_URL,
-          images: [],
+          images: [
+            {
+              url: `${SITE_BASE_URL}img/GameFluence-black-2000px.png`,
+              width: 1200,
+              height: 502.8,
+              alt: `${SITE_NAME} black logo`,
+              type: "image/png",
+            },
+            {
+              url: `${SITE_BASE_URL}img/GameFluence-white-2000px.png`,
+              width: 1200,
+              height: 502.8,
+              alt: `${SITE_NAME} white logo`,
+              type: "image/png",
+            },
+          ],
+        }}
+        twitter={{
+          handle: "@handle",
+          site: "@site",
+          cardType: "summary_large_image",
         }}
       />
       <ThemeProvider theme={defaultTheme}>
