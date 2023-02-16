@@ -10,7 +10,7 @@ export default function MainLayout({ children }) {
       <Stack sx={{ minHeight: "100vh" }}>
         <Navbar />
         <Container maxWidth="2xl" sx={{ flex: 1 }}>
-          <Box sx={{ p: { xs: 1, md: 3 } }}>{children}</Box>
+          <Box sx={{ px: { xs: 1, md: 3 } }}>{children}</Box>
         </Container>
         <Footer />
       </Stack>
