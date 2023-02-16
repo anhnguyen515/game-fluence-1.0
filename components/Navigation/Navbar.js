@@ -9,17 +9,17 @@ const NavMobile = dynamic(() => import("./NavMobile"), { ssr: false });
 
 export default function Navbar() {
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <Box>
       <AppBar
         elevation={0}
-        variant="outlined"
+        // variant="outlined"
         position="static"
         color="secondary"
       >
-        <Container maxWidth="xl">
+        <Container maxWidth="2xl">
           <Toolbar>{isSmallScreen ? <NavMobile /> : <NavDesktop />}</Toolbar>
         </Container>
       </AppBar>
