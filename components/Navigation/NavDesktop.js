@@ -6,6 +6,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 const SearchModal = dynamic(() => import("./SearchModal"), { ssr: false });
+const ThemePicker = dynamic(() => import("../common/ThemePicker"), {
+  ssr: false,
+});
 
 function ActiveLink({ href, item, router }) {
   return (
@@ -13,7 +16,7 @@ function ActiveLink({ href, item, router }) {
       <Link href={href}>
         <Typography
           sx={{
-            color: router.pathname.includes(href) ? "primary.main" : "text",
+            color: router.pathname.includes(href) ? "primary.light" : "text",
             borderBottom: router.pathname.includes(href) && 1,
             "&:hover": {
               borderBottom: 1,
@@ -73,6 +76,7 @@ export default function NavDesktop() {
         >
           Login
         </Button>
+        <ThemePicker />
       </Stack>
     </Stack>
   );

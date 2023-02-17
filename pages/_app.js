@@ -1,19 +1,64 @@
 import MainLayout from "@/layout/MainLayout";
+import { wrapper } from "@/store/store";
 import "@/styles/globals.css";
-import { defaultTheme } from "@/styles/theme";
+import { defaultTheme, blackPinkTheme } from "@/styles/theme";
 import { OG_TITLE, SITE_BASE_URL, SITE_NAME } from "@/utils/constants";
 import { cache } from "@emotion/css";
 import { CacheProvider } from "@emotion/react";
 import "@fontsource/roboto";
 import { CssBaseline, ThemeProvider } from "@mui/material";
+import Cookies from "js-cookie";
 import { DefaultSeo } from "next-seo";
+import dynamic from "next/dynamic";
 import Head from "next/head";
+import Router from "next/router";
+import React from "react";
 import { Provider } from "react-redux";
-import { wrapper } from "@/store/store";
+
+const FullScreenLoader = dynamic(
+  () => import("@/components/loader/FullScreenLoader"),
+  { ssr: false }
+);
 
 export default function App({ Component, ...rest }) {
   const { store, props } = wrapper.useWrappedStore(rest);
   const { pageProps } = props;
+
+  const [loading, setLoading] = React.useState(false);
+  const [theme, setTheme] = React.useState("defaultTheme");
+
+  function handleChangeTheme(value) {
+    setTheme(value);
+  }
+
+  React.useEffect(() => {
+    const start = () => {
+      setLoading(true);
+    };
+    const end = () => {
+      setLoading(false);
+    };
+    Router.events.on("routeChangeStart", start);
+    Router.events.on("routeChangeComplete", end);
+    Router.events.on("routeChangeError", end);
+    return () => {
+      Router.events.off("routeChangeStart", start);
+      Router.events.off("routeChangeComplete", end);
+      Router.events.off("routeChangeError", end);
+    };
+  }, []);
+
+  React.useEffect(() => {
+    const data = Cookies.get("theme");
+    if (data !== undefined) {
+      setTheme(data);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    Cookies.set("theme", theme, { secure: true, expires: 365 });
+  }, [theme]);
+
   return (
     <CacheProvider value={cache}>
       <Head>
@@ -72,7 +117,7 @@ export default function App({ Component, ...rest }) {
         <ThemeProvider theme={defaultTheme}>
           <CssBaseline />
           <MainLayout>
-            <Component {...pageProps} />
+            {loading ? <FullScreenLoader /> : <Component {...pageProps} />}
           </MainLayout>
         </ThemeProvider>
       </Provider>

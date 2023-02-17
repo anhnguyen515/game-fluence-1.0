@@ -1,15 +1,12 @@
-import {
-  Box,
-  Container,
-  Divider,
-  Grid,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Container, Grid, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import { BsTelephoneFill, BsMailbox2, BsLinkedin } from "react-icons/bs";
+import {
+  BsLinkedin,
+  BsMailbox2,
+  BsTelephoneFill,
+  BsGithub,
+} from "react-icons/bs";
 
 export default function Footer() {
   return (
@@ -17,7 +14,7 @@ export default function Footer() {
       sx={{
         borderTop: 1,
         borderColor: "divider",
-        backgroundColor: "secondary.main",
+        backgroundColor: "background.default",
       }}
     >
       <Container maxWidth="2xl">
@@ -75,6 +72,15 @@ export default function Footer() {
                     RAWG
                   </Link>
                 </Typography>
+                <Link href={"https://github.com/anhnguyen515/game-fluence-2.0"}>
+                  <Typography
+                    variant="caption"
+                    sx={{ display: "flex", alignItems: "center", gap: 1 }}
+                  >
+                    <BsGithub />
+                    game-fluence-2.0
+                  </Typography>
+                </Link>
               </Stack>
             </Grid>
           </Grid>

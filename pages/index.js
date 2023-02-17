@@ -1,14 +1,15 @@
 import { getGamesListAPI } from "@/utils/apis";
 import { SITE_NAME } from "@/utils/constants";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   const games = await getGamesListAPI().then((res) => res.data);
 
   return {
     props: {
       games,
     },
+    revalidate: 60,
   };
 }
 
@@ -38,15 +39,15 @@ export default function Home({ games }) {
       >
         <Typography
           color={"text.light"}
-          fontSize={"1.8rem"}
+          fontSize={"2.2rem"}
           fontWeight={600}
           variant="h1"
         >
           Welcome to{" "}
           <Typography
-            color={"primary.main"}
+            color={"primary.light"}
             component={"span"}
-            fontSize={"1.8rem"}
+            fontSize={"2.2rem"}
             fontWeight={600}
           >
             {SITE_NAME}
@@ -56,11 +57,6 @@ export default function Home({ games }) {
           Your nice & cozy video games platform
         </Typography>
       </Box>
-      {/* {games.results.map((item, index) => (
-        <div key={index}>
-          <Typography className="text-red-500">{item.name}</Typography>
-        </div>
-      ))} */}
     </>
   );
 }
