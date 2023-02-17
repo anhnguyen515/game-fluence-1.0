@@ -8,8 +8,12 @@ import "@fontsource/roboto";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { DefaultSeo } from "next-seo";
 import Head from "next/head";
+import { Provider } from "react-redux";
+import { wrapper } from "@/store/store";
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, ...rest }) {
+  const { store, props } = wrapper.useWrappedStore(rest);
+  const { pageProps } = props;
   return (
     <CacheProvider value={cache}>
       <Head>
@@ -64,12 +68,14 @@ export default function App({ Component, pageProps }) {
           cardType: "summary_large_image",
         }}
       />
-      <ThemeProvider theme={defaultTheme}>
-        <CssBaseline />
-        <MainLayout>
-          <Component {...pageProps} />
-        </MainLayout>
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider theme={defaultTheme}>
+          <CssBaseline />
+          <MainLayout>
+            <Component {...pageProps} />
+          </MainLayout>
+        </ThemeProvider>
+      </Provider>
     </CacheProvider>
   );
 }

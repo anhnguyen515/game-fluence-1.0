@@ -1,9 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
+import themeSlice from "./slices/themeSlice";
 
 const makeStore = () =>
   configureStore({
-    reducer: {},
+    reducer: {
+      [themeSlice.name]: themeSlice.reducer,
+    },
     devTools: true,
   });
 
