@@ -1,3 +1,5 @@
+import { selectTheme } from "@/store/slices/themeSlice";
+import { getTheme } from "@/utils/utils";
 import { Box, Container, Grid, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,14 +9,15 @@ import {
   BsTelephoneFill,
   BsGithub,
 } from "react-icons/bs";
+import { useSelector } from "react-redux";
 
 export default function Footer() {
+  const themeStore = useSelector(selectTheme);
   return (
     <Box
       sx={{
         borderTop: 1,
         borderColor: "divider",
-        backgroundColor: "background.default",
       }}
     >
       <Container maxWidth="2xl">
@@ -49,12 +52,21 @@ export default function Footer() {
             </Grid>
             <Grid item xs={12} md={4}>
               <Stack alignItems={"center"}>
-                <Image
-                  alt="footer logo"
-                  src="/img/GameFluence-black-250px.png"
-                  width={150}
-                  height={75}
-                />
+                {getTheme(themeStore).theme.palette.mode === "light" ? (
+                  <Image
+                    alt="logo"
+                    src="/img/GameFluence-black-250px.png"
+                    width={150}
+                    height={63}
+                  />
+                ) : (
+                  <Image
+                    alt="logo"
+                    src="/img/GameFluence-white-250px.png"
+                    width={150}
+                    height={63}
+                  />
+                )}
                 <Typography variant="caption">
                   I made this website mainly to hone my Front-end skills
                   (〜￣▽￣)〜

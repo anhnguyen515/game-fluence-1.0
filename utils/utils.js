@@ -23,21 +23,32 @@ function ThemeAvatar({ primary, background }) {
   );
 }
 
-export function getThemeAvatar(themeName) {
+export function getTheme(themeName) {
   switch (themeName) {
     case "defaultTheme":
-      return (
-        <ThemeAvatar
-          primary={defaultTheme.palette.primary.main}
-          background={defaultTheme.palette.background.default}
-        />
-      );
+      return {
+        theme: defaultTheme,
+        avatar: (
+          <ThemeAvatar
+            primary={defaultTheme.palette.primary.main}
+            background={defaultTheme.palette.background.default}
+          />
+        ),
+      };
     case "blackPinkTheme":
-      return (
-        <ThemeAvatar
-          primary={blackPinkTheme.palette.primary.main}
-          background={blackPinkTheme.palette.background.default}
-        />
-      );
+      return {
+        theme: blackPinkTheme,
+        avatar: (
+          <ThemeAvatar
+            primary={blackPinkTheme.palette.primary.main}
+            background={blackPinkTheme.palette.background.default}
+          />
+        ),
+      };
+    default:
+      return {
+        theme: null,
+        avatar: <ThemeAvatar />,
+      };
   }
 }

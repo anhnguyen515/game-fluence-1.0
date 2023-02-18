@@ -1,8 +1,9 @@
 import MainLayout from "@/layout/MainLayout";
+import { selectTheme } from "@/store/slices/themeSlice";
 import { wrapper } from "@/store/store";
 import "@/styles/globals.css";
-import { defaultTheme, blackPinkTheme } from "@/styles/theme";
 import { OG_TITLE, SITE_BASE_URL, SITE_NAME } from "@/utils/constants";
+import { getTheme } from "@/utils/utils";
 import { cache } from "@emotion/css";
 import { CacheProvider } from "@emotion/react";
 import "@fontsource/roboto";
@@ -13,23 +14,20 @@ import dynamic from "next/dynamic";
 import Head from "next/head";
 import Router from "next/router";
 import React from "react";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 
 const FullScreenLoader = dynamic(
   () => import("@/components/loader/FullScreenLoader"),
   { ssr: false }
 );
 
-export default function App({ Component, ...rest }) {
+function App({ Component, ...rest }) {
   const { store, props } = wrapper.useWrappedStore(rest);
   const { pageProps } = props;
 
   const [loading, setLoading] = React.useState(false);
-  const [theme, setTheme] = React.useState("defaultTheme");
-
-  function handleChangeTheme(value) {
-    setTheme(value);
-  }
+  const themeStore = useSelector(selectTheme);
+  console.log(themeStore);
 
   React.useEffect(() => {
     const start = () => {
@@ -48,16 +46,19 @@ export default function App({ Component, ...rest }) {
     };
   }, []);
 
-  React.useEffect(() => {
-    const data = Cookies.get("theme");
-    if (data !== undefined) {
-      setTheme(data);
-    }
-  }, []);
+  // React.useEffect(() => {
+  //   const data = Cookies.get("theme");
+  //   if (data !== undefined) {
+  //     dispatch(setTheme(data));
+  //   }
+  // }, []);
 
   React.useEffect(() => {
-    Cookies.set("theme", theme, { secure: true, expires: 365 });
-  }, [theme]);
+    Cookies.set("theme", themeStore, {
+      secure: true,
+      expires: 365,
+    });
+  }, [themeStore]);
 
   return (
     <CacheProvider value={cache}>
@@ -71,13 +72,13 @@ export default function App({ Component, ...rest }) {
         <link
           rel="icon"
           type="image/png"
-          sizes="250x250"
+          sizes="250x181"
           href="/img/logo-white-250px.png"
         />
         <link
           rel="icon"
           type="image/png"
-          sizes="250x250"
+          sizes="250x181"
           href="/img/logo-black-250px.png"
         />
       </Head>
@@ -94,14 +95,14 @@ export default function App({ Component, ...rest }) {
             {
               url: `${SITE_BASE_URL}img/GameFluence-black-2000px.png`,
               width: 1200,
-              height: 502.8,
+              height: 503,
               alt: `${SITE_NAME} black logo`,
               type: "image/png",
             },
             {
               url: `${SITE_BASE_URL}img/GameFluence-white-2000px.png`,
               width: 1200,
-              height: 502.8,
+              height: 503,
               alt: `${SITE_NAME} white logo`,
               type: "image/png",
             },
@@ -114,7 +115,7 @@ export default function App({ Component, ...rest }) {
         }}
       />
       <Provider store={store}>
-        <ThemeProvider theme={defaultTheme}>
+        <ThemeProvider theme={getTheme(themeStore).theme}>
           <CssBaseline />
           <MainLayout>
             {loading ? <FullScreenLoader /> : <Component {...pageProps} />}
@@ -124,3 +125,5 @@ export default function App({ Component, ...rest }) {
     </CacheProvider>
   );
 }
+
+export default wrapper.withRedux(App);

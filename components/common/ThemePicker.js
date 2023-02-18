@@ -1,14 +1,30 @@
-import { selectTheme } from "@/store/slices/themeSlice";
-import { getThemeAvatar } from "@/utils/utils";
+import { selectTheme, setTheme } from "@/store/slices/themeSlice";
+import { getTheme } from "@/utils/utils";
 import PaletteIcon from "@mui/icons-material/Palette";
 import { IconButton, ListItemIcon, ListItemText } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import * as React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
+const themes = [
+  {
+    value: "defaultTheme",
+    text: "Blue & White",
+  },
+  {
+    value: "blackPinkTheme",
+    text: "Black & Pink",
+  },
+  // {
+  //   value: "blackGoldTheme",
+  //   text: "Black & Gold",
+  // },
+];
 
 export default function ThemePicker() {
   const themeStore = useSelector(selectTheme);
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -17,6 +33,10 @@ export default function ThemePicker() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  function handleChangeTheme(value) {
+    dispatch(setTheme(value));
+  }
 
   return (
     <div>
@@ -67,20 +87,19 @@ export default function ThemePicker() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem
-          onClick={handleClose}
-          selected={themeStore === "defaultTheme"}
-        >
-          <ListItemIcon>{getThemeAvatar("defaultTheme")}</ListItemIcon>
-          <ListItemText>Blue & White</ListItemText>
-        </MenuItem>
-        <MenuItem
-          onClick={handleClose}
-          selected={themeStore === "blackPinkTheme"}
-        >
-          <ListItemIcon>{getThemeAvatar("blackPinkTheme")}</ListItemIcon>
-          <ListItemText>Black & Pink</ListItemText>
-        </MenuItem>
+        {themes.map((item, index) => (
+          <MenuItem
+            key={index}
+            onClick={() => {
+              handleChangeTheme(item.value);
+              handleClose();
+            }}
+            selected={themeStore === item.value}
+          >
+            <ListItemIcon>{getTheme(item.value).avatar}</ListItemIcon>
+            <ListItemText>{item.text}</ListItemText>
+          </MenuItem>
+        ))}
       </Menu>
     </div>
   );

@@ -21,6 +21,7 @@ export default function SearchModal() {
   return (
     <div>
       <Button
+        color="text"
         onClick={handleClickOpen}
         size="small"
         startIcon={<SearchIcon />}

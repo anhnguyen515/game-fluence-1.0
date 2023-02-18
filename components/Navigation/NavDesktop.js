@@ -1,9 +1,12 @@
+import { selectTheme } from "@/store/slices/themeSlice";
+import { getTheme } from "@/utils/utils";
 import LoginIcon from "@mui/icons-material/Login";
 import { Button, Divider, Stack, Typography } from "@mui/material";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 
 const SearchModal = dynamic(() => import("./SearchModal"), { ssr: false });
 const ThemePicker = dynamic(() => import("../common/ThemePicker"), {
@@ -33,6 +36,7 @@ function ActiveLink({ href, item, router }) {
 
 export default function NavDesktop() {
   const router = useRouter();
+  const themeStore = useSelector(selectTheme);
   return (
     <Stack
       alignItems={"center"}
@@ -42,12 +46,21 @@ export default function NavDesktop() {
       sx={{ width: "100%" }}
     >
       <Link href={"/"} className="mr-10">
-        <Image
-          alt="logo"
-          src="/img/GameFluence-black-250px.png"
-          width={150}
-          height={75}
-        />
+        {getTheme(themeStore).theme.palette.mode === "light" ? (
+          <Image
+            alt="logo"
+            src="/img/GameFluence-black-250px.png"
+            width={150}
+            height={63}
+          />
+        ) : (
+          <Image
+            alt="logo"
+            src="/img/GameFluence-white-250px.png"
+            width={150}
+            height={63}
+          />
+        )}
       </Link>
       <Stack
         alignItems={"center"}

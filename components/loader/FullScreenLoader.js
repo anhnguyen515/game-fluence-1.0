@@ -14,7 +14,7 @@ export default function FullScreenLoader() {
         left: 0,
         width: "100%",
         height: "100%",
-        backgroundColor: "rgba(0, 0, 0, 0.3)",
+        backgroundColor: "rgba(0, 0, 0, 0.1)",
       }}
     >
       <CircularProgress color="primary" size={64} />

@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 const NavDesktop = dynamic(() => import("./NavDesktop"), { ssr: false });
 const NavMobile = dynamic(() => import("./NavMobile"), { ssr: false });
 
-export default function Navbar({ handleChangeTheme }) {
+export default function Navbar() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
