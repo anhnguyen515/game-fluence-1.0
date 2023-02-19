@@ -18,6 +18,7 @@ export default function Footer() {
       sx={{
         borderTop: 1,
         borderColor: "divider",
+        backgroundColor: "background.default",
       }}
     >
       <Container maxWidth="2xl">

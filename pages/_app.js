@@ -12,6 +12,7 @@ import Cookies from "js-cookie";
 import { DefaultSeo } from "next-seo";
 import dynamic from "next/dynamic";
 import Head from "next/head";
+import { Router } from "next/router";
 import React from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
 
@@ -26,26 +27,26 @@ function App({ ...rest }) {
   const { store, props } = wrapper.useWrappedStore(rest);
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
-  // const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const themeStore = useSelector(selectTheme);
   const dispatch = useDispatch();
 
-  // React.useEffect(() => {
-  //   const start = () => {
-  //     setLoading(true);
-  //   };
-  //   const end = () => {
-  //     setLoading(false);
-  //   };
-  //   Router.events.on("routeChangeStart", start);
-  //   Router.events.on("routeChangeComplete", end);
-  //   Router.events.on("routeChangeError", end);
-  //   return () => {
-  //     Router.events.off("routeChangeStart", start);
-  //     Router.events.off("routeChangeComplete", end);
-  //     Router.events.off("routeChangeError", end);
-  //   };
-  // }, []);
+  React.useEffect(() => {
+    const start = () => {
+      setLoading(true);
+    };
+    const end = () => {
+      setLoading(false);
+    };
+    Router.events.on("routeChangeStart", start);
+    Router.events.on("routeChangeComplete", end);
+    Router.events.on("routeChangeError", end);
+    return () => {
+      Router.events.off("routeChangeStart", start);
+      Router.events.off("routeChangeComplete", end);
+      Router.events.off("routeChangeError", end);
+    };
+  }, []);
 
   React.useEffect(() => {
     const data = Cookies.get("theme");
@@ -112,8 +113,8 @@ function App({ ...rest }) {
         <ThemeProvider theme={getTheme(themeStore).theme}>
           <CssBaseline />
           <MainLayout>
-            {/* {loading ? <FullScreenLoader /> : <Component {...pageProps} />} */}
-            <Component {...pageProps} />
+            {loading ? <FullScreenLoader /> : <Component {...pageProps} />}
+            {/* <Component {...pageProps} /> */}
           </MainLayout>
         </ThemeProvider>
       </Provider>

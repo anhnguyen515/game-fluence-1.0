@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
-import { defaultTheme, blackPinkTheme } from "@/styles/theme";
+import { defaultTheme, blackPinkTheme, blackGoldTheme } from "@/styles/theme";
 
-function ThemeAvatar({ primary, background }) {
+function ThemeAvatar({ primary, secondary }) {
   return (
     <Box
       sx={{
@@ -9,7 +9,7 @@ function ThemeAvatar({ primary, background }) {
         height: "1.2rem",
         width: "1.2rem",
         borderRadius: "50%",
-        backgroundColor: background,
+        backgroundColor: secondary,
         border: 1,
         borderColor: "divider",
       }}
@@ -37,7 +37,17 @@ export function getTheme(themeName) {
         avatar: (
           <ThemeAvatar
             primary={blackPinkTheme.palette.primary.main}
-            background={blackPinkTheme.palette.background.default}
+            secondary={blackPinkTheme.palette.secondary.main}
+          />
+        ),
+      };
+    case "blackGoldTheme":
+      return {
+        theme: blackGoldTheme,
+        avatar: (
+          <ThemeAvatar
+            primary={blackGoldTheme.palette.primary.main}
+            secondary={blackGoldTheme.palette.secondary.main}
           />
         ),
       };
@@ -48,7 +58,7 @@ export function getTheme(themeName) {
         avatar: (
           <ThemeAvatar
             primary={defaultTheme.palette.primary.main}
-            background={defaultTheme.palette.background.default}
+            secondary={defaultTheme.palette.secondary.main}
           />
         ),
       };

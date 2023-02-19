@@ -75,3 +75,40 @@ export const blackPinkTheme = createTheme({
     },
   },
 });
+
+export const blackGoldTheme = createTheme({
+  components: {
+    MuiButton: {
+      defaultProps: {
+        disableElevation: true,
+      },
+    },
+  },
+  typography: {
+    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Source Sans Pro"].join(
+      ","
+    ),
+  },
+  palette: {
+    mode: "dark",
+    primary: {
+      light: "#F2E96B",
+      main: "#DCCA6C",
+      dark: "#A89A52",
+    },
+    secondary: {
+      light: "#A8A8A8",
+      main: "#5C5C5C",
+      dark: "#424242",
+    },
+    background: {
+      default: "#303030",
+      paper: "#303030",
+    },
+    text: {
+      light: grey[200],
+      main: grey[500],
+      dark: grey[700],
+    },
+  },
+});

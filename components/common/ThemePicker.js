@@ -11,16 +11,16 @@ import { useDispatch, useSelector } from "react-redux";
 const themes = [
   {
     value: "defaultTheme",
-    text: "Blue & White",
+    text: "Blue on White",
   },
   {
     value: "blackPinkTheme",
     text: "Black & Pink",
   },
-  // {
-  //   value: "blackGoldTheme",
-  //   text: "Black & Gold",
-  // },
+  {
+    value: "blackGoldTheme",
+    text: "Black & Gold",
+  },
 ];
 
 export default function ThemePicker() {

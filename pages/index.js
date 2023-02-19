@@ -1,6 +1,7 @@
 import { getGamesListAPI } from "@/utils/apis";
 import { SITE_NAME } from "@/utils/constants";
 import { Box, Typography } from "@mui/material";
+import React from "react";
 
 export async function getStaticProps(context) {
   const games = await getGamesListAPI().then((res) => res.data);
@@ -14,6 +15,10 @@ export async function getStaticProps(context) {
 }
 
 export default function Home({ games }) {
+  const heroImage =
+    games.results[Math.floor(Math.random() * games.results.length)]
+      .background_image;
+
   return (
     <>
       <Box
@@ -22,14 +27,12 @@ export default function Home({ games }) {
           left: 0,
           right: 0,
           height: "20rem",
-          backgroundImage: `linear-gradient(to bottom,rgba(21, 21, 21, 0.8), rgba(21, 21, 21, 0.8)), url(${
-            games.results[Math.floor(Math.random() * games.results.length)]
-              .background_image
-          })`,
+          backgroundImage: `linear-gradient(to bottom,rgba(21, 21, 21, 0.8), rgba(21, 21, 21, 0.8)), url(${heroImage})`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           zIndex: -1,
+          transition: "background-image 0.5s",
 
           display: "flex",
           flexDirection: "column",
