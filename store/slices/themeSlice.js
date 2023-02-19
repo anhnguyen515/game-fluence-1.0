@@ -1,9 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Cookies from "js-cookie";
 import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
-  themeName: Cookies.get("theme") || "defaultTheme",
+  themeName: "defaultTheme",
 };
 
 export const themeSlice = createSlice({

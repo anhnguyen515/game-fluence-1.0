@@ -85,7 +85,6 @@ export default function NavDesktop() {
           size="small"
           startIcon={<LoginIcon />}
           sx={{ textTransform: "none" }}
-          // variant="outlined"
         >
           Login
         </Button>

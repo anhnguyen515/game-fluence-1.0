@@ -4,6 +4,7 @@ import PaletteIcon from "@mui/icons-material/Palette";
 import { IconButton, ListItemIcon, ListItemText } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import Cookies from "js-cookie";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -36,6 +37,7 @@ export default function ThemePicker() {
 
   function handleChangeTheme(value) {
     dispatch(setTheme(value));
+    Cookies.set("theme", value, { secure: true, expires: 7 });
   }
 
   return (

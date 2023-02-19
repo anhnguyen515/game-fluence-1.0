@@ -5,17 +5,23 @@ function ThemeAvatar({ primary, background }) {
   return (
     <Box
       sx={{
+        position: "relative",
         height: "1.2rem",
         width: "1.2rem",
         borderRadius: "50%",
         backgroundColor: background,
+        border: 1,
+        borderColor: "divider",
       }}
     >
       <Box
         sx={{
+          position: "absolute",
+          top: -1,
+          left: -2,
           backgroundColor: primary,
-          borderRadius: "100px 0 0 100px",
-          width: "0.6rem",
+          borderRadius: "10rem 0 0 10rem",
+          width: "0.65rem",
           height: "1.2rem",
         }}
       ></Box>
@@ -25,16 +31,6 @@ function ThemeAvatar({ primary, background }) {
 
 export function getTheme(themeName) {
   switch (themeName) {
-    case "defaultTheme":
-      return {
-        theme: defaultTheme,
-        avatar: (
-          <ThemeAvatar
-            primary={defaultTheme.palette.primary.main}
-            background={defaultTheme.palette.background.default}
-          />
-        ),
-      };
     case "blackPinkTheme":
       return {
         theme: blackPinkTheme,
@@ -45,10 +41,16 @@ export function getTheme(themeName) {
           />
         ),
       };
+    case "defaultTheme":
     default:
       return {
-        theme: null,
-        avatar: <ThemeAvatar />,
+        theme: defaultTheme,
+        avatar: (
+          <ThemeAvatar
+            primary={defaultTheme.palette.primary.main}
+            background={defaultTheme.palette.background.default}
+          />
+        ),
       };
   }
 }

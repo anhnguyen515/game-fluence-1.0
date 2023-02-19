@@ -1,10 +1,10 @@
 import MainLayout from "@/layout/MainLayout";
-import { selectTheme } from "@/store/slices/themeSlice";
+import { selectTheme, setTheme } from "@/store/slices/themeSlice";
 import { wrapper } from "@/store/store";
 import "@/styles/globals.css";
 import { OG_TITLE, SITE_BASE_URL, SITE_NAME } from "@/utils/constants";
+import createEmotionCache from "@/utils/createEmotionCache";
 import { getTheme } from "@/utils/utils";
-import { cache } from "@emotion/css";
 import { CacheProvider } from "@emotion/react";
 import "@fontsource/roboto";
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -12,56 +12,50 @@ import Cookies from "js-cookie";
 import { DefaultSeo } from "next-seo";
 import dynamic from "next/dynamic";
 import Head from "next/head";
-import Router from "next/router";
 import React from "react";
-import { Provider, useSelector } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
+
+const clientSideEmotionCache = createEmotionCache();
 
 const FullScreenLoader = dynamic(
   () => import("@/components/loader/FullScreenLoader"),
   { ssr: false }
 );
 
-function App({ Component, ...rest }) {
+function App({ ...rest }) {
   const { store, props } = wrapper.useWrappedStore(rest);
-  const { pageProps } = props;
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
-  const [loading, setLoading] = React.useState(false);
+  // const [loading, setLoading] = React.useState(false);
   const themeStore = useSelector(selectTheme);
-  console.log(themeStore);
-
-  React.useEffect(() => {
-    const start = () => {
-      setLoading(true);
-    };
-    const end = () => {
-      setLoading(false);
-    };
-    Router.events.on("routeChangeStart", start);
-    Router.events.on("routeChangeComplete", end);
-    Router.events.on("routeChangeError", end);
-    return () => {
-      Router.events.off("routeChangeStart", start);
-      Router.events.off("routeChangeComplete", end);
-      Router.events.off("routeChangeError", end);
-    };
-  }, []);
+  const dispatch = useDispatch();
 
   // React.useEffect(() => {
-  //   const data = Cookies.get("theme");
-  //   if (data !== undefined) {
-  //     dispatch(setTheme(data));
-  //   }
+  //   const start = () => {
+  //     setLoading(true);
+  //   };
+  //   const end = () => {
+  //     setLoading(false);
+  //   };
+  //   Router.events.on("routeChangeStart", start);
+  //   Router.events.on("routeChangeComplete", end);
+  //   Router.events.on("routeChangeError", end);
+  //   return () => {
+  //     Router.events.off("routeChangeStart", start);
+  //     Router.events.off("routeChangeComplete", end);
+  //     Router.events.off("routeChangeError", end);
+  //   };
   // }, []);
 
   React.useEffect(() => {
-    Cookies.set("theme", themeStore, {
-      secure: true,
-      expires: 365,
-    });
-  }, [themeStore]);
+    const data = Cookies.get("theme");
+    if (data !== undefined) {
+      dispatch(setTheme(data));
+    }
+  }, []);
 
   return (
-    <CacheProvider value={cache}>
+    <CacheProvider value={emotionCache}>
       <Head>
         <meta
           name="viewport"
@@ -118,7 +112,8 @@ function App({ Component, ...rest }) {
         <ThemeProvider theme={getTheme(themeStore).theme}>
           <CssBaseline />
           <MainLayout>
-            {loading ? <FullScreenLoader /> : <Component {...pageProps} />}
+            {/* {loading ? <FullScreenLoader /> : <Component {...pageProps} />} */}
+            <Component {...pageProps} />
           </MainLayout>
         </ThemeProvider>
       </Provider>
