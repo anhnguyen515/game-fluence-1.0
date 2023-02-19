@@ -31,22 +31,22 @@ function App({ ...rest }) {
   const themeStore = useSelector(selectTheme);
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    const start = () => {
-      setLoading(true);
-    };
-    const end = () => {
-      setLoading(false);
-    };
-    Router.events.on("routeChangeStart", start);
-    Router.events.on("routeChangeComplete", end);
-    Router.events.on("routeChangeError", end);
-    return () => {
-      Router.events.off("routeChangeStart", start);
-      Router.events.off("routeChangeComplete", end);
-      Router.events.off("routeChangeError", end);
-    };
-  }, []);
+  // React.useEffect(() => {
+  //   const start = () => {
+  //     setLoading(true);
+  //   };
+  //   const end = () => {
+  //     setLoading(false);
+  //   };
+  //   Router.events.on("routeChangeStart", start);
+  //   Router.events.on("routeChangeComplete", end);
+  //   Router.events.on("routeChangeError", end);
+  //   return () => {
+  //     Router.events.off("routeChangeStart", start);
+  //     Router.events.off("routeChangeComplete", end);
+  //     Router.events.off("routeChangeError", end);
+  //   };
+  // }, []);
 
   React.useEffect(() => {
     const data = Cookies.get("theme");
@@ -113,8 +113,8 @@ function App({ ...rest }) {
         <ThemeProvider theme={getTheme(themeStore).theme}>
           <CssBaseline />
           <MainLayout>
-            {loading ? <FullScreenLoader /> : <Component {...pageProps} />}
-            {/* <Component {...pageProps} /> */}
+            {/* {loading ? <FullScreenLoader /> : <Component {...pageProps} />} */}
+            <Component {...pageProps} />
           </MainLayout>
         </ThemeProvider>
       </Provider>

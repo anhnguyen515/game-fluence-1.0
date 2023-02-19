@@ -56,7 +56,7 @@ export const blackPinkTheme = createTheme({
     mode: "dark",
     primary: {
       light: "#FB7D94",
-      main: "#F9C8D1",
+      main: "#F1BBC7",
       dark: "#C79FA6",
     },
     secondary: {

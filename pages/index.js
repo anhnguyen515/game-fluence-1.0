@@ -1,7 +1,12 @@
 import { getGamesListAPI } from "@/utils/apis";
 import { SITE_NAME } from "@/utils/constants";
-import { Box, Typography } from "@mui/material";
-import React from "react";
+import { Box, Container, Typography } from "@mui/material";
+import dynamic from "next/dynamic";
+
+const NewGamesHomepage = dynamic(
+  () => import("@/components/Game/Homepage/NewGamesHomepage"),
+  { loading: () => "Loading..." }
+);
 
 export async function getStaticProps(context) {
   const games = await getGamesListAPI().then((res) => res.data);
@@ -23,10 +28,7 @@ export default function Home({ games }) {
     <>
       <Box
         sx={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          height: "20rem",
+          minHeight: "18rem",
           backgroundImage: `linear-gradient(to bottom,rgba(21, 21, 21, 0.8), rgba(21, 21, 21, 0.8)), url(${heroImage})`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -60,6 +62,11 @@ export default function Home({ games }) {
           Your nice & cozy video games platform
         </Typography>
       </Box>
+      <Container maxWidth="2xl">
+        <Box sx={{ px: { xs: 1, md: 3 }, py: 3 }}>
+          <NewGamesHomepage games={games} />
+        </Box>
+      </Container>
     </>
   );
 }
