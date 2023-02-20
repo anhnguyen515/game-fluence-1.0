@@ -5,17 +5,7 @@ import React from "react";
 export default function CategoryTitle({ title, href }) {
   if (href === "#") {
     return (
-      <Typography
-        variant="h2"
-        fontSize={"1.6rem"}
-        fontWeight={600}
-        sx={{
-          borderLeft: 5,
-          borderColor: "primary.main",
-          borderStyle: "dashed",
-          pl: 2,
-        }}
-      >
+      <Typography variant="h2" fontSize={"1.8rem"} fontWeight={"bold"}>
         {title}
       </Typography>
     );
@@ -25,13 +15,13 @@ export default function CategoryTitle({ title, href }) {
     <Link href={href}>
       <Typography
         variant="h2"
-        fontSize={"1.6rem"}
-        fontWeight={600}
+        fontSize={"1.8rem"}
+        fontWeight={"bold"}
         sx={{
-          borderLeft: 5,
-          borderColor: "primary.main",
-          borderStyle: "dashed",
-          pl: 2,
+          transition: "color 0.2s",
+          "&:hover": {
+            color: "primary.main",
+          },
         }}
       >
         {title}

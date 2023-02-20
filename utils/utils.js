@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import { defaultTheme, blackPinkTheme, blackGoldTheme } from "@/styles/theme";
+import dayjs from "dayjs";
 
 function ThemeAvatar({ primary, secondary }) {
   return (
@@ -63,4 +64,9 @@ export function getTheme(themeName) {
         ),
       };
   }
+}
+
+export function dateFormat(dateStr) {
+  const dt = dayjs(dateStr);
+  return dt.format("MMM D, YYYY");
 }

@@ -9,7 +9,9 @@ const NewGamesHomepage = dynamic(
 );
 
 export async function getStaticProps(context) {
-  const games = await getGamesListAPI().then((res) => res.data);
+  const games = await getGamesListAPI({ page_size: 10 }).then(
+    (res) => res.data
+  );
 
   return {
     props: {

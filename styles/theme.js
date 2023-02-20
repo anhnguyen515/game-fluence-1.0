@@ -8,6 +8,13 @@ export const defaultTheme = createTheme({
         disableElevation: true,
       },
     },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: 2,
+        },
+      },
+    },
   },
   typography: {
     fontFamily: ["-apple-system", "BlinkMacSystemFont", "Source Sans Pro"].join(
@@ -46,6 +53,13 @@ export const blackPinkTheme = createTheme({
         disableElevation: true,
       },
     },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: 2,
+        },
+      },
+    },
   },
   typography: {
     fontFamily: ["-apple-system", "BlinkMacSystemFont", "Source Sans Pro"].join(
@@ -81,6 +95,13 @@ export const blackGoldTheme = createTheme({
     MuiButton: {
       defaultProps: {
         disableElevation: true,
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: 2,
+        },
       },
     },
   },
