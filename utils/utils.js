@@ -1,6 +1,46 @@
+import { blackGoldTheme, blackPinkTheme, defaultTheme } from "@/styles/theme";
 import { Box } from "@mui/material";
-import { defaultTheme, blackPinkTheme, blackGoldTheme } from "@/styles/theme";
 import dayjs from "dayjs";
+import { BsFillQuestionCircleFill } from "react-icons/bs";
+import {
+  FaAndroid,
+  FaApple,
+  FaLinux,
+  FaPlaystation,
+  FaWindows,
+  FaXbox,
+} from "react-icons/fa";
+import { IoBrowsersOutline, IoIosPhonePortrait } from "react-icons/io";
+import { SiAtari, SiNintendo, SiSega } from "react-icons/si";
+
+export function getParentPlatform(platform, size = 16) {
+  switch (platform) {
+    case "PC":
+      return <FaWindows size={size} />;
+    case "PlayStation":
+      return <FaPlaystation size={size} />;
+    case "Xbox":
+      return <FaXbox size={size} />;
+    case "iOS":
+      return <IoIosPhonePortrait size={size} />;
+    case "Android":
+      return <FaAndroid size={size} />;
+    case "Apple Macintosh":
+      return <FaApple size={size} />;
+    case "Linux":
+      return <FaLinux size={size} />;
+    case "Nintendo":
+      return <SiNintendo size={size} />;
+    case "Atari":
+      return <SiAtari size={size} />;
+    case "SEGA":
+      return <SiSega size={size} />;
+    case "Web":
+      return <IoBrowsersOutline size={size} />;
+    default:
+      return <BsFillQuestionCircleFill size={size} />;
+  }
+}
 
 function ThemeAvatar({ primary, secondary }) {
   return (
@@ -66,7 +106,7 @@ export function getTheme(themeName) {
   }
 }
 
-export function dateFormat(dateStr) {
+export function dateFormat(dateStr, format = "YYYY-MM-DD") {
   const dt = dayjs(dateStr);
-  return dt.format("MMM D, YYYY");
+  return dt.format(format);
 }
