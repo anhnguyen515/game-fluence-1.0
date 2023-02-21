@@ -1,6 +1,5 @@
 import CategoryTitle from "@/components/common/CategoryTitle";
 import { Grid, Stack } from "@mui/material";
-import React from "react";
 import GameCard from "../GameCard";
 
 export default function GamesList({ title, href, games }) {

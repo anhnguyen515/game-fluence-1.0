@@ -7,6 +7,11 @@ export const defaultTheme = createTheme({
       defaultProps: {
         disableElevation: true,
       },
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+        },
+      },
     },
     MuiChip: {
       styleOverrides: {
@@ -52,6 +57,11 @@ export const blackPinkTheme = createTheme({
       defaultProps: {
         disableElevation: true,
       },
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+        },
+      },
     },
     MuiChip: {
       styleOverrides: {
@@ -95,6 +105,11 @@ export const blackGoldTheme = createTheme({
     MuiButton: {
       defaultProps: {
         disableElevation: true,
+      },
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+        },
       },
     },
     MuiChip: {

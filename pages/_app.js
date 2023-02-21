@@ -23,9 +23,9 @@ const FullScreenLoader = dynamic(
   { ssr: false }
 );
 
-function App({ ...rest }) {
+function App({ Component, ...rest }) {
   const { store, props } = wrapper.useWrappedStore(rest);
-  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+  const { emotionCache = clientSideEmotionCache, pageProps } = props;
 
   const [loading, setLoading] = React.useState(false);
   const themeStore = useSelector(selectTheme);
@@ -80,7 +80,7 @@ function App({ ...rest }) {
       <DefaultSeo
         title={SITE_NAME}
         canonical={SITE_BASE_URL}
-        description={"Your nice & cozy video games platform"}
+        description={"Everything you need for video games"}
         openGraph={{
           type: "website",
           siteName: SITE_NAME,

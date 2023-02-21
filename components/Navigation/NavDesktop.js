@@ -37,6 +37,7 @@ function ActiveLink({ href, item, router }) {
 export default function NavDesktop() {
   const router = useRouter();
   const themeStore = useSelector(selectTheme);
+
   return (
     <Stack
       alignItems={"center"}
@@ -81,11 +82,7 @@ export default function NavDesktop() {
         sx={{ ml: "auto" }}
       >
         <SearchModal />
-        <Button
-          size="small"
-          startIcon={<LoginIcon />}
-          sx={{ textTransform: "none" }}
-        >
+        <Button size="small" startIcon={<LoginIcon />}>
           Login
         </Button>
         <ThemePicker />

@@ -21,7 +21,7 @@ export default function CategoryTitle({ title, href = "#" }) {
         sx={{
           transition: "color 0.2s",
           "&:hover": {
-            color: "primary.main",
+            color: "primary.light",
             ".hide": {
               display: "block",
             },

@@ -87,6 +87,7 @@ export default function GameCard({ game }) {
               fontWeight={600}
               gutterBottom
               variant="h3"
+              sx={{ "&:hover": { color: "primary.light" } }}
             >
               {game.name}
             </Typography>

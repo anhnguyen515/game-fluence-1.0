@@ -1,51 +1,53 @@
 import { getGamesListAPI } from "@/apis/game";
 import GamesList from "@/components/Game/Homepage/GamesList";
+import { selectTheme } from "@/store/slices/themeSlice";
+import { selectUser } from "@/store/slices/userSlice";
 import { SITE_NAME } from "@/utils/constants";
-import { addTime, dateFormat } from "@/utils/utils";
-import { Box, Container, Stack, Typography } from "@mui/material";
+import { addTime, dateFormat, getTheme } from "@/utils/utils";
+import { Box, Button, Container, Stack, Typography } from "@mui/material";
+import { useSelector } from "react-redux";
 
 export async function getStaticProps(context) {
-  const [newGames, topGames, highestRatingGames] = await Promise.all([
+  const [newGames, topGames, mostPlayedGames] = await Promise.all([
     getGamesListAPI({
-      ordering: "released",
+      // ordering: "released",
       dates: `${dateFormat(new Date())},${dateFormat(
         addTime(new Date(), 6, "month")
       )}`,
       page_size: 10,
     }).then((res) => res.data),
     getGamesListAPI({ page_size: 10 }).then((res) => res.data),
-    getGamesListAPI({ ordering: "-metacritic", page_size: 10 }).then(
-      (res) => res.data
-    ),
   ]);
 
   return {
     props: {
       newGames,
       topGames,
-      highestRatingGames,
     },
     revalidate: 60,
   };
 }
 
-export default function Home({ newGames, topGames, highestRatingGames }) {
+export default function Home({ newGames, topGames }) {
   const heroImage =
     newGames.results[Math.floor(Math.random() * newGames.results.length)]
       .background_image;
+  const themeStore = useSelector(selectTheme);
+  const userStore = useSelector(selectUser);
 
   return (
-    <>
+    <Box sx={{ position: "relative" }}>
       {/* hero section */}
       <Box
         sx={{
-          minHeight: "18rem",
-          backgroundImage: `linear-gradient(to bottom,rgba(21, 21, 21, 0.8), rgba(21, 21, 21, 0.8)), url(${heroImage})`,
+          minHeight: "15rem",
+          backgroundImage:
+            getTheme(themeStore).theme.palette.mode === "dark"
+              ? `linear-gradient(to bottom, rgba(48, 48, 48, 0.6), rgba(48, 48, 48, 1)), url(${heroImage})`
+              : `linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 1)), url(${heroImage})`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
-          zIndex: -1,
-          transition: "background-image 0.5s",
 
           display: "flex",
           flexDirection: "column",
@@ -53,12 +55,7 @@ export default function Home({ newGames, topGames, highestRatingGames }) {
           justifyContent: "center",
         }}
       >
-        <Typography
-          color={"text.light"}
-          fontSize={"2.2rem"}
-          fontWeight={600}
-          variant="h1"
-        >
+        <Typography fontSize={"2.2rem"} fontWeight={600} variant="h1">
           Welcome to{" "}
           <Typography
             color={"primary.light"}
@@ -69,31 +66,34 @@ export default function Home({ newGames, topGames, highestRatingGames }) {
             {SITE_NAME}
           </Typography>
         </Typography>
-        <Typography color={"text.main"}>
-          Your nice & cozy video games platform
-        </Typography>
+        <Typography>Everything you need for video games</Typography>
+        <Stack alignItems={"center"} direction={"row"} gap={1} mt={3}>
+          {!userStore.isAuthenticated && (
+            <Button size="large" variant="contained">
+              GET STARTED
+            </Button>
+          )}
+          <Button size="large" variant="outlined">
+            Browse Games
+          </Button>
+        </Stack>
       </Box>
 
       {/* content section */}
       <Container maxWidth="2xl">
         <Stack gap={6} sx={{ px: { xs: 1, md: 3 }, py: 3 }}>
           <GamesList
-            title={"New & Upcoming Games"}
+            title={"New & Upcoming"}
             games={newGames}
             href={"/games"}
           />
           <GamesList
-            title={"All Time Games"}
+            title={"All Time Favorite"}
             games={topGames}
-            href={"/games"}
-          />
-          <GamesList
-            title={"Highest Rating Games"}
-            games={highestRatingGames}
             href={"/games"}
           />
         </Stack>
       </Container>
-    </>
+    </Box>
   );
 }
