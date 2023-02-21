@@ -1,6 +1,7 @@
 import { blackGoldTheme, blackPinkTheme, defaultTheme } from "@/styles/theme";
 import { Box } from "@mui/material";
 import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
 import {
   FaAndroid,
@@ -12,6 +13,8 @@ import {
 } from "react-icons/fa";
 import { IoBrowsersOutline, IoIosPhonePortrait } from "react-icons/io";
 import { SiAtari, SiNintendo, SiSega } from "react-icons/si";
+
+dayjs.extend(relativeTime);
 
 export function getParentPlatform(platform, size = 16) {
   switch (platform) {
@@ -109,4 +112,12 @@ export function getTheme(themeName) {
 export function dateFormat(dateStr, format = "YYYY-MM-DD") {
   const dt = dayjs(dateStr);
   return dt.format(format);
+}
+
+export function timeFromNow(dateStr) {
+  return dayjs(dateStr).fromNow();
+}
+
+export function addTime(dateStr, time = 1, type = "day") {
+  return dayjs(dateStr).add(time, type);
 }

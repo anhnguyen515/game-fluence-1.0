@@ -1,29 +1,33 @@
-import { getGamesListAPI } from "@/utils/apis";
+import { getGamesListAPI } from "@/apis/game";
+import GamesList from "@/components/Game/Homepage/GamesList";
 import { SITE_NAME } from "@/utils/constants";
-import { Box, Container, Typography } from "@mui/material";
-import dynamic from "next/dynamic";
-
-const NewGamesHomepage = dynamic(
-  () => import("@/components/Game/Homepage/NewGamesHomepage"),
-  { loading: () => "Loading..." }
-);
+import { addTime, dateFormat } from "@/utils/utils";
+import { Box, Container, Stack, Typography } from "@mui/material";
 
 export async function getStaticProps(context) {
-  const games = await getGamesListAPI({ page_size: 10 }).then(
-    (res) => res.data
-  );
+  const [newGames, topGames] = await Promise.all([
+    getGamesListAPI({
+      page_size: 10,
+      dates: `${dateFormat(new Date())},${dateFormat(
+        addTime(new Date(), 6, "month")
+      )}`,
+      ordering: "released",
+    }).then((res) => res.data),
+    getGamesListAPI({ page_size: 10 }).then((res) => res.data),
+  ]);
 
   return {
     props: {
-      games,
+      newGames,
+      topGames,
     },
     revalidate: 60,
   };
 }
 
-export default function Home({ games }) {
+export default function Home({ newGames, topGames }) {
   const heroImage =
-    games.results[Math.floor(Math.random() * games.results.length)]
+    newGames.results[Math.floor(Math.random() * newGames.results.length)]
       .background_image;
 
   return (
@@ -65,9 +69,18 @@ export default function Home({ games }) {
         </Typography>
       </Box>
       <Container maxWidth="2xl">
-        <Box sx={{ px: { xs: 1, md: 3 }, py: 3 }}>
-          <NewGamesHomepage games={games} />
-        </Box>
+        <Stack gap={6} sx={{ px: { xs: 1, md: 3 }, py: 3 }}>
+          <GamesList
+            title={"New & Upcoming Games"}
+            games={newGames}
+            href={"/new-games"}
+          />
+          <GamesList
+            title={"All Time Games"}
+            games={topGames}
+            href={"/all-time-games"}
+          />
+        </Stack>
       </Container>
     </>
   );
