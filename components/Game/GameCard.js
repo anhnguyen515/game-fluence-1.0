@@ -1,7 +1,7 @@
 import { selectTheme } from "@/store/slices/themeSlice";
 import { dateFormat, getParentPlatform, getTheme } from "@/utils/utils";
 import EventIcon from "@mui/icons-material/Event";
-import { Chip, Stack } from "@mui/material";
+import { Chip, Stack, Tooltip } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -37,27 +37,33 @@ export default function GameCard({ game }) {
         }}
       >
         {game.metacritic && (
-          <Typography
-            className={
-              game.metacritic >= 75
-                ? "text-green-500"
-                : game.metacritic < 50
-                ? "text-red-500"
-                : "text-yellow-500"
-            }
-            fontWeight={600}
-            sx={{
-              border: 2,
-              borderRadius: 1,
-              px: 1,
-              position: "absolute",
-              top: 5,
-              right: 5,
-              backgroundColor: "rgba(21, 21, 21, 0.8)",
-            }}
+          <Tooltip
+            title={`${game.metacritic} Metascore`}
+            placement="left"
+            arrow
           >
-            {game.metacritic}
-          </Typography>
+            <Typography
+              className={
+                game.metacritic >= 75
+                  ? "text-green-500"
+                  : game.metacritic < 50
+                  ? "text-red-500"
+                  : "text-yellow-500"
+              }
+              fontWeight={600}
+              sx={{
+                border: 2,
+                borderRadius: 1,
+                px: 1,
+                position: "absolute",
+                top: 5,
+                right: 5,
+                backgroundColor: "rgba(21, 21, 21, 0.8)",
+              }}
+            >
+              {game.metacritic}
+            </Typography>
+          </Tooltip>
         )}
         <Link href={`/games/${game.slug}`}>
           <CardMedia
