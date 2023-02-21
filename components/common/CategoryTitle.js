@@ -1,8 +1,9 @@
-import { Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import Link from "next/link";
 import React from "react";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
-export default function CategoryTitle({ title, href }) {
+export default function CategoryTitle({ title, href = "#" }) {
   if (href === "#") {
     return (
       <Typography variant="h2" fontSize={"1.8rem"} fontWeight={"bold"}>
@@ -13,19 +14,30 @@ export default function CategoryTitle({ title, href }) {
 
   return (
     <Link href={href}>
-      <Typography
-        variant="h2"
-        fontSize={"1.8rem"}
-        fontWeight={"bold"}
+      <Stack
+        alignItems={"center"}
+        direction={"row"}
+        gap={1}
         sx={{
           transition: "color 0.2s",
           "&:hover": {
             color: "primary.main",
+            ".hide": {
+              display: "block",
+            },
           },
         }}
       >
-        {title}
-      </Typography>
+        <Typography
+          variant="h2"
+          fontSize={"1.8rem"}
+          fontWeight={"bold"}
+          sx={{}}
+        >
+          {title}
+        </Typography>
+        <ArrowRightIcon className="hide" sx={{ display: "none" }} />
+      </Stack>
     </Link>
   );
 }

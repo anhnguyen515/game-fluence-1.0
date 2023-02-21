@@ -5,33 +5,38 @@ import { addTime, dateFormat } from "@/utils/utils";
 import { Box, Container, Stack, Typography } from "@mui/material";
 
 export async function getStaticProps(context) {
-  const [newGames, topGames] = await Promise.all([
+  const [newGames, topGames, highestRatingGames] = await Promise.all([
     getGamesListAPI({
-      page_size: 10,
+      ordering: "released",
       dates: `${dateFormat(new Date())},${dateFormat(
         addTime(new Date(), 6, "month")
       )}`,
-      ordering: "released",
+      page_size: 10,
     }).then((res) => res.data),
     getGamesListAPI({ page_size: 10 }).then((res) => res.data),
+    getGamesListAPI({ ordering: "-metacritic", page_size: 10 }).then(
+      (res) => res.data
+    ),
   ]);
 
   return {
     props: {
       newGames,
       topGames,
+      highestRatingGames,
     },
     revalidate: 60,
   };
 }
 
-export default function Home({ newGames, topGames }) {
+export default function Home({ newGames, topGames, highestRatingGames }) {
   const heroImage =
     newGames.results[Math.floor(Math.random() * newGames.results.length)]
       .background_image;
 
   return (
     <>
+      {/* hero section */}
       <Box
         sx={{
           minHeight: "18rem",
@@ -68,17 +73,24 @@ export default function Home({ newGames, topGames }) {
           Your nice & cozy video games platform
         </Typography>
       </Box>
+
+      {/* content section */}
       <Container maxWidth="2xl">
         <Stack gap={6} sx={{ px: { xs: 1, md: 3 }, py: 3 }}>
           <GamesList
             title={"New & Upcoming Games"}
             games={newGames}
-            href={"/new-games"}
+            href={"/games"}
           />
           <GamesList
             title={"All Time Games"}
             games={topGames}
-            href={"/all-time-games"}
+            href={"/games"}
+          />
+          <GamesList
+            title={"Highest Rating Games"}
+            games={highestRatingGames}
+            href={"/games"}
           />
         </Stack>
       </Container>
