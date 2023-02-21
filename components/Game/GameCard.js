@@ -16,7 +16,7 @@ export default function GameCard({ game }) {
   const router = useRouter();
 
   const maxPlatforms = 3;
-  const maxGenres = 3;
+  const maxGenres = 2;
 
   const [hover, setHover] = React.useState(false);
 
