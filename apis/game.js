@@ -4,6 +4,6 @@ export function getGamesListAPI(params) {
   return axiosClient.get("games", { params });
 }
 
-export function getGameDetailAPI(slug, params) {
-  return axiosClient.get(`games/${slug}`, { params });
+export function getGameDetailAPI(gameSlug, params) {
+  return axiosClient.get(`games/${gameSlug}`, { params });
 }
