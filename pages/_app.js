@@ -114,7 +114,7 @@ function App({ ...rest }) {
           <CssBaseline />
           <MainLayout>
             {/* {loading ? <FullScreenLoader /> : <Component {...pageProps} />} */}
-            {loading && <FullScreenLoader />}
+            {!loading && <FullScreenLoader />}
             <Component {...pageProps} />
           </MainLayout>
         </ThemeProvider>
