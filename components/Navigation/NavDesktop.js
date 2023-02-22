@@ -1,7 +1,6 @@
 import { selectTheme } from "@/store/slices/themeSlice";
 import { getTheme } from "@/utils/utils";
-import LoginIcon from "@mui/icons-material/Login";
-import { Button, Divider, Stack, Typography } from "@mui/material";
+import { Divider, Stack, Typography } from "@mui/material";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,6 +9,9 @@ import { useSelector } from "react-redux";
 
 const SearchModal = dynamic(() => import("./SearchModal"), { ssr: false });
 const ThemePicker = dynamic(() => import("../common/ThemePicker"), {
+  ssr: false,
+});
+const NavAuth = dynamic(() => import("./NavAuth"), {
   ssr: false,
 });
 
@@ -82,9 +84,7 @@ export default function NavDesktop() {
         sx={{ ml: "auto" }}
       >
         <SearchModal />
-        <Button size="small" startIcon={<LoginIcon />}>
-          Login
-        </Button>
+        <NavAuth />
         <ThemePicker />
       </Stack>
     </Stack>

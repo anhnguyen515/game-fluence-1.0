@@ -5,6 +5,7 @@ import { selectUser } from "@/store/slices/userSlice";
 import { SITE_NAME } from "@/utils/constants";
 import { addTime, dateFormat, getTheme } from "@/utils/utils";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
+import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 
 export async function getStaticProps(context) {
@@ -34,6 +35,7 @@ export default function Home({ newGames, topGames }) {
       .background_image;
   const themeStore = useSelector(selectTheme);
   const userStore = useSelector(selectUser);
+  const router = useRouter();
 
   return (
     <Box sx={{ position: "relative" }}>
@@ -69,7 +71,11 @@ export default function Home({ newGames, topGames }) {
         <Typography>Everything you need for video games</Typography>
         <Stack alignItems={"center"} direction={"row"} gap={1} mt={3}>
           {!userStore.isAuthenticated && (
-            <Button size="large" variant="contained">
+            <Button
+              onClick={() => router.push("/auth/login")}
+              size="large"
+              variant="contained"
+            >
               GET STARTED
             </Button>
           )}

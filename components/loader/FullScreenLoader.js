@@ -1,14 +1,21 @@
+import { selectTheme } from "@/store/slices/themeSlice";
+import { getTheme } from "@/utils/utils";
 import { CircularProgress, DialogContent, Stack } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
+import { useSelector } from "react-redux";
 
 export default function FullScreenLoader() {
+  const themeStore = useSelector(selectTheme);
   return (
     <Dialog
       open
       slotProps={{
         backdrop: {
           sx: {
-            backgroundColor: "rgba(0, 0, 0, 0.8)",
+            backgroundColor:
+              getTheme(themeStore).theme.palette.mode === "light"
+                ? "rgba(255, 255, 255, 0.7)"
+                : "rgba(48, 48, 48, 0.7)",
           },
         },
       }}

@@ -1,7 +1,14 @@
 import { selectTheme } from "@/store/slices/themeSlice";
 import { dateFormat, getParentPlatform, getTheme } from "@/utils/utils";
 import EventIcon from "@mui/icons-material/Event";
-import { Chip, Stack, Tooltip } from "@mui/material";
+import {
+  Box,
+  Chip,
+  Stack,
+  Tooltip,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -18,10 +25,12 @@ export default function GameCard({ game }) {
   const maxPlatforms = 3;
   const maxGenres = 2;
 
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [hover, setHover] = React.useState(false);
 
   return (
-    <>
+    <Box>
       <Card
         elevation={hover ? 4 : 1}
         onMouseOver={() => setHover(true)}
@@ -31,8 +40,10 @@ export default function GameCard({ game }) {
           display: "flex",
           flexDirection: "column",
           transition: "all 0.2s",
+          width: "100%",
           "&:hover": {
-            transform: "scale(1.05)",
+            transform: "scale(1.07)",
+            zIndex: 10,
           },
         }}
       >
@@ -82,7 +93,7 @@ export default function GameCard({ game }) {
           {/* title */}
           <Link href={`/games/${game.slug}`}>
             <Typography
-              className="line-clamp-1"
+              className={!hover && !isSmallScreen ? "line-clamp-1" : ""}
               fontSize={"1.5rem"}
               fontWeight={600}
               gutterBottom
@@ -94,47 +105,102 @@ export default function GameCard({ game }) {
           </Link>
 
           {/* platforms */}
-          <Stack alignItems={"center"} direction={"row"} gap={1} mb={1}>
-            {game.parent_platforms.slice(0, maxPlatforms).map((item, index) => (
-              <Chip
-                key={index}
-                label={getParentPlatform(item.platform.name)}
-                size="small"
-              />
-            ))}
-            {game.parent_platforms.length > maxPlatforms && (
-              <Chip
-                label={`+${game.parent_platforms.length - maxPlatforms}`}
-                size="small"
-              />
-            )}
-          </Stack>
+          {!isSmallScreen && !hover ? (
+            <Stack
+              alignItems={"center"}
+              direction={"row"}
+              flexWrap={"wrap"}
+              gap={1}
+              mb={1}
+            >
+              {game.parent_platforms
+                .slice(0, maxPlatforms)
+                .map((item, index) => (
+                  <Chip
+                    key={index}
+                    label={getParentPlatform(item.platform.name)}
+                    size="small"
+                  />
+                ))}
+              {game.parent_platforms.length > maxPlatforms && (
+                <Chip
+                  label={`+${game.parent_platforms.length - maxPlatforms}`}
+                  size="small"
+                />
+              )}
+            </Stack>
+          ) : (
+            <Stack
+              alignItems={"center"}
+              direction={"row"}
+              flexWrap={"wrap"}
+              gap={1}
+              mb={1}
+            >
+              {game.parent_platforms.map((item, index) => (
+                <Chip
+                  key={index}
+                  label={getParentPlatform(item.platform.name)}
+                  size="small"
+                />
+              ))}
+            </Stack>
+          )}
 
           {/* genres */}
-          <Stack alignItems={"center"} direction={"row"} gap={1} mb={1}>
-            {game.genres.slice(0, maxGenres).map((item, index) => (
-              <Chip
-                key={index}
-                label={item.name}
-                onClick={() => router.push(`/genres/${item.slug}`)}
-                size="small"
-              />
-            ))}
-            {game.genres.length > maxGenres && (
-              <Chip label={`+${game.genres.length - maxGenres}`} size="small" />
-            )}
-          </Stack>
+          {!isSmallScreen && !hover ? (
+            <Stack
+              alignItems={"center"}
+              direction={"row"}
+              flexWrap={"wrap"}
+              gap={1}
+              mb={1}
+            >
+              {game.genres.slice(0, maxGenres).map((item, index) => (
+                <Chip
+                  key={index}
+                  label={item.name}
+                  onClick={() => router.push(`/genres/${item.slug}`)}
+                  size="small"
+                />
+              ))}
+              {game.genres.length > maxGenres && (
+                <Chip
+                  label={`+${game.genres.length - maxGenres}`}
+                  size="small"
+                />
+              )}
+            </Stack>
+          ) : (
+            <Stack
+              alignItems={"center"}
+              direction={"row"}
+              flexWrap={"wrap"}
+              gap={1}
+              mb={1}
+            >
+              {game.genres.map((item, index) => (
+                <Chip
+                  key={index}
+                  label={item.name}
+                  onClick={() => router.push(`/genres/${item.slug}`)}
+                  size="small"
+                />
+              ))}
+            </Stack>
+          )}
 
           {/* others */}
-
-          <Stack alignItems={"center"} direction={"row"} gap={1}>
-            <EventIcon fontSize="small" />
-            <Typography fontSize={"0.9rem"}>
-              {dateFormat(game.released, "MMM DD, YYYY")}
-            </Typography>
-          </Stack>
+          {(isSmallScreen || hover) && (
+            <Stack alignItems={"center"} direction={"row"} gap={1}>
+              <EventIcon fontSize="small" />
+              <Typography fontSize={"0.9rem"}>
+                {dateFormat(game.released, "MMM DD, YYYY")}
+              </Typography>
+            </Stack>
+          )}
         </CardContent>
       </Card>
-    </>
+    </Box>
   );
 }
