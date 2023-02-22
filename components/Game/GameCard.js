@@ -51,7 +51,7 @@ export default function GameCard({ game }) {
                 flexDirection: "column",
                 transition: "transform 0.2s",
                 position: "absolute",
-                transform: "scale(1.07)",
+                transform: "scale(1.1)",
                 width: "100%",
                 zIndex: 1,
               }

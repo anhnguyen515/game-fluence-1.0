@@ -12,4 +12,4 @@ const makeStore = () =>
     devTools: true,
   });
 
-export const wrapper = createWrapper(makeStore);
+export const wrapper = createWrapper(makeStore, { debug: false });

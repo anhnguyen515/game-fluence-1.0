@@ -23,7 +23,7 @@ const FullScreenLoader = dynamic(
   { ssr: false }
 );
 
-function App({ Component, ...rest }) {
+function MyApp({ Component, ...rest }) {
   const { store, props } = wrapper.useWrappedStore(rest);
   const { emotionCache = clientSideEmotionCache, pageProps } = props;
 
@@ -56,71 +56,73 @@ function App({ Component, ...rest }) {
   }, []);
 
   return (
-    <CacheProvider value={emotionCache}>
-      <Head>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no"
-          key="viewport"
+    <>
+      <CacheProvider value={emotionCache}>
+        <Head>
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+            key="viewport"
+          />
+          <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="250x181"
+            href="/img/logo-white-250px.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="250x181"
+            href="/img/logo-black-250px.png"
+          />
+        </Head>
+        <DefaultSeo
+          title={SITE_NAME}
+          canonical={SITE_BASE_URL}
+          description={"Everything you need for video games"}
+          openGraph={{
+            type: "website",
+            siteName: SITE_NAME,
+            title: OG_TITLE,
+            url: SITE_BASE_URL,
+            images: [
+              {
+                url: `${SITE_BASE_URL}img/GameFluence-black-2000px.png`,
+                width: 1200,
+                height: 503,
+                alt: `${SITE_NAME} black logo`,
+                type: "image/png",
+              },
+              {
+                url: `${SITE_BASE_URL}img/GameFluence-white-2000px.png`,
+                width: 1200,
+                height: 503,
+                alt: `${SITE_NAME} white logo`,
+                type: "image/png",
+              },
+            ],
+          }}
+          twitter={{
+            handle: "@handle",
+            site: "@site",
+            cardType: "summary_large_image",
+          }}
         />
-        <meta httpEquiv="x-ua-compatible" content="ie=edge" />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="250x181"
-          href="/img/logo-white-250px.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="250x181"
-          href="/img/logo-black-250px.png"
-        />
-      </Head>
-      <DefaultSeo
-        title={SITE_NAME}
-        canonical={SITE_BASE_URL}
-        description={"Everything you need for video games"}
-        openGraph={{
-          type: "website",
-          siteName: SITE_NAME,
-          title: OG_TITLE,
-          url: SITE_BASE_URL,
-          images: [
-            {
-              url: `${SITE_BASE_URL}img/GameFluence-black-2000px.png`,
-              width: 1200,
-              height: 503,
-              alt: `${SITE_NAME} black logo`,
-              type: "image/png",
-            },
-            {
-              url: `${SITE_BASE_URL}img/GameFluence-white-2000px.png`,
-              width: 1200,
-              height: 503,
-              alt: `${SITE_NAME} white logo`,
-              type: "image/png",
-            },
-          ],
-        }}
-        twitter={{
-          handle: "@handle",
-          site: "@site",
-          cardType: "summary_large_image",
-        }}
-      />
-      <Provider store={store}>
-        <ThemeProvider theme={getTheme(themeStore).theme}>
-          <CssBaseline />
-          <MainLayout>
-            {/* {loading ? <FullScreenLoader /> : <Component {...pageProps} />} */}
-            {loading && <FullScreenLoader />}
-            <Component {...pageProps} />
-          </MainLayout>
-        </ThemeProvider>
-      </Provider>
-    </CacheProvider>
+        <Provider store={store}>
+          <ThemeProvider theme={getTheme(themeStore).theme}>
+            <CssBaseline />
+            <MainLayout>
+              {/* {loading ? <FullScreenLoader /> : <Component {...pageProps} />} */}
+              {loading && <FullScreenLoader />}
+              <Component {...pageProps} />
+            </MainLayout>
+          </ThemeProvider>
+        </Provider>
+      </CacheProvider>
+    </>
   );
 }
 
-export default wrapper.withRedux(App);
+export default wrapper.withRedux(MyApp);

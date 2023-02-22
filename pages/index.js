@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 
 export async function getStaticProps(context) {
-  const [newGames, topGames, mostPlayedGames] = await Promise.all([
+  const [newGames, topGames] = await Promise.all([
     getGamesListAPI({
       // ordering: "released",
       dates: `${dateFormat(new Date())},${dateFormat(
@@ -38,15 +38,15 @@ export default function Home({ newGames, topGames }) {
   const router = useRouter();
 
   return (
-    <Box sx={{ position: "relative" }}>
+    <>
       {/* hero section */}
       <Box
         sx={{
           minHeight: "15rem",
           backgroundImage:
             getTheme(themeStore).theme.palette.mode === "dark"
-              ? `linear-gradient(to bottom, rgba(48, 48, 48, 0.6), rgba(48, 48, 48, 1)), url(${heroImage})`
-              : `linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 1)), url(${heroImage})`,
+              ? `linear-gradient(to bottom, rgba(48, 48, 48, 0.5), rgba(48, 48, 48, 1)), url(${heroImage})`
+              : `linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 1)), url(${heroImage})`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
@@ -100,6 +100,6 @@ export default function Home({ newGames, topGames }) {
           />
         </Stack>
       </Container>
-    </Box>
+    </>
   );
 }
