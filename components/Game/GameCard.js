@@ -26,26 +26,42 @@ export default function GameCard({ game }) {
   const maxGenres = 2;
 
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [hover, setHover] = React.useState(false);
 
   return (
-    <Box>
+    <Box sx={{ position: "relative", height: "100%" }}>
       <Card
-        elevation={hover ? 4 : 1}
-        onMouseOver={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-        sx={{
-          position: "relative",
-          display: "flex",
-          flexDirection: "column",
-          transition: "all 0.2s",
-          width: "100%",
-          "&:hover": {
-            transform: "scale(1.07)",
-            zIndex: 10,
-          },
+        elevation={hover ? 24 : 0}
+        variant={hover ? "elevation" : "outlined"}
+        onMouseOver={() => {
+          if (!isSmallScreen) {
+            setHover(true);
+          } else return;
         }}
+        onMouseLeave={() => {
+          if (!isSmallScreen) {
+            setHover(false);
+          } else return;
+        }}
+        sx={
+          hover
+            ? {
+                display: "flex",
+                flexDirection: "column",
+                transition: "transform 0.2s",
+                position: "absolute",
+                transform: "scale(1.07)",
+                width: "100%",
+                zIndex: 1,
+              }
+            : {
+                display: "flex",
+                flexDirection: "column",
+                transition: "transform 0.2s",
+                height: "100%",
+              }
+        }
       >
         {game.metacritic && (
           <Tooltip
