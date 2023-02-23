@@ -158,7 +158,10 @@ export default function GameCard({ game }) {
                   {game.parent_platforms.map((item, index) => (
                     <Chip
                       key={index}
-                      label={getParentPlatform(item.platform.name)}
+                      label={getParentPlatform(
+                        item.platform.name,
+                        isSmallScreen ? 12 : 16
+                      )}
                       size="small"
                     />
                   ))}

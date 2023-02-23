@@ -2,13 +2,23 @@ import { getGamesListAPI } from "@/apis/game";
 import PageHeader from "@/components/common/PageHeader";
 import GameCard from "@/components/Game/GameCard";
 import { dateFormat } from "@/utils/utils";
+import EmojiEventsRoundedIcon from "@mui/icons-material/EmojiEventsRounded";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import { LoadingButton } from "@mui/lab";
-import { Box, Container, Grid, Stack } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Stack,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+import axios from "axios";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import React from "react";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import axios from "axios";
 import { toast } from "react-toastify";
 
 export async function getServerSideProps(context) {
@@ -49,12 +59,33 @@ export async function getServerSideProps(context) {
   };
 }
 
+const routes = [
+  {
+    name: "All Games",
+    category: "",
+    icon: null,
+  },
+  {
+    name: "New & Upcoming",
+    category: "new",
+    icon: <StarRoundedIcon />,
+  },
+  {
+    name: `Popular in ${dayjs().subtract(1, "year").year()}`,
+    category: "popular-last-year",
+    icon: <EmojiEventsRoundedIcon />,
+  },
+];
+
 export default function AllGamesPage({ data }) {
-  const router = useRouter();
-  const { category } = router.query;
   const img =
     data.results[Math.floor(Math.random() * data.results.length)]
       .background_image;
+
+  const router = useRouter();
+  const { category } = router.query;
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const [games, setGames] = React.useState(data);
   const [loading, setLoading] = React.useState(false);
@@ -94,9 +125,52 @@ export default function AllGamesPage({ data }) {
       <Container maxWidth="2xl">
         <Box sx={{ px: { xs: 1, md: 3 }, py: 3 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={2}>
-              asdasd
-            </Grid>
+            {!isSmallScreen && (
+              <Grid item xs={12} md={2} sx={{ position: "relative" }}>
+                <Stack
+                  alignItems={"flex-start"}
+                  gap={1}
+                  sx={{ position: "sticky", top: 16 }}
+                >
+                  {routes.map((item, index) => (
+                    <Button
+                      key={index}
+                      onClick={() =>
+                        router.push(
+                          item.category
+                            ? {
+                                pathname: "/games",
+                                query: {
+                                  category: item.category,
+                                },
+                              }
+                            : {
+                                pathname: "/games",
+                              }
+                        )
+                      }
+                      size="large"
+                      startIcon={item.icon}
+                      sx={{
+                        fontWeight:
+                          (!category && !item.category) ||
+                          category === item.category
+                            ? "bold"
+                            : "normal",
+                      }}
+                      // variant={
+                      //   (!category && !item.category) ||
+                      //   category === item.category
+                      //     ? "contained"
+                      //     : "text"
+                      // }
+                    >
+                      {item.name}
+                    </Button>
+                  ))}
+                </Stack>
+              </Grid>
+            )}
 
             <Grid item container spacing={2} xs={12} md={10}>
               {games.results.map((item, index) => (

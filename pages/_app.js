@@ -10,44 +10,20 @@ import "@fontsource/roboto";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import Cookies from "js-cookie";
 import { DefaultSeo } from "next-seo";
-import dynamic from "next/dynamic";
 import Head from "next/head";
-import { Router } from "next/router";
 import React from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
+import NextNProgress from "nextjs-progressbar";
 
 const clientSideEmotionCache = createEmotionCache();
 
-const FullScreenLoader = dynamic(
-  () => import("@/components/loader/FullScreenLoader"),
-  { ssr: false }
-);
-
 function MyApp({ Component, ...rest }) {
   const { store, props } = wrapper.useWrappedStore(rest);
-  const { emotionCache = clientSideEmotionCache, pageProps } = props;
+  const { emotionCache = clientSideEmotionCache, pageProps, router } = props;
 
-  const [loading, setLoading] = React.useState(false);
   const themeStore = useSelector(selectTheme);
   const dispatch = useDispatch();
-
-  React.useEffect(() => {
-    const start = () => {
-      setLoading(true);
-    };
-    const end = () => {
-      setLoading(false);
-    };
-    Router.events.on("routeChangeStart", start);
-    Router.events.on("routeChangeComplete", end);
-    Router.events.on("routeChangeError", end);
-    return () => {
-      Router.events.off("routeChangeStart", start);
-      Router.events.off("routeChangeComplete", end);
-      Router.events.off("routeChangeError", end);
-    };
-  }, []);
 
   React.useEffect(() => {
     const data = Cookies.get("theme");
@@ -111,12 +87,20 @@ function MyApp({ Component, ...rest }) {
             cardType: "summary_large_image",
           }}
         />
+        <NextNProgress
+          color={getTheme(themeStore).theme.palette.primary.main}
+          startPosition={0.1}
+          showOnShallow={false}
+          options={{
+            showSpinner: false,
+          }}
+        />
         <Provider store={store}>
           <ThemeProvider theme={getTheme(themeStore).theme}>
             <CssBaseline />
             <MainLayout>
-              {loading && <FullScreenLoader />}
-              <Component {...pageProps} />
+              {/* {loading && <FullScreenLoader />} */}
+              <Component {...pageProps} key={router.asPath} />
             </MainLayout>
           </ThemeProvider>
         </Provider>
