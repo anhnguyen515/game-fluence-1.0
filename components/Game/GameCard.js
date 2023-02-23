@@ -51,7 +51,7 @@ export default function GameCard({ game }) {
                 flexDirection: "column",
                 transition: "transform 0.1s",
                 position: "absolute",
-                transform: "scale(1.07)",
+                transform: "scale(1.1)",
                 width: "100%",
                 zIndex: 1,
               }
@@ -121,101 +121,113 @@ export default function GameCard({ game }) {
           </Link>
 
           {/* platforms */}
-          <>
-            {!isSmallScreen && !hover ? (
-              <Stack
-                alignItems={"center"}
-                direction={"row"}
-                flexWrap={"wrap"}
-                gap={1}
-                mb={1}
-              >
-                {game.parent_platforms
-                  .slice(0, maxPlatforms)
-                  .map((item, index) => (
+          {game.parent_platforms && (
+            <>
+              {!isSmallScreen && !hover ? (
+                <Stack
+                  alignItems={"center"}
+                  direction={"row"}
+                  flexWrap={"wrap"}
+                  gap={1}
+                  mb={1}
+                >
+                  {game.parent_platforms
+                    .slice(0, maxPlatforms)
+                    .map((item, index) => (
+                      <Chip
+                        key={index}
+                        label={getParentPlatform(item.platform.name)}
+                        size="small"
+                      />
+                    ))}
+                  {game.parent_platforms.length > maxPlatforms && (
+                    <Chip
+                      label={`+${game.parent_platforms.length - maxPlatforms}`}
+                      size="small"
+                    />
+                  )}
+                </Stack>
+              ) : (
+                <Stack
+                  alignItems={"center"}
+                  direction={"row"}
+                  flexWrap={"wrap"}
+                  gap={1}
+                  mb={1}
+                >
+                  {game.parent_platforms.map((item, index) => (
                     <Chip
                       key={index}
                       label={getParentPlatform(item.platform.name)}
                       size="small"
                     />
                   ))}
-                {game.parent_platforms.length > maxPlatforms && (
-                  <Chip
-                    label={`+${game.parent_platforms.length - maxPlatforms}`}
-                    size="small"
-                  />
-                )}
-              </Stack>
-            ) : (
-              <Stack
-                alignItems={"center"}
-                direction={"row"}
-                flexWrap={"wrap"}
-                gap={1}
-                mb={1}
-              >
-                {game.parent_platforms.map((item, index) => (
-                  <Chip
-                    key={index}
-                    label={getParentPlatform(item.platform.name)}
-                    size="small"
-                  />
-                ))}
-              </Stack>
-            )}
-          </>
+                </Stack>
+              )}
+            </>
+          )}
 
           {/* genres */}
-          {!isSmallScreen && !hover ? (
-            <Stack
-              alignItems={"center"}
-              direction={"row"}
-              flexWrap={"wrap"}
-              gap={1}
-              mb={1}
-            >
-              {game.genres.slice(0, maxGenres).map((item, index) => (
-                <Chip
-                  key={index}
-                  label={item.name}
-                  onClick={() => router.push(`/genres/${item.slug}`)}
-                  size="small"
-                />
-              ))}
-              {game.genres.length > maxGenres && (
-                <Chip
-                  label={`+${game.genres.length - maxGenres}`}
-                  size="small"
-                />
+          {game.genres && (
+            <>
+              {!isSmallScreen && !hover ? (
+                <Stack
+                  alignItems={"center"}
+                  direction={"row"}
+                  flexWrap={"wrap"}
+                  gap={1}
+                  mb={1}
+                >
+                  {game.genres.slice(0, maxGenres).map((item, index) => (
+                    <Chip
+                      key={index}
+                      label={item.name}
+                      onClick={() => router.push(`/genres/${item.slug}`)}
+                      size="small"
+                    />
+                  ))}
+                  {game.genres.length > maxGenres && (
+                    <Chip
+                      label={`+${game.genres.length - maxGenres}`}
+                      size="small"
+                    />
+                  )}
+                </Stack>
+              ) : (
+                <Stack
+                  alignItems={"center"}
+                  direction={"row"}
+                  flexWrap={"wrap"}
+                  gap={1}
+                  mb={1}
+                >
+                  {game.genres.map((item, index) => (
+                    <Chip
+                      key={index}
+                      label={item.name}
+                      onClick={() => router.push(`/genres/${item.slug}`)}
+                      size="small"
+                    />
+                  ))}
+                </Stack>
               )}
-            </Stack>
-          ) : (
-            <Stack
-              alignItems={"center"}
-              direction={"row"}
-              flexWrap={"wrap"}
-              gap={1}
-              mb={1}
-            >
-              {game.genres.map((item, index) => (
-                <Chip
-                  key={index}
-                  label={item.name}
-                  onClick={() => router.push(`/genres/${item.slug}`)}
-                  size="small"
-                />
-              ))}
-            </Stack>
+            </>
           )}
 
           {/* others */}
           {game.released && (
             <>
               {(isSmallScreen || hover) && (
-                <Stack alignItems={"center"} direction={"row"} gap={1}>
-                  <EventIcon fontSize="small" />
-                  <Typography fontSize={"0.9rem"}>
-                    {dateFormat(game.released, "MMM DD, YYYY")}
+                <Stack gap={1} mt={2} sx={{ color: "text.dark" }}>
+                  <Stack alignItems={"center"} direction={"row"} gap={1}>
+                    <EventIcon sx={{ fontSize: "0.9rem" }} />
+                    <Typography fontSize={"0.8rem"}>
+                      {dateFormat(game.released, "MMM DD, YYYY")}
+                    </Typography>
+                  </Stack>
+                  <Typography fontSize={"0.8rem"}>
+                    <b>{game.added}</b> players have this game on their
+                    platforms
                   </Typography>
                 </Stack>
               )}

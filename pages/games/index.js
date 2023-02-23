@@ -14,15 +14,21 @@ import { toast } from "react-toastify";
 export async function getServerSideProps(context) {
   const { category } = context.query;
   let data;
+
+  // all games
   if (!category) {
     data = await getGamesListAPI().then((res) => res.data);
-  } else if (category === "new") {
+  }
+  // new games
+  else if (category === "new") {
     data = await getGamesListAPI({
       dates: `${dateFormat(dayjs().subtract(3, "month"))},${dateFormat(
         dayjs().add(6, "month")
       )}`,
     }).then((res) => res.data);
-  } else {
+  }
+  // popular games last year
+  else {
     data = await getGamesListAPI({
       dates: `${dateFormat(
         dayjs().subtract(1, "year").startOf("year")
@@ -82,6 +88,7 @@ export default function AllGamesPage({ data }) {
             ? "New & Upcoming Games"
             : `Popular in ${dayjs().subtract(1, "year").year()}`
         }
+        subtitle="Sorted by popularity"
         img={img}
       />
       <Container maxWidth="2xl">
@@ -98,7 +105,12 @@ export default function AllGamesPage({ data }) {
                 </Grid>
               ))}
               {games.next && (
-                <Stack alignItems={"center"} mt={3} sx={{ width: "100%" }}>
+                <Stack
+                  alignItems={"center"}
+                  mt={3}
+                  ml={2}
+                  sx={{ width: "100%" }}
+                >
                   <LoadingButton
                     loading={loading}
                     onClick={handleLoadMore}

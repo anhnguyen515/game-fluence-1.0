@@ -46,7 +46,7 @@ export const defaultTheme = createTheme({
       primary: grey[800],
       light: grey[200],
       main: grey[500],
-      dark: grey[700],
+      dark: grey[600],
     },
   },
 });
@@ -93,9 +93,9 @@ export const blackPinkTheme = createTheme({
       paper: "#303030",
     },
     text: {
-      light: grey[200],
+      light: grey[700],
       main: grey[500],
-      dark: grey[700],
+      dark: grey[400],
     },
   },
 });
@@ -142,9 +142,9 @@ export const blackGoldTheme = createTheme({
       paper: "#303030",
     },
     text: {
-      light: grey[200],
+      light: grey[700],
       main: grey[500],
-      dark: grey[700],
+      dark: grey[400],
     },
   },
 });
