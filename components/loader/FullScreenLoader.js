@@ -14,8 +14,8 @@ export default function FullScreenLoader() {
           sx: {
             backgroundColor:
               getTheme(themeStore).theme.palette.mode === "light"
-                ? "rgba(255, 255, 255, 0.7)"
-                : "rgba(48, 48, 48, 0.7)",
+                ? "rgba(255, 255, 255, 0.5)"
+                : "rgba(48, 48, 48, 0.5)",
           },
         },
       }}

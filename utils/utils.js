@@ -11,7 +11,8 @@ import {
   FaWindows,
   FaXbox,
 } from "react-icons/fa";
-import { IoBrowsersOutline, IoIosPhonePortrait } from "react-icons/io";
+import { GoBrowser } from "react-icons/go";
+import { IoIosPhonePortrait } from "react-icons/io";
 import { SiAtari, SiNintendo, SiSega } from "react-icons/si";
 
 dayjs.extend(relativeTime);
@@ -39,7 +40,7 @@ export function getParentPlatform(platform, size = 16) {
     case "SEGA":
       return <SiSega size={size} />;
     case "Web":
-      return <IoBrowsersOutline size={size} />;
+      return <GoBrowser size={size} />;
     default:
       return <BsFillQuestionCircleFill size={size} />;
   }
@@ -116,8 +117,4 @@ export function dateFormat(dateStr, format = "YYYY-MM-DD") {
 
 export function timeFromNow(dateStr) {
   return dayjs(dateStr).fromNow();
-}
-
-export function addTime(dateStr, time = 1, type = "day") {
-  return dayjs(dateStr).add(time, type);
 }

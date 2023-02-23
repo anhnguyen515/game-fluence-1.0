@@ -15,6 +15,7 @@ import Head from "next/head";
 import { Router } from "next/router";
 import React from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
+import "react-toastify/dist/ReactToastify.css";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -114,7 +115,6 @@ function MyApp({ Component, ...rest }) {
           <ThemeProvider theme={getTheme(themeStore).theme}>
             <CssBaseline />
             <MainLayout>
-              {/* {loading ? <FullScreenLoader /> : <Component {...pageProps} />} */}
               {loading && <FullScreenLoader />}
               <Component {...pageProps} />
             </MainLayout>

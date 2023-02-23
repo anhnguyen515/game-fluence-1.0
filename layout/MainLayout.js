@@ -1,11 +1,12 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navigation/Navbar";
-import { Box, Container, Stack } from "@mui/material";
-import ScrollToTop from "react-scroll-to-top";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { useSelector } from "react-redux";
 import { selectTheme } from "@/store/slices/themeSlice";
 import { getTheme } from "@/utils/utils";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import { Box, Stack } from "@mui/material";
+import { useSelector } from "react-redux";
+import ScrollToTop from "react-scroll-to-top";
+import { ToastContainer } from "react-toastify";
 
 export default function MainLayout({ children }) {
   const themeStore = useSelector(selectTheme);
@@ -25,6 +26,15 @@ export default function MainLayout({ children }) {
         style={{
           backgroundColor: getTheme(themeStore).theme.palette.background.paper,
         }}
+      />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop
+        theme={
+          getTheme(themeStore).theme.palette.mode === "light" ? "light" : "dark"
+        }
       />
     </>
   );

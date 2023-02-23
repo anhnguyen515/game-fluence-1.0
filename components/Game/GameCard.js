@@ -49,16 +49,16 @@ export default function GameCard({ game }) {
             ? {
                 display: "flex",
                 flexDirection: "column",
-                transition: "transform 0.2s",
+                transition: "transform 0.1s",
                 position: "absolute",
-                transform: "scale(1.1)",
+                transform: "scale(1.07)",
                 width: "100%",
                 zIndex: 1,
               }
             : {
                 display: "flex",
                 flexDirection: "column",
-                transition: "transform 0.2s",
+                transition: "transform 0.1s",
                 height: "100%",
               }
         }
@@ -102,7 +102,7 @@ export default function GameCard({ game }) {
                 ? "/img/logo-black-600px.png"
                 : "/img/logo-white-600px.png"
             }
-            title={game.name}
+            alt={game.name}
           />
         </Link>
         <CardContent>
@@ -121,47 +121,49 @@ export default function GameCard({ game }) {
           </Link>
 
           {/* platforms */}
-          {!isSmallScreen && !hover ? (
-            <Stack
-              alignItems={"center"}
-              direction={"row"}
-              flexWrap={"wrap"}
-              gap={1}
-              mb={1}
-            >
-              {game.parent_platforms
-                .slice(0, maxPlatforms)
-                .map((item, index) => (
+          <>
+            {!isSmallScreen && !hover ? (
+              <Stack
+                alignItems={"center"}
+                direction={"row"}
+                flexWrap={"wrap"}
+                gap={1}
+                mb={1}
+              >
+                {game.parent_platforms
+                  .slice(0, maxPlatforms)
+                  .map((item, index) => (
+                    <Chip
+                      key={index}
+                      label={getParentPlatform(item.platform.name)}
+                      size="small"
+                    />
+                  ))}
+                {game.parent_platforms.length > maxPlatforms && (
+                  <Chip
+                    label={`+${game.parent_platforms.length - maxPlatforms}`}
+                    size="small"
+                  />
+                )}
+              </Stack>
+            ) : (
+              <Stack
+                alignItems={"center"}
+                direction={"row"}
+                flexWrap={"wrap"}
+                gap={1}
+                mb={1}
+              >
+                {game.parent_platforms.map((item, index) => (
                   <Chip
                     key={index}
                     label={getParentPlatform(item.platform.name)}
                     size="small"
                   />
                 ))}
-              {game.parent_platforms.length > maxPlatforms && (
-                <Chip
-                  label={`+${game.parent_platforms.length - maxPlatforms}`}
-                  size="small"
-                />
-              )}
-            </Stack>
-          ) : (
-            <Stack
-              alignItems={"center"}
-              direction={"row"}
-              flexWrap={"wrap"}
-              gap={1}
-              mb={1}
-            >
-              {game.parent_platforms.map((item, index) => (
-                <Chip
-                  key={index}
-                  label={getParentPlatform(item.platform.name)}
-                  size="small"
-                />
-              ))}
-            </Stack>
-          )}
+              </Stack>
+            )}
+          </>
 
           {/* genres */}
           {!isSmallScreen && !hover ? (
@@ -207,13 +209,17 @@ export default function GameCard({ game }) {
           )}
 
           {/* others */}
-          {(isSmallScreen || hover) && (
-            <Stack alignItems={"center"} direction={"row"} gap={1}>
-              <EventIcon fontSize="small" />
-              <Typography fontSize={"0.9rem"}>
-                {dateFormat(game.released, "MMM DD, YYYY")}
-              </Typography>
-            </Stack>
+          {game.released && (
+            <>
+              {(isSmallScreen || hover) && (
+                <Stack alignItems={"center"} direction={"row"} gap={1}>
+                  <EventIcon fontSize="small" />
+                  <Typography fontSize={"0.9rem"}>
+                    {dateFormat(game.released, "MMM DD, YYYY")}
+                  </Typography>
+                </Stack>
+              )}
+            </>
           )}
         </CardContent>
       </Card>
