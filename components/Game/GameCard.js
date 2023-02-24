@@ -23,7 +23,7 @@ export default function GameCard({ game }) {
   const router = useRouter();
 
   const maxPlatforms = 3;
-  const maxGenres = 2;
+  const maxGenres = 1;
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -156,14 +156,19 @@ export default function GameCard({ game }) {
                   mb={1}
                 >
                   {game.parent_platforms.map((item, index) => (
-                    <Chip
+                    <Tooltip
                       key={index}
-                      label={getParentPlatform(
-                        item.platform.name,
-                        isSmallScreen ? 12 : 16
-                      )}
-                      size="small"
-                    />
+                      title={item.platform.name}
+                      placement="top"
+                    >
+                      <Chip
+                        label={getParentPlatform(
+                          item.platform.name,
+                          isSmallScreen ? 12 : 16
+                        )}
+                        size="small"
+                      />
+                    </Tooltip>
                   ))}
                 </Stack>
               )}
