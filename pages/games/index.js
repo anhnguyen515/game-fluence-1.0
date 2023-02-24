@@ -21,6 +21,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import dayjs from "dayjs";
+import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import React from "react";
 import { toast } from "react-toastify";
@@ -185,6 +186,13 @@ export default function AllGamesPage({ data }) {
 
   return (
     <>
+      <NextSeo
+        title={title}
+        canonical={router.pathname}
+        openGraph={{
+          url: router.asPath,
+        }}
+      />
       <PageHeader
         title={title}
         titleFontSize={"2.6rem"}

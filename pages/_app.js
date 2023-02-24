@@ -58,7 +58,7 @@ function MyApp({ Component, ...rest }) {
         <DefaultSeo
           title={SITE_NAME}
           canonical={SITE_BASE_URL}
-          description={"Everything you need for video games"}
+          description={"Everything you need for video games is here"}
           openGraph={{
             type: "website",
             siteName: SITE_NAME,
