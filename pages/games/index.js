@@ -154,6 +154,7 @@ export default function AllGamesPage({ data }) {
         setGames((prev) => ({
           ...prev,
           next: data.next,
+          previous: data.previous,
           results: [...prev.results, ...data.results],
         }));
         setLoading(false);

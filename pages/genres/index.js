@@ -1,27 +1,57 @@
 import { getGenresListAPI } from "@/apis/genre";
 import PageHeader from "@/components/common/PageHeader";
 import GenreCard from "@/components/Genre/GenreCard";
-import { Box, Container, Grid } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { LoadingButton } from "@mui/lab";
+import { Box, Container, Grid, Stack } from "@mui/material";
+import axios from "axios";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
+import React from "react";
+import { toast } from "react-toastify";
 
 export async function getStaticProps() {
-  const genres = await getGenresListAPI().then((res) => res.data);
+  const genres = await getGenresListAPI({ page_size: 20 }).then(
+    (res) => res.data
+  );
 
   return {
     props: {
-      genres,
+      data: genres,
     },
     revalidate: 60,
   };
 }
 
-export default function GenresPage({ genres }) {
+export default function GenresPage({ data }) {
   const title = "Genres";
   const router = useRouter();
   const img =
-    genres.results[Math.floor(Math.random() * genres.results.length)]
+    data.results[Math.floor(Math.random() * data.results.length)]
       .image_background;
+
+  const [genres, setGenres] = React.useState(data);
+  const [loading, setLoading] = React.useState(false);
+
+  function handleLoadMore() {
+    setLoading(true);
+    axios
+      .get(genres.next)
+      .then((res) => {
+        const data = res.data;
+        setGenres((prev) => ({
+          ...prev,
+          next: data.next,
+          previous: data.previous,
+          results: [...prev.results, ...data.results],
+        }));
+        setLoading(false);
+      })
+      .catch(() => {
+        toast.error("Something went wrong");
+        setLoading(false);
+      });
+  }
   return (
     <>
       <NextSeo
@@ -34,7 +64,6 @@ export default function GenresPage({ genres }) {
       <PageHeader title={title} titleFontSize={"2.4rem"} img={img} />
       <Container maxWidth="2xl">
         <Box sx={{ px: { xs: 1, md: 3 }, py: 3 }}>
-          <pre>{JSON.stringify(genres, null, 2)}</pre>
           <Grid container spacing={2}>
             {genres.results.map((item) => (
               <Grid key={item.id} item xs={12} sm={6} md={4} lg={3} xl={2.4}>
@@ -42,6 +71,19 @@ export default function GenresPage({ genres }) {
               </Grid>
             ))}
           </Grid>
+          {genres.next && (
+            <Stack alignItems={"center"} mt={3}>
+              <LoadingButton
+                loading={loading}
+                onClick={handleLoadMore}
+                size="large"
+                startIcon={<ExpandMoreIcon />}
+              >
+                Load More
+              </LoadingButton>
+            </Stack>
+          )}
+          <pre>{JSON.stringify(genres, null, 2)}</pre>
         </Box>
       </Container>
     </>
