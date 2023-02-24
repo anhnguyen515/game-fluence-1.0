@@ -1,6 +1,6 @@
 import { selectTheme } from "@/store/slices/themeSlice";
 import { getTheme } from "@/utils/utils";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 
 export default function PageHeader({
@@ -37,9 +37,7 @@ export default function PageHeader({
       >
         {title}
       </Typography>
-      <Stack alignItems={"center"} direction={"row"} gap={1}>
-        {subtitle}
-      </Stack>
+      <div>{subtitle}</div>
       <div>{content}</div>
     </Box>
   );

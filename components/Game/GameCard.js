@@ -135,6 +135,7 @@ export default function GameCard({ game }) {
                     .slice(0, maxPlatforms)
                     .map((item, index) => (
                       <Chip
+                        // color="secondary"
                         key={index}
                         label={getParentPlatform(item.platform.name)}
                         size="small"

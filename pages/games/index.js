@@ -188,21 +188,40 @@ export default function AllGamesPage({ data }) {
       <PageHeader
         title={title}
         titleFontSize={"2.6rem"}
-        subtitle={
-          <>
-            <Typography>Sorted by</Typography>
-            <Select
-              onChange={handleChangeOrdering}
-              size="small"
-              value={sort || "popularity"}
-            >
-              {sortValues.map((item) => (
-                <MenuItem key={item.value} value={item.value}>
-                  {item.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </>
+        content={
+          <Stack alignItems={"center"} direction={"row"} gap={4}>
+            <Stack alignItems={"center"} direction={"row"} spacing={-1}>
+              <Typography>Sorted by</Typography>
+              <Select
+                onChange={handleChangeOrdering}
+                size="small"
+                sx={{
+                  ".MuiOutlinedInput-notchedOutline": {
+                    border: "none",
+                  },
+                }}
+                value={sort || "popularity"}
+              >
+                {sortValues.map((item) => (
+                  <MenuItem key={item.value} value={item.value}>
+                    {item.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Stack>
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={reverse === "true"}
+                    onChange={handleReverseOrder}
+                    size="small"
+                  />
+                }
+                label="Reverse"
+              />
+            </FormGroup>
+          </Stack>
         }
         subtitleFontSize={"1.2rem"}
         img={img}
@@ -217,20 +236,6 @@ export default function AllGamesPage({ data }) {
             )}
 
             <Grid item container spacing={2} xs={12} md={10}>
-              <Stack alignItems={"flex-end"} sx={{ width: "100%" }}>
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={reverse === "true"}
-                        onChange={handleReverseOrder}
-                        size="small"
-                      />
-                    }
-                    label="Reverse"
-                  />
-                </FormGroup>
-              </Stack>
               {games.results.map((item, index) => (
                 <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
                   <GameCard game={item} />

@@ -14,12 +14,20 @@ const themes = [
     text: "Blue on White",
   },
   {
+    value: "veryPeriTheme",
+    text: "Very Peri",
+  },
+  {
     value: "blackPinkTheme",
     text: "Black & Pink",
   },
   {
     value: "blackGoldTheme",
     text: "Black & Gold",
+  },
+  {
+    value: "blackCyanTheme",
+    text: "Black & Cyan",
   },
 ];
 

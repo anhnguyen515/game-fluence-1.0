@@ -1,4 +1,10 @@
-import { blackGoldTheme, blackPinkTheme, defaultTheme } from "@/styles/theme";
+import {
+  blackGoldTheme,
+  blackPinkTheme,
+  defaultTheme,
+  blackCyanTheme,
+  veryPeriTheme,
+} from "@/styles/theme";
 import { Box } from "@mui/material";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -46,7 +52,7 @@ export function getParentPlatform(platform, size = 16) {
   }
 }
 
-function ThemeAvatar({ primary, secondary }) {
+function ThemeAvatar({ primary, background }) {
   return (
     <Box
       sx={{
@@ -54,7 +60,7 @@ function ThemeAvatar({ primary, secondary }) {
         height: "1.2rem",
         width: "1.2rem",
         borderRadius: "50%",
-        backgroundColor: secondary,
+        backgroundColor: background,
         border: 1,
         borderColor: "divider",
       }}
@@ -82,7 +88,7 @@ export function getTheme(themeName) {
         avatar: (
           <ThemeAvatar
             primary={blackPinkTheme.palette.primary.main}
-            secondary={blackPinkTheme.palette.secondary.main}
+            background={blackPinkTheme.palette.background.default}
           />
         ),
       };
@@ -92,7 +98,27 @@ export function getTheme(themeName) {
         avatar: (
           <ThemeAvatar
             primary={blackGoldTheme.palette.primary.main}
-            secondary={blackGoldTheme.palette.secondary.main}
+            background={blackGoldTheme.palette.background.default}
+          />
+        ),
+      };
+    case "blackCyanTheme":
+      return {
+        theme: blackCyanTheme,
+        avatar: (
+          <ThemeAvatar
+            primary={blackCyanTheme.palette.primary.main}
+            background={blackCyanTheme.palette.background.default}
+          />
+        ),
+      };
+    case "veryPeriTheme":
+      return {
+        theme: veryPeriTheme,
+        avatar: (
+          <ThemeAvatar
+            primary={veryPeriTheme.palette.primary.main}
+            background={veryPeriTheme.palette.background.default}
           />
         ),
       };
@@ -103,7 +129,7 @@ export function getTheme(themeName) {
         avatar: (
           <ThemeAvatar
             primary={defaultTheme.palette.primary.main}
-            secondary={defaultTheme.palette.secondary.main}
+            background={defaultTheme.palette.background.default}
           />
         ),
       };
