@@ -7,7 +7,10 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LoadingButton } from "@mui/lab";
 import {
   Box,
+  Checkbox,
   Container,
+  FormControlLabel,
+  FormGroup,
   Grid,
   MenuItem,
   Select,
@@ -23,49 +26,50 @@ import React from "react";
 import { toast } from "react-toastify";
 
 export async function getServerSideProps(context) {
-  const { category, subcategory, ordering } = context.query;
-  const _ordering =
-    !ordering || ordering === "popularity"
+  const { category, subcategory, sort, reverse } = context.query;
+  let ordering =
+    !sort || sort === "popularity"
       ? "-added"
-      : ordering === "name"
+      : sort === "name"
       ? "-name"
-      : ordering === "released-date"
+      : sort === "released-date"
       ? "-released"
       : "-metacritic";
+  if (reverse === "true") {
+    ordering = ordering.replace("-", "");
+  }
   let data;
 
   // all games
   if (!category) {
-    data = await getGamesListAPI({ ordering: _ordering }).then(
-      (res) => res.data
-    );
+    data = await getGamesListAPI({ ordering }).then((res) => res.data);
   }
   // new games
   else if (category === "new") {
     if (subcategory === "new-and-upcoming") {
       data = await getGamesListAPI({
-        ordering: _ordering,
+        ordering,
         dates: `${dateFormat(dayjs().subtract(3, "month"))},${dateFormat(
           dayjs().add(6, "month")
         )}`,
       }).then((res) => res.data);
     } else if (subcategory === "last-30-days") {
       data = await getGamesListAPI({
-        ordering: _ordering,
+        ordering,
         dates: `${dateFormat(dayjs().subtract(30, "day"))},${dateFormat(
           new Date()
         )}`,
       }).then((res) => res.data);
     } else if (subcategory === "this-week") {
       data = await getGamesListAPI({
-        ordering: _ordering,
+        ordering,
         dates: `${dateFormat(dayjs().startOf("week"))},${dateFormat(
           dayjs().endOf("week")
         )}`,
       }).then((res) => res.data);
     } else {
       data = await getGamesListAPI({
-        ordering: _ordering,
+        ordering,
         dates: `${dateFormat(
           dayjs().add(1, "week").startOf("week")
         )},${dateFormat(dayjs().add(1, "week").endOf("week"))}`,
@@ -75,7 +79,7 @@ export async function getServerSideProps(context) {
   // popular games last year
   else {
     data = await getGamesListAPI({
-      ordering: _ordering,
+      ordering,
       dates: `${dateFormat(
         dayjs().subtract(1, "year").startOf("year")
       )},${dateFormat(dayjs().subtract(1, "year").endOf("year"))}`,
@@ -116,7 +120,7 @@ const sortValues = [
 
 export default function AllGamesPage({ data }) {
   const router = useRouter();
-  const { category, subcategory, ordering } = router.query;
+  const { category, subcategory, sort, reverse } = router.query;
 
   const title = !category
     ? "All Games"
@@ -128,7 +132,7 @@ export default function AllGamesPage({ data }) {
       : subcategory === "this-week"
       ? "This Week Releases"
       : "Next Week Releases"
-    : `Popular in ${dayjs().subtract(1, "year").year()}`;
+    : `Popular In ${dayjs().subtract(1, "year").year()}`;
 
   const img =
     data.results[Math.floor(Math.random() * data.results.length)]
@@ -164,7 +168,17 @@ export default function AllGamesPage({ data }) {
       pathname: "/games",
       query: {
         ...router.query,
-        ordering: e.target.value,
+        sort: e.target.value,
+      },
+    });
+  }
+
+  function handleReverseOrder(e) {
+    router.push({
+      pathname: "/games",
+      query: {
+        ...router.query,
+        reverse: e.target.checked,
       },
     });
   }
@@ -180,7 +194,7 @@ export default function AllGamesPage({ data }) {
             <Select
               onChange={handleChangeOrdering}
               size="small"
-              value={ordering || "popularity"}
+              value={sort || "popularity"}
             >
               {sortValues.map((item) => (
                 <MenuItem key={item.value} value={item.value}>
@@ -203,6 +217,20 @@ export default function AllGamesPage({ data }) {
             )}
 
             <Grid item container spacing={2} xs={12} md={10}>
+              <Stack alignItems={"flex-end"} sx={{ width: "100%" }}>
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={reverse === "true"}
+                        onChange={handleReverseOrder}
+                        size="small"
+                      />
+                    }
+                    label="Reverse"
+                  />
+                </FormGroup>
+              </Stack>
               {games.results.map((item, index) => (
                 <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
                   <GameCard game={item} />

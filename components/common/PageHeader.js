@@ -16,8 +16,8 @@ export default function PageHeader({
       sx={{
         backgroundImage:
           getTheme(themeStore).theme.palette.mode === "dark"
-            ? `linear-gradient(to bottom, rgba(48, 48, 48, 0.5), rgba(48, 48, 48, 1)), url(${img})`
-            : `linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 1)), url(${img})`,
+            ? `linear-gradient(to bottom, rgba(48, 48, 48, 0.6), rgba(48, 48, 48, 1)), url(${img})`
+            : `linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 1)), url(${img})`,
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",

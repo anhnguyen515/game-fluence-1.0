@@ -218,23 +218,22 @@ export default function GameCard({ game }) {
           )}
 
           {/* others */}
-          {game.released && (
-            <>
-              {(isSmallScreen || hover) && (
-                <Stack gap={1} mt={2} sx={{ color: "text.dark" }}>
-                  <Stack alignItems={"center"} direction={"row"} gap={1}>
-                    <EventIcon sx={{ fontSize: "0.9rem" }} />
-                    <Typography fontSize={"0.8rem"}>
-                      {dateFormat(game.released, "MMM DD, YYYY")}
-                    </Typography>
-                  </Stack>
+          {(isSmallScreen || hover) && (
+            <Stack gap={1} mt={2} sx={{ color: "text.dark" }}>
+              {game.released && (
+                <Stack alignItems={"center"} direction={"row"} gap={1}>
+                  <EventIcon sx={{ fontSize: "0.9rem" }} />
                   <Typography fontSize={"0.8rem"}>
-                    <b>{game.added}</b> players have this game on their
-                    platforms
+                    {dateFormat(game.released, "MMM DD, YYYY")}
                   </Typography>
                 </Stack>
               )}
-            </>
+              {game.added > 0 && (
+                <Typography fontSize={"0.8rem"}>
+                  <b>{game.added}</b> players have this game on their platforms
+                </Typography>
+              )}
+            </Stack>
           )}
         </CardContent>
       </Card>

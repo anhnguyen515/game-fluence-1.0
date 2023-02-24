@@ -5,6 +5,8 @@ import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import { Button, Stack } from "@mui/material";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import React from "react";
 
 const routes = [
@@ -12,16 +14,19 @@ const routes = [
     name: "All Games",
     category: null,
     icon: null,
+    alternateIcon: null,
   },
   {
-    name: `Popular in ${dayjs().subtract(1, "year").year()}`,
+    name: `Popular In ${dayjs().subtract(1, "year").year()}`,
     category: "popular-last-year",
     icon: null,
+    alternateIcon: null,
   },
   {
     name: "New Releases",
     category: "new",
-    icon: null,
+    icon: <ExpandMoreIcon />,
+    alternateIcon: <ExpandLessIcon />,
   },
 ];
 
@@ -63,6 +68,11 @@ export default function Navigator({ category, subcategory }) {
       {routes.map((item, index) => (
         <div key={index}>
           <Button
+            color={
+              (!category && !item.category) || category === item.category
+                ? "primary"
+                : "text"
+            }
             onClick={() => {
               if (item.category !== "new") {
                 router.push(
@@ -82,7 +92,7 @@ export default function Navigator({ category, subcategory }) {
               }
             }}
             size="large"
-            startIcon={item.icon}
+            endIcon={showSubcategories ? item.alternateIcon : item.icon}
             sx={{
               fontSize: "1.1rem",
               fontWeight:
@@ -97,6 +107,7 @@ export default function Navigator({ category, subcategory }) {
             <Stack alignItems={"flex-start"} gap={1} ml={2} mt={1}>
               {newGamesSubRoutes.map((i) => (
                 <Button
+                  color={subcategory === i.subcategory ? "primary" : "text"}
                   key={i.subcategory}
                   onClick={() =>
                     router.push({
