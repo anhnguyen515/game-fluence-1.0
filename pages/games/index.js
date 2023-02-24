@@ -1,14 +1,12 @@
 import { getGamesListAPI } from "@/apis/game";
 import PageHeader from "@/components/common/PageHeader";
 import GameCard from "@/components/Game/GameCard";
+import Navigator from "@/components/Game/Navigator";
 import { dateFormat } from "@/utils/utils";
-import EmojiEventsRoundedIcon from "@mui/icons-material/EmojiEventsRounded";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import { LoadingButton } from "@mui/lab";
 import {
   Box,
-  Button,
   Container,
   Grid,
   Stack,
@@ -22,7 +20,7 @@ import React from "react";
 import { toast } from "react-toastify";
 
 export async function getServerSideProps(context) {
-  const { category } = context.query;
+  const { category, subcategory } = context.query;
   let data;
 
   // all games
@@ -31,11 +29,31 @@ export async function getServerSideProps(context) {
   }
   // new games
   else if (category === "new") {
-    data = await getGamesListAPI({
-      dates: `${dateFormat(dayjs().subtract(3, "month"))},${dateFormat(
-        dayjs().add(6, "month")
-      )}`,
-    }).then((res) => res.data);
+    if (subcategory === "new-and-upcoming") {
+      data = await getGamesListAPI({
+        dates: `${dateFormat(dayjs().subtract(3, "month"))},${dateFormat(
+          dayjs().add(6, "month")
+        )}`,
+      }).then((res) => res.data);
+    } else if (subcategory === "last-30-days") {
+      data = await getGamesListAPI({
+        dates: `${dateFormat(dayjs().subtract(30, "day"))},${dateFormat(
+          new Date()
+        )}`,
+      }).then((res) => res.data);
+    } else if (subcategory === "this-week") {
+      data = await getGamesListAPI({
+        dates: `${dateFormat(dayjs().startOf("week"))},${dateFormat(
+          dayjs().endOf("week")
+        )}`,
+      }).then((res) => res.data);
+    } else {
+      data = await getGamesListAPI({
+        dates: `${dateFormat(
+          dayjs().add(1, "week").startOf("week")
+        )},${dateFormat(dayjs().add(1, "week").endOf("week"))}`,
+      }).then((res) => res.data);
+    }
   }
   // popular games last year
   else {
@@ -59,31 +77,13 @@ export async function getServerSideProps(context) {
   };
 }
 
-const routes = [
-  {
-    name: "All Games",
-    category: "",
-    icon: null,
-  },
-  {
-    name: "New & Upcoming",
-    category: "new",
-    icon: <StarRoundedIcon />,
-  },
-  {
-    name: `Popular in ${dayjs().subtract(1, "year").year()}`,
-    category: "popular-last-year",
-    icon: <EmojiEventsRoundedIcon />,
-  },
-];
-
 export default function AllGamesPage({ data }) {
   const img =
     data.results[Math.floor(Math.random() * data.results.length)]
       .background_image;
 
   const router = useRouter();
-  const { category } = router.query;
+  const { category, subcategory } = router.query;
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -116,10 +116,18 @@ export default function AllGamesPage({ data }) {
           !category
             ? "All Games"
             : category === "new"
-            ? "New & Upcoming Games"
+            ? subcategory === "new-and-upcoming"
+              ? "New & Upcoming Releases"
+              : subcategory === "last-30-days"
+              ? "Last 30 Days Releases"
+              : subcategory === "this-week"
+              ? "This Week Releases"
+              : "Next Week Releases"
             : `Popular in ${dayjs().subtract(1, "year").year()}`
         }
+        titleFontSize={"2.6rem"}
         subtitle="Sorted by popularity"
+        subtitleFontSize={"1.2rem"}
         img={img}
       />
       <Container maxWidth="2xl">
@@ -127,48 +135,7 @@ export default function AllGamesPage({ data }) {
           <Grid container spacing={2}>
             {!isSmallScreen && (
               <Grid item xs={12} md={2} sx={{ position: "relative" }}>
-                <Stack
-                  alignItems={"flex-start"}
-                  gap={1}
-                  sx={{ position: "sticky", top: 16 }}
-                >
-                  {routes.map((item, index) => (
-                    <Button
-                      key={index}
-                      onClick={() =>
-                        router.push(
-                          item.category
-                            ? {
-                                pathname: "/games",
-                                query: {
-                                  category: item.category,
-                                },
-                              }
-                            : {
-                                pathname: "/games",
-                              }
-                        )
-                      }
-                      size="large"
-                      startIcon={item.icon}
-                      sx={{
-                        fontWeight:
-                          (!category && !item.category) ||
-                          category === item.category
-                            ? "bold"
-                            : "normal",
-                      }}
-                      // variant={
-                      //   (!category && !item.category) ||
-                      //   category === item.category
-                      //     ? "contained"
-                      //     : "text"
-                      // }
-                    >
-                      {item.name}
-                    </Button>
-                  ))}
-                </Stack>
+                <Navigator category={category} subcategory={subcategory} />
               </Grid>
             )}
 

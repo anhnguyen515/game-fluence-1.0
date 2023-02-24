@@ -88,7 +88,7 @@ export default function Home({ newGames, popularGamesLastYear }) {
           <GamesList
             title={"New & Upcoming"}
             games={newGames}
-            href={"/games?category=new"}
+            href={"/games?category=new&subcategory=new-and-upcoming"}
           />
           <GamesList
             title={`Popular in ${dayjs().subtract(1, "year").year()}`}

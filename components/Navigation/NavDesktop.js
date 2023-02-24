@@ -22,7 +22,7 @@ function ActiveLink({ href, item, router }) {
         <Typography
           sx={{
             color: router.pathname.includes(href) ? "primary.light" : "text",
-            borderBottom: router.pathname.includes(href) && 1,
+            fontWeight: router.pathname.includes(href) ? "bold" : "normal",
             "&:hover": {
               borderBottom: 1,
               transition: "all 0.1s",

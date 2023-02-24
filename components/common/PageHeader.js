@@ -3,7 +3,14 @@ import { getTheme } from "@/utils/utils";
 import { Box, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 
-export default function PageHeader({ title, subtitle, content, img }) {
+export default function PageHeader({
+  title,
+  titleFontSize = "2.2rem",
+  subtitle,
+  subtitleFontSize = "1rem",
+  content,
+  img,
+}) {
   const themeStore = useSelector(selectTheme);
   return (
     <Box
@@ -23,10 +30,10 @@ export default function PageHeader({ title, subtitle, content, img }) {
         justifyContent: "center",
       }}
     >
-      <Typography fontSize={"2.2rem"} fontWeight={600} variant="h1">
+      <Typography fontSize={titleFontSize} fontWeight={600} variant="h1">
         {title}
       </Typography>
-      <Typography>{subtitle}</Typography>
+      <Typography fontSize={subtitleFontSize}>{subtitle}</Typography>
       <div>{content}</div>
     </Box>
   );
