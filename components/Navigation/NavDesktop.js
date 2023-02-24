@@ -71,7 +71,7 @@ export default function NavDesktop() {
         divider={<Divider orientation="vertical" flexItem />}
         gap={3}
       >
-        <ActiveLink href={"/games"} item={"All Games"} router={router} />
+        <ActiveLink href={"/games"} item={"Games"} router={router} />
         <ActiveLink href={"/genres"} item={"Genres"} router={router} />
         <ActiveLink href={"/platforms"} item={"Platforms"} router={router} />
         <ActiveLink href={"/publishers"} item={"Publishers"} router={router} />
