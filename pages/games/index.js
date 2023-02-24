@@ -9,7 +9,10 @@ import {
   Box,
   Container,
   Grid,
+  MenuItem,
+  Select,
   Stack,
+  Typography,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
@@ -20,35 +23,49 @@ import React from "react";
 import { toast } from "react-toastify";
 
 export async function getServerSideProps(context) {
-  const { category, subcategory } = context.query;
+  const { category, subcategory, ordering } = context.query;
+  const _ordering =
+    !ordering || ordering === "popularity"
+      ? "-added"
+      : ordering === "name"
+      ? "-name"
+      : ordering === "released-date"
+      ? "-released"
+      : "-metacritic";
   let data;
 
   // all games
   if (!category) {
-    data = await getGamesListAPI().then((res) => res.data);
+    data = await getGamesListAPI({ ordering: _ordering }).then(
+      (res) => res.data
+    );
   }
   // new games
   else if (category === "new") {
     if (subcategory === "new-and-upcoming") {
       data = await getGamesListAPI({
+        ordering: _ordering,
         dates: `${dateFormat(dayjs().subtract(3, "month"))},${dateFormat(
           dayjs().add(6, "month")
         )}`,
       }).then((res) => res.data);
     } else if (subcategory === "last-30-days") {
       data = await getGamesListAPI({
+        ordering: _ordering,
         dates: `${dateFormat(dayjs().subtract(30, "day"))},${dateFormat(
           new Date()
         )}`,
       }).then((res) => res.data);
     } else if (subcategory === "this-week") {
       data = await getGamesListAPI({
+        ordering: _ordering,
         dates: `${dateFormat(dayjs().startOf("week"))},${dateFormat(
           dayjs().endOf("week")
         )}`,
       }).then((res) => res.data);
     } else {
       data = await getGamesListAPI({
+        ordering: _ordering,
         dates: `${dateFormat(
           dayjs().add(1, "week").startOf("week")
         )},${dateFormat(dayjs().add(1, "week").endOf("week"))}`,
@@ -58,6 +75,7 @@ export async function getServerSideProps(context) {
   // popular games last year
   else {
     data = await getGamesListAPI({
+      ordering: _ordering,
       dates: `${dateFormat(
         dayjs().subtract(1, "year").startOf("year")
       )},${dateFormat(dayjs().subtract(1, "year").endOf("year"))}`,
@@ -77,13 +95,45 @@ export async function getServerSideProps(context) {
   };
 }
 
+const sortValues = [
+  {
+    name: "Popularity",
+    value: "popularity",
+  },
+  {
+    name: "Name",
+    value: "name",
+  },
+  {
+    name: "Released date",
+    value: "released-date",
+  },
+  {
+    name: "Metascore",
+    value: "metascore",
+  },
+];
+
 export default function AllGamesPage({ data }) {
+  const router = useRouter();
+  const { category, subcategory, ordering } = router.query;
+
+  const title = !category
+    ? "All Games"
+    : category === "new"
+    ? subcategory === "new-and-upcoming"
+      ? "New & Upcoming Releases"
+      : subcategory === "last-30-days"
+      ? "Last 30 Days Releases"
+      : subcategory === "this-week"
+      ? "This Week Releases"
+      : "Next Week Releases"
+    : `Popular in ${dayjs().subtract(1, "year").year()}`;
+
   const img =
     data.results[Math.floor(Math.random() * data.results.length)]
       .background_image;
 
-  const router = useRouter();
-  const { category, subcategory } = router.query;
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -109,24 +159,37 @@ export default function AllGamesPage({ data }) {
       });
   }
 
+  function handleChangeOrdering(e) {
+    router.push({
+      pathname: "/games",
+      query: {
+        ...router.query,
+        ordering: e.target.value,
+      },
+    });
+  }
+
   return (
     <>
       <PageHeader
-        title={
-          !category
-            ? "All Games"
-            : category === "new"
-            ? subcategory === "new-and-upcoming"
-              ? "New & Upcoming Releases"
-              : subcategory === "last-30-days"
-              ? "Last 30 Days Releases"
-              : subcategory === "this-week"
-              ? "This Week Releases"
-              : "Next Week Releases"
-            : `Popular in ${dayjs().subtract(1, "year").year()}`
-        }
+        title={title}
         titleFontSize={"2.6rem"}
-        subtitle="Sorted by popularity"
+        subtitle={
+          <>
+            <Typography>Sorted by</Typography>
+            <Select
+              onChange={handleChangeOrdering}
+              size="small"
+              value={ordering || "popularity"}
+            >
+              {sortValues.map((item) => (
+                <MenuItem key={item.value} value={item.value}>
+                  {item.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </>
+        }
         subtitleFontSize={"1.2rem"}
         img={img}
       />

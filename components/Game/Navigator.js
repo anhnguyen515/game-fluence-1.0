@@ -10,7 +10,7 @@ import React from "react";
 const routes = [
   {
     name: "All Games",
-    category: "",
+    category: null,
     icon: null,
   },
   {
@@ -84,6 +84,7 @@ export default function Navigator({ category, subcategory }) {
             size="large"
             startIcon={item.icon}
             sx={{
+              fontSize: "1.1rem",
               fontWeight:
                 (!category && !item.category) || category === item.category
                   ? "bold"
@@ -101,11 +102,12 @@ export default function Navigator({ category, subcategory }) {
                     router.push({
                       pathname: "/games",
                       query: {
-                        category: "new",
+                        category: item.category,
                         subcategory: i.subcategory,
                       },
                     })
                   }
+                  size="large"
                   startIcon={i.icon}
                   sx={{
                     fontWeight:
