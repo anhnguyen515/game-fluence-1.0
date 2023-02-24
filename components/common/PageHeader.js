@@ -14,10 +14,11 @@ export default function PageHeader({
   return (
     <Box
       sx={{
-        backgroundImage:
-          getTheme(themeStore).theme.palette.mode === "dark"
-            ? `linear-gradient(to bottom, rgba(48, 48, 48, 0.6), rgba(48, 48, 48, 1)), url(${img})`
-            : `linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 1)), url(${img})`,
+        backgroundImage: `linear-gradient(to bottom, ${
+          getTheme(themeStore).theme.palette.background.default + "99"
+        } ,${
+          getTheme(themeStore).theme.palette.background.default
+        }), url(${img})`,
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
@@ -37,7 +38,7 @@ export default function PageHeader({
       >
         {title}
       </Typography>
-      <div>{subtitle}</div>
+      <Typography>{subtitle}</Typography>
       <div>{content}</div>
     </Box>
   );

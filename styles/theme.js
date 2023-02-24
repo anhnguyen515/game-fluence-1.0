@@ -1,6 +1,7 @@
 import { grey } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
 
+// light themes
 export const defaultTheme = createTheme({
   components: {
     MuiButton: {
@@ -32,6 +33,56 @@ export const defaultTheme = createTheme({
       light: "#3B71ED",
       main: "#284BA0",
       dark: "#224087",
+    },
+    secondary: {
+      light: "#ffffff",
+      main: "#ffffff",
+      dark: "#ffffff",
+    },
+    background: {
+      default: "#ffffff",
+      paper: "#ffffff",
+    },
+    text: {
+      primary: grey[800],
+      light: grey[200],
+      main: grey[500],
+      dark: grey[600],
+    },
+  },
+});
+
+export const chicagoTheme = createTheme({
+  components: {
+    MuiButton: {
+      defaultProps: {
+        disableElevation: true,
+      },
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: 2,
+        },
+      },
+    },
+  },
+  typography: {
+    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Source Sans Pro"].join(
+      ","
+    ),
+  },
+  palette: {
+    mode: "light",
+    primary: {
+      light: "#F53333",
+      main: "#A82324",
+      dark: "#8F1E1E",
     },
     secondary: {
       light: "#ffffff",
@@ -102,6 +153,7 @@ export const veryPeriTheme = createTheme({
   },
 });
 
+// dark themes
 export const blackPinkTheme = createTheme({
   components: {
     MuiButton: {
@@ -240,6 +292,55 @@ export const blackCyanTheme = createTheme({
     background: {
       default: "#303030",
       paper: "#303030",
+    },
+    text: {
+      light: grey[700],
+      main: grey[500],
+      dark: grey[400],
+    },
+  },
+});
+
+export const waveSonicTheme = createTheme({
+  components: {
+    MuiButton: {
+      defaultProps: {
+        disableElevation: true,
+      },
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: 2,
+        },
+      },
+    },
+  },
+  typography: {
+    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Source Sans Pro"].join(
+      ","
+    ),
+  },
+  palette: {
+    mode: "dark",
+    primary: {
+      light: "#29D93C",
+      main: "#50C22F",
+      dark: "#44A828",
+    },
+    secondary: {
+      light: "#295154",
+      main: "#0B373A",
+      dark: "#0E4447",
+    },
+    background: {
+      default: "#202D3F",
+      paper: "#202D3F",
     },
     text: {
       light: grey[700],

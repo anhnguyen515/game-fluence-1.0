@@ -64,11 +64,7 @@ export default function GameCard({ game }) {
         }
       >
         {game.metacritic && (
-          <Tooltip
-            title={`${game.metacritic} Metascore`}
-            placement="left"
-            arrow
-          >
+          <Tooltip title={`${game.metacritic} Metascore`} placement="left">
             <Typography
               className={
                 game.metacritic >= 75

@@ -49,7 +49,7 @@ export default function Home({ newGames, popularGamesLastYear }) {
           <>
             Welcome to{" "}
             <Typography
-              color={"primary.light"}
+              color={"primary.main"}
               component={"span"}
               fontSize={"2.2rem"}
               fontWeight={600}

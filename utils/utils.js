@@ -1,9 +1,11 @@
 import {
+  blackCyanTheme,
   blackGoldTheme,
   blackPinkTheme,
+  chicagoTheme,
   defaultTheme,
-  blackCyanTheme,
   veryPeriTheme,
+  waveSonicTheme,
 } from "@/styles/theme";
 import { Box } from "@mui/material";
 import dayjs from "dayjs";
@@ -112,6 +114,16 @@ export function getTheme(themeName) {
           />
         ),
       };
+    case "waveSonicTheme":
+      return {
+        theme: waveSonicTheme,
+        avatar: (
+          <ThemeAvatar
+            primary={waveSonicTheme.palette.primary.main}
+            background={waveSonicTheme.palette.background.default}
+          />
+        ),
+      };
     case "veryPeriTheme":
       return {
         theme: veryPeriTheme,
@@ -119,6 +131,16 @@ export function getTheme(themeName) {
           <ThemeAvatar
             primary={veryPeriTheme.palette.primary.main}
             background={veryPeriTheme.palette.background.default}
+          />
+        ),
+      };
+    case "chicagoTheme":
+      return {
+        theme: chicagoTheme,
+        avatar: (
+          <ThemeAvatar
+            primary={chicagoTheme.palette.primary.main}
+            background={chicagoTheme.palette.background.default}
           />
         ),
       };
@@ -143,4 +165,8 @@ export function dateFormat(dateStr, format = "YYYY-MM-DD") {
 
 export function timeFromNow(dateStr) {
   return dayjs(dateStr).fromNow();
+}
+
+export function insertAtIndex(str, substr, index = 1) {
+  return str.slice(0, index) + substr + str.slice(index);
 }
