@@ -53,7 +53,7 @@ const newGamesSubRoutes = [
   },
 ];
 
-export default function Navigator({ category, subcategory }) {
+export default function GamesNavigator({ category, subcategory }) {
   const router = useRouter();
   const [showSubcategories, setShowSubcategories] = React.useState(
     category === "new" ? true : false

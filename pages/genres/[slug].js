@@ -3,6 +3,7 @@ import { getGenreDetailAPI } from "@/apis/genre";
 import PageHeader from "@/components/common/PageHeader";
 import ReadMore from "@/components/common/ReadMore";
 import GameCard from "@/components/Game/GameCard";
+import GenresNavigator from "@/components/Genre/GenresNavigator";
 import { SITE_NAME } from "@/utils/constants";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LoadingButton } from "@mui/lab";
@@ -178,11 +179,11 @@ export default function GenreDetailPage({ genreDetail, genreGames }) {
         <Box sx={{ px: { xs: 1, md: 3 }, py: 3 }}>
           <Grid container spacing={2}>
             {!isSmallScreen && (
-              <Grid item xs={12} md={2}>
-                asdasd
+              <Grid item xs={12} md={2.4} lg={2}>
+                <GenresNavigator />
               </Grid>
             )}
-            <Grid item container spacing={2} xs={12} md={10}>
+            <Grid item container spacing={2} xs={12} md={9.6} lg={10}>
               {games.results.map((item, index) => (
                 <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
                   <GameCard game={item} />

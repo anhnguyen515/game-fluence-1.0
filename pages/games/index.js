@@ -1,7 +1,7 @@
 import { getGamesListAPI } from "@/apis/game";
 import PageHeader from "@/components/common/PageHeader";
 import GameCard from "@/components/Game/GameCard";
-import Navigator from "@/components/Game/Navigator";
+import GamesNavigator from "@/components/Game/GamesNavigator";
 import { SITE_NAME } from "@/utils/constants";
 import { dateFormat } from "@/utils/utils";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -234,12 +234,12 @@ export default function AllGamesPage({ data }) {
         <Box sx={{ px: { xs: 1, md: 3 }, py: 3 }}>
           <Grid container spacing={2}>
             {!isSmallScreen && (
-              <Grid item xs={12} md={2}>
-                <Navigator category={category} subcategory={subcategory} />
+              <Grid item xs={12} md={2.4} lg={2}>
+                <GamesNavigator category={category} subcategory={subcategory} />
               </Grid>
             )}
 
-            <Grid item container spacing={2} xs={12} md={10}>
+            <Grid item container spacing={2} xs={12} md={9.6} lg={10}>
               {games.results.map((item, index) => (
                 <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
                   <GameCard game={item} />
