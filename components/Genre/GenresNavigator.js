@@ -28,10 +28,6 @@ const routes = [
     slug: "indie",
   },
   {
-    name: "Sports",
-    slug: "sports",
-  },
-  {
     name: "Fighting",
     slug: "fighting",
   },
@@ -45,7 +41,7 @@ export default function Navigator() {
     <Stack
       alignItems={"flex-start"}
       gap={1}
-      sx={{ position: "sticky", top: 16 }}
+      sx={{ position: "sticky", top: 16, overflow: "auto" }}
     >
       {routes.map((item, index) => (
         <Button
