@@ -37,6 +37,10 @@ const themes = [
     value: "waveSonicTheme",
     text: "Wave Sonic",
   },
+  {
+    value: "mecha01Theme",
+    text: "Mecha-01",
+  },
 ];
 
 export default function ThemePicker() {

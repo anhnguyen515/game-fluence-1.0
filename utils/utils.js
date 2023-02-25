@@ -6,6 +6,7 @@ import {
   defaultTheme,
   veryPeriTheme,
   waveSonicTheme,
+  mecha01Theme,
 } from "@/styles/theme";
 import { Box } from "@mui/material";
 import dayjs from "dayjs";
@@ -121,6 +122,16 @@ export function getTheme(themeName) {
           <ThemeAvatar
             primary={waveSonicTheme.palette.primary.main}
             background={waveSonicTheme.palette.background.default}
+          />
+        ),
+      };
+    case "mecha01Theme":
+      return {
+        theme: mecha01Theme,
+        avatar: (
+          <ThemeAvatar
+            primary={mecha01Theme.palette.primary.main}
+            background={mecha01Theme.palette.background.default}
           />
         ),
       };

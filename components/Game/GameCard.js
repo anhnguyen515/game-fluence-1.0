@@ -232,7 +232,8 @@ export default function GameCard({ game }) {
               )}
               {game.added > 0 && (
                 <Typography fontSize={"0.8rem"}>
-                  <b>{game.added.toLocaleString()}</b> players have this game on
+                  <b>{game.added.toLocaleString()}</b>{" "}
+                  {game.added > 1 ? "players" : "player"} have this game on
                   their platforms
                 </Typography>
               )}

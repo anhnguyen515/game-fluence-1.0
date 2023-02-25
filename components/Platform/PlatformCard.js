@@ -60,52 +60,62 @@ export default function PlatformCard({ platform }) {
         </Typography>
       </Link>
 
-      <Typography fontSize={"0.95rem"}>
-        <Typography
-          color="primary.light"
-          component={"span"}
-          fontSize={"0.95rem"}
-          fontWeight={600}
-        >
-          {platform.games_count.toLocaleString()}
-        </Typography>{" "}
-        games
-      </Typography>
-      {(hover || isSmallScreen) && (
-        <Stack gap={1} mt={3} sx={{ width: "100%" }}>
-          <Typography fontSize={"0.9rem"} fontWeight={600} textAlign={"center"}>
-            Popular items
-          </Typography>
-          <Stack gap={1}>
-            {platform.games.slice(0, 3).map((item) => (
-              <Stack
-                key={item.id}
-                alignItems={"center"}
-                direction={"row"}
-                flexWrap={"wrap"}
-                gap={1}
-                justifyContent={"space-between"}
+      {platform.games_count > 0 && (
+        <Typography fontSize={"0.95rem"}>
+          <Typography
+            color="primary.light"
+            component={"span"}
+            fontSize={"0.95rem"}
+            fontWeight={600}
+          >
+            {platform.games_count.toLocaleString()}
+          </Typography>{" "}
+          {platform.games_count > 1 ? "games" : "game"}
+        </Typography>
+      )}
+      {platform.games_count > 0 && (
+        <>
+          {(hover || isSmallScreen) && (
+            <Stack gap={1} mt={3} sx={{ width: "100%" }}>
+              <Typography
+                fontSize={"0.9rem"}
+                fontWeight={600}
+                textAlign={"center"}
               >
-                <Link href={`/games/${item.slug}`}>
-                  <Typography
-                    fontSize={"0.8rem"}
-                    fontWeight={600}
-                    sx={{ "&:hover": { color: "primary.light" } }}
+                Popular items
+              </Typography>
+              <Stack gap={1}>
+                {platform.games.slice(0, 3).map((item) => (
+                  <Stack
+                    key={item.id}
+                    alignItems={"center"}
+                    direction={"row"}
+                    flexWrap={"wrap"}
+                    gap={1}
+                    justifyContent={"space-between"}
                   >
-                    {item.name}
-                  </Typography>
-                </Link>
-                <Typography
-                  fontSize={"0.8rem"}
-                  sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
-                >
-                  {item.added.toLocaleString()}{" "}
-                  <PersonIcon sx={{ fontSize: "0.8rem" }} />
-                </Typography>
+                    <Link href={`/games/${item.slug}`}>
+                      <Typography
+                        fontSize={"0.8rem"}
+                        fontWeight={600}
+                        sx={{ "&:hover": { color: "primary.light" } }}
+                      >
+                        {item.name}
+                      </Typography>
+                    </Link>
+                    <Typography
+                      fontSize={"0.8rem"}
+                      sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
+                    >
+                      {item.added.toLocaleString()}{" "}
+                      <PersonIcon sx={{ fontSize: "0.8rem" }} />
+                    </Typography>
+                  </Stack>
+                ))}
               </Stack>
-            ))}
-          </Stack>
-        </Stack>
+            </Stack>
+          )}
+        </>
       )}
     </Paper>
   );

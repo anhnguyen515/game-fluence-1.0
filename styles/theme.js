@@ -349,3 +349,52 @@ export const waveSonicTheme = createTheme({
     },
   },
 });
+
+export const mecha01Theme = createTheme({
+  components: {
+    MuiButton: {
+      defaultProps: {
+        disableElevation: true,
+      },
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: 2,
+        },
+      },
+    },
+  },
+  typography: {
+    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Source Sans Pro"].join(
+      ","
+    ),
+  },
+  palette: {
+    mode: "dark",
+    primary: {
+      light: "#35F060",
+      main: "#45D83A",
+      dark: "#3DBF34",
+    },
+    secondary: {
+      light: "#295154",
+      main: "#0B373A",
+      dark: "#0E4447",
+    },
+    background: {
+      default: "#6331A3",
+      paper: "#6331A3",
+    },
+    text: {
+      light: grey[700],
+      main: grey[500],
+      dark: grey[400],
+    },
+  },
+});

@@ -69,7 +69,7 @@ export default function GenreCard({ genre }) {
         >
           {genre.games_count.toLocaleString()}
         </Typography>{" "}
-        games
+        {genre.games_count > 1 ? "games" : "game"}
       </Typography>
       {(hover || isSmallScreen) && (
         <Stack gap={1} mt={3} sx={{ width: "100%" }}>
