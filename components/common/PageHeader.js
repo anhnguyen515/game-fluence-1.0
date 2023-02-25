@@ -1,6 +1,6 @@
 import { selectTheme } from "@/store/slices/themeSlice";
 import { getTheme } from "@/utils/utils";
-import { Box, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 
 export default function PageHeader({
@@ -12,7 +12,10 @@ export default function PageHeader({
 }) {
   const themeStore = useSelector(selectTheme);
   return (
-    <Box
+    <Stack
+      alignItems={"center"}
+      justifyContent={"center"}
+      gap={1}
       sx={{
         backgroundImage: `linear-gradient(to bottom, ${
           getTheme(themeStore).theme.palette.background.default + "99"
@@ -24,24 +27,13 @@ export default function PageHeader({
         backgroundSize: "cover",
         py: 5,
         px: { xs: 2, md: 5 },
-        border: "none",
-
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
       }}
     >
-      <Typography
-        fontSize={titleFontSize}
-        fontWeight={600}
-        gutterBottom
-        variant="h1"
-      >
+      <Typography fontSize={titleFontSize} fontWeight={600} variant="h1">
         {title}
       </Typography>
       <div>{subtitle}</div>
       <div>{content}</div>
-    </Box>
+    </Stack>
   );
 }
