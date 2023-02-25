@@ -198,7 +198,7 @@ export default function AllGamesPage({ data }) {
         title={title}
         titleFontSize={"2.6rem"}
         content={
-          <Stack alignItems={"center"} direction={"row"} gap={4}>
+          <Stack alignItems={"center"} direction={"row"} gap={3}>
             <Stack alignItems={"center"} direction={"row"} spacing={-1}>
               <Typography>Sorted by</Typography>
               <Select

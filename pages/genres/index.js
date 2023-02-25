@@ -67,12 +67,12 @@ export default function GenresPage({ data }) {
           <Grid container spacing={2}>
             {genres.results.map((item) => (
               <Grid key={item.id} item xs={12} sm={6} md={4} lg={3} xl={2.4}>
-                <GenreCard />
+                <GenreCard genre={item} />
               </Grid>
             ))}
           </Grid>
           {genres.next && (
-            <Stack alignItems={"center"} mt={3}>
+            <Stack alignItems={"center"} mt={3} sx={{ width: "100%" }}>
               <LoadingButton
                 loading={loading}
                 onClick={handleLoadMore}
@@ -83,7 +83,6 @@ export default function GenresPage({ data }) {
               </LoadingButton>
             </Stack>
           )}
-          <pre>{JSON.stringify(genres, null, 2)}</pre>
         </Box>
       </Container>
     </>

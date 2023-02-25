@@ -22,7 +22,8 @@ export default function PageHeader({
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        p: 5,
+        py: 5,
+        border: "none",
 
         display: "flex",
         flexDirection: "column",
