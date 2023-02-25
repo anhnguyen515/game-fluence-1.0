@@ -2,6 +2,7 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Box, Button, Stack } from "@mui/material";
 import React from "react";
+import parse from "html-react-parser";
 
 export default function ReadMore({ paragraph }) {
   const heightRef = React.useRef(null);
@@ -10,7 +11,7 @@ export default function ReadMore({ paragraph }) {
 
   React.useLayoutEffect(() => {
     const height = heightRef.current.clientHeight;
-    setReadMore(height > 57.6); // 57.6px = 3.6rem
+    setReadMore(height > 56);
   }, []);
 
   return (
@@ -18,9 +19,9 @@ export default function ReadMore({ paragraph }) {
       <Box
         className={readMore ? "line-clamp-2" : null}
         ref={heightRef}
-        sx={{ lineHeight: "1.8rem", color: "text.dark" }}
+        sx={{ lineHeight: "32px", color: "text.dark", fontSize: "0.9rem" }}
       >
-        {paragraph}
+        {parse(paragraph)}
       </Box>
       {readMore && (
         <Stack alignItems={"center"} mt={1}>

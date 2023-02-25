@@ -32,8 +32,6 @@ export async function getServerSideProps(context) {
   let ordering =
     !sort || sort === "popularity"
       ? "-added"
-      : sort === "name"
-      ? "-name"
       : sort === "released-date"
       ? "-released"
       : "-metacritic";
@@ -105,10 +103,6 @@ const sortValues = [
   {
     name: "Popularity",
     value: "popularity",
-  },
-  {
-    name: "Name",
-    value: "name",
   },
   {
     name: "Released date",
@@ -240,7 +234,7 @@ export default function AllGamesPage({ data }) {
         <Box sx={{ px: { xs: 1, md: 3 }, py: 3 }}>
           <Grid container spacing={2}>
             {!isSmallScreen && (
-              <Grid item xs={12} md={2} sx={{ position: "relative" }}>
+              <Grid item xs={12} md={2}>
                 <Navigator category={category} subcategory={subcategory} />
               </Grid>
             )}

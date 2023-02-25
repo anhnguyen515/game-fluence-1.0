@@ -12,9 +12,9 @@ import React from "react";
 import { toast } from "react-toastify";
 
 export async function getStaticProps() {
-  const platforms = await getPlatformsListAPI({ page_size: 20 }).then(
-    (res) => res.data
-  );
+  const platforms = await getPlatformsListAPI({
+    page_size: 20,
+  }).then((res) => res.data);
 
   return {
     props: {

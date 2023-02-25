@@ -1,23 +1,48 @@
+import { getGamesListAPI } from "@/apis/game";
 import { getGenreDetailAPI } from "@/apis/genre";
 import PageHeader from "@/components/common/PageHeader";
+import ReadMore from "@/components/common/ReadMore";
+import GameCard from "@/components/Game/GameCard";
 import { SITE_NAME } from "@/utils/constants";
-import { Box, Container, Grid, useMediaQuery, useTheme } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { LoadingButton } from "@mui/lab";
+import {
+  Box,
+  Checkbox,
+  Container,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+  MenuItem,
+  Select,
+  Stack,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+import axios from "axios";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
-import parse from "html-react-parser";
-import ReadMore from "@/components/common/ReadMore";
+import React from "react";
+import { toast } from "react-toastify";
 
-export async function getStaticPaths() {
-  return {
-    paths: [],
-    fallback: "blocking",
-  };
-}
+export async function getServerSideProps(context) {
+  const { slug, sort, reverse } = context.query;
+  let ordering =
+    !sort || sort === "popularity"
+      ? "-added"
+      : sort === "released-date"
+      ? "-released"
+      : "-metacritic";
+  if (reverse === "true") {
+    ordering = ordering.replace("-", "");
+  }
 
-export async function getStaticProps(context) {
-  const { slug } = context.params;
-  const genreDetail = await getGenreDetailAPI(slug).then((res) => res.data);
-  if (genreDetail.detail) {
+  const [genreDetail, genreGames] = await Promise.all([
+    getGenreDetailAPI(slug).then((res) => res.data),
+    getGamesListAPI({ ordering, genres: slug }).then((res) => res.data),
+  ]);
+  if (genreDetail.detail || genreGames.detail) {
     return {
       notFound: true,
     };
@@ -26,17 +51,76 @@ export async function getStaticProps(context) {
   return {
     props: {
       genreDetail,
+      genreGames,
     },
-    revalidate: 60,
   };
 }
 
-export default function GenreDetailPage({ genreDetail }) {
+const sortValues = [
+  {
+    name: "Popularity",
+    value: "popularity",
+  },
+  {
+    name: "Released date",
+    value: "released-date",
+  },
+  {
+    name: "Metascore",
+    value: "metascore",
+  },
+];
+
+export default function GenreDetailPage({ genreDetail, genreGames }) {
   const title = `${genreDetail.name} Games`;
   const router = useRouter();
+  const { slug, ...queries } = router.query;
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  const [games, setGames] = React.useState(genreGames);
+  const [loading, setLoading] = React.useState(false);
+
+  function handleLoadMore() {
+    setLoading(true);
+    axios
+      .get(games.next)
+      .then((res) => {
+        const data = res.data;
+        setGames((prev) => ({
+          ...prev,
+          next: data.next,
+          previous: data.previous,
+          results: [...prev.results, ...data.results],
+        }));
+        setLoading(false);
+      })
+      .catch(() => {
+        toast.error("Something went wrong");
+        setLoading(false);
+      });
+  }
+
+  function handleChangeOrdering(e) {
+    router.push({
+      pathname: `/genres/${slug}`,
+      query: {
+        ...queries,
+        sort: e.target.value,
+      },
+    });
+  }
+
+  function handleReverseOrder(e) {
+    router.push({
+      pathname: `/genres/${slug}`,
+      query: {
+        ...queries,
+        reverse: e.target.checked,
+      },
+    });
+  }
 
   return (
     <>
@@ -50,8 +134,43 @@ export default function GenreDetailPage({ genreDetail }) {
         titleFontSize={"2.6rem"}
         subtitle={
           <Box>
-            <ReadMore paragraph={parse(genreDetail.description)} />
+            <ReadMore paragraph={genreDetail.description} />
           </Box>
+        }
+        content={
+          <Stack alignItems={"center"} direction={"row"} gap={3}>
+            <Stack alignItems={"center"} direction={"row"} spacing={-1}>
+              <Typography>Sorted by</Typography>
+              <Select
+                onChange={handleChangeOrdering}
+                size="small"
+                sx={{
+                  ".MuiOutlinedInput-notchedOutline": {
+                    border: "none",
+                  },
+                }}
+                value={queries.sort || "popularity"}
+              >
+                {sortValues.map((item) => (
+                  <MenuItem key={item.value} value={item.value}>
+                    {item.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Stack>
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={queries.reverse === "true"}
+                    onChange={handleReverseOrder}
+                    size="small"
+                  />
+                }
+                label="Reverse"
+              />
+            </FormGroup>
+          </Stack>
         }
         img={genreDetail.image_background}
       />
@@ -63,8 +182,29 @@ export default function GenreDetailPage({ genreDetail }) {
                 asdasd
               </Grid>
             )}
-            <Grid item xs={12} md={8}>
-              asdasds
+            <Grid item container spacing={2} xs={12} md={10}>
+              {games.results.map((item, index) => (
+                <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+                  <GameCard game={item} />
+                </Grid>
+              ))}
+              {games.next && (
+                <Stack
+                  alignItems={"center"}
+                  mt={3}
+                  ml={2}
+                  sx={{ width: "100%" }}
+                >
+                  <LoadingButton
+                    loading={loading}
+                    onClick={handleLoadMore}
+                    size="large"
+                    startIcon={<ExpandMoreIcon />}
+                  >
+                    Load more
+                  </LoadingButton>
+                </Stack>
+              )}
             </Grid>
           </Grid>
         </Box>
