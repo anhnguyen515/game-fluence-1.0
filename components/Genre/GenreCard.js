@@ -1,7 +1,5 @@
-import { selectTheme } from "@/store/slices/themeSlice";
-import { getTheme } from "@/utils/utils";
+import PersonIcon from "@mui/icons-material/Person";
 import {
-  Divider,
   Paper,
   Stack,
   Typography,
@@ -10,11 +8,8 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import React from "react";
-import { useSelector } from "react-redux";
-import PersonIcon from "@mui/icons-material/Person";
 
 export default function GenreCard({ genre }) {
-  const themeStore = useSelector(selectTheme);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [hover, setHover] = React.useState(false);
@@ -38,16 +33,16 @@ export default function GenreCard({ genre }) {
         justifyContent: "center",
         width: "100%",
         aspectRatio: "1.25/1",
-        backgroundImage: `linear-gradient(to bottom, ${
-          getTheme(themeStore).theme.palette.background.default + "B3"
-        } ,${
-          getTheme(themeStore).theme.palette.background.default + "B3"
-        }), url(${genre.image_background})`,
+        backgroundImage:
+          !hover && !isSmallScreen
+            ? `linear-gradient(to bottom, rgba(21, 21, 21, 0.7), rgba(21, 21, 21, 0.7)), url(${genre.image_background})`
+            : `linear-gradient(to bottom, rgba(21, 21, 21, 0.5), rgba(21, 21, 21, 0.5)), url(${genre.image_background})`,
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         borderRadius: 1,
         transition: "transform 0.1s",
+        color: "white",
         p: 2,
         "&:hover": {
           transform: "scale(1.1)",
@@ -81,7 +76,7 @@ export default function GenreCard({ genre }) {
           <Typography fontSize={"0.9rem"} fontWeight={600} textAlign={"center"}>
             Popular items
           </Typography>
-          <Stack divider={<Divider flexItem />} gap={1}>
+          <Stack gap={1}>
             {genre.games.slice(0, 3).map((item) => (
               <Stack
                 key={item.id}

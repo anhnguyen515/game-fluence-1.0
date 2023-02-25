@@ -67,7 +67,7 @@ export default function PlatformsPage({ data }) {
           <Grid container spacing={2}>
             {platforms.results.map((item) => (
               <Grid key={item.id} item xs={12} sm={6} md={4} lg={3} xl={2.4}>
-                <PlatformCard /> {item.id}
+                <PlatformCard platform={item} />
               </Grid>
             ))}
           </Grid>
@@ -83,7 +83,6 @@ export default function PlatformsPage({ data }) {
               </LoadingButton>
             </Stack>
           )}
-          <pre>{JSON.stringify(platforms, null, 2)}</pre>
         </Box>
       </Container>
     </>
