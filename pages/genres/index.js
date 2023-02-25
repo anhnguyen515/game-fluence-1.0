@@ -1,6 +1,7 @@
 import { getGenresListAPI } from "@/apis/genre";
 import PageHeader from "@/components/common/PageHeader";
 import GenreCard from "@/components/Genre/GenreCard";
+import { SITE_NAME } from "@/utils/constants";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LoadingButton } from "@mui/lab";
 import { Box, Container, Grid, Stack } from "@mui/material";
@@ -24,7 +25,7 @@ export async function getStaticProps() {
 }
 
 export default function GenresPage({ data }) {
-  const title = "Genres";
+  const title = `Genres`;
   const router = useRouter();
   const img =
     data.results[Math.floor(Math.random() * data.results.length)]
@@ -55,13 +56,13 @@ export default function GenresPage({ data }) {
   return (
     <>
       <NextSeo
-        title={title}
+        title={`${title} - ${SITE_NAME}`}
         canonical={router.pathname}
         openGraph={{
           url: router.asPath,
         }}
       />
-      <PageHeader title={title} titleFontSize={"2.4rem"} img={img} />
+      <PageHeader title={title} titleFontSize={"2.6rem"} img={img} />
       <Container maxWidth="2xl">
         <Box sx={{ px: { xs: 1, md: 3 }, py: 3 }}>
           <Grid container spacing={2}>

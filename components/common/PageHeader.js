@@ -23,6 +23,7 @@ export default function PageHeader({
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         py: 5,
+        px: { xs: 2, md: 5 },
         border: "none",
 
         display: "flex",
@@ -39,7 +40,7 @@ export default function PageHeader({
       >
         {title}
       </Typography>
-      <Typography>{subtitle}</Typography>
+      <div>{subtitle}</div>
       <div>{content}</div>
     </Box>
   );

@@ -44,9 +44,7 @@ export default function GenreCard({ genre }) {
         transition: "transform 0.1s",
         color: "white",
         p: 2,
-        "&:hover": {
-          transform: "scale(1.1)",
-        },
+        transform: hover && "scale(1.1)",
       }}
     >
       <Link href={`/genres/${genre.slug}`}>

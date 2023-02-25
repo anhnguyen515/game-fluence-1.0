@@ -388,8 +388,8 @@ export const mecha01Theme = createTheme({
       dark: "#0E4447",
     },
     background: {
-      default: "#6331A3",
-      paper: "#6331A3",
+      default: "#37145F",
+      paper: "#37145F",
     },
     text: {
       light: grey[700],

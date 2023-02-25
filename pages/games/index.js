@@ -2,6 +2,7 @@ import { getGamesListAPI } from "@/apis/game";
 import PageHeader from "@/components/common/PageHeader";
 import GameCard from "@/components/Game/GameCard";
 import Navigator from "@/components/Game/Navigator";
+import { SITE_NAME } from "@/utils/constants";
 import { dateFormat } from "@/utils/utils";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LoadingButton } from "@mui/lab";
@@ -188,7 +189,7 @@ export default function AllGamesPage({ data }) {
   return (
     <>
       <NextSeo
-        title={title}
+        title={`${title} - ${SITE_NAME}`}
         canonical={router.pathname}
         openGraph={{
           url: router.asPath,
