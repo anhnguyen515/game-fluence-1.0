@@ -43,17 +43,16 @@ export default function PlatformCard({ platform }) {
         borderRadius: 1,
         transition: "transform 0.1s",
         color: "white",
-        p: 2,
-        "&:hover": {
-          transform: "scale(1.1)",
-        },
+        p: 1,
+        transform: hover && "scale(1.1)",
       }}
     >
       <Link href={`/platforms/${platform.slug}`}>
         <Typography
           variant="h2"
-          fontSize={"1.6rem"}
+          fontSize={"1.5rem"}
           fontWeight={600}
+          textAlign={"center"}
           sx={{ "&:hover": { color: "primary.light" } }}
         >
           {platform.name}
@@ -90,12 +89,12 @@ export default function PlatformCard({ platform }) {
                     key={item.id}
                     alignItems={"center"}
                     direction={"row"}
-                    flexWrap={"wrap"}
                     gap={1}
                     justifyContent={"space-between"}
                   >
                     <Link href={`/games/${item.slug}`}>
                       <Typography
+                        className="line-clamp-1"
                         fontSize={"0.8rem"}
                         fontWeight={600}
                         sx={{ "&:hover": { color: "primary.light" } }}

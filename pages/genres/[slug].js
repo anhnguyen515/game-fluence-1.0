@@ -3,29 +3,32 @@ import { getGenreDetailAPI } from "@/apis/genre";
 import PageHeader from "@/components/common/PageHeader";
 import ReadMore from "@/components/common/ReadMore";
 import GameCard from "@/components/Game/GameCard";
-import GenresNavigator from "@/components/Genre/GenresNavigator";
 import { SITE_NAME } from "@/utils/constants";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LoadingButton } from "@mui/lab";
 import {
   Box,
-  Checkbox,
   Container,
-  FormControlLabel,
-  FormGroup,
   Grid,
-  MenuItem,
-  Select,
   Stack,
-  Typography,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
 import axios from "axios";
 import { NextSeo } from "next-seo";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import React from "react";
 import { toast } from "react-toastify";
+
+const GenresNavigator = dynamic(
+  () => import("@/components/Genre/GenresNavigator"),
+  { ssr: false }
+);
+
+const SortComp = dynamic(() => import("@/components/common/SortComp"), {
+  ssr: false,
+});
 
 export async function getServerSideProps(context) {
   const { slug, sort, reverse } = context.query;
@@ -57,25 +60,9 @@ export async function getServerSideProps(context) {
   };
 }
 
-const sortValues = [
-  {
-    name: "Popularity",
-    value: "popularity",
-  },
-  {
-    name: "Released date",
-    value: "released-date",
-  },
-  {
-    name: "Metascore",
-    value: "metascore",
-  },
-];
-
 export default function GenreDetailPage({ genreDetail, genreGames }) {
   const title = `${genreDetail.name} Games`;
   const router = useRouter();
-  const { slug, ...queries } = router.query;
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -103,26 +90,6 @@ export default function GenreDetailPage({ genreDetail, genreGames }) {
       });
   }
 
-  function handleChangeOrdering(e) {
-    router.push({
-      pathname: `/genres/${slug}`,
-      query: {
-        ...queries,
-        sort: e.target.value,
-      },
-    });
-  }
-
-  function handleReverseOrder(e) {
-    router.push({
-      pathname: `/genres/${slug}`,
-      query: {
-        ...queries,
-        reverse: e.target.checked,
-      },
-    });
-  }
-
   return (
     <>
       <NextSeo
@@ -138,41 +105,7 @@ export default function GenreDetailPage({ genreDetail, genreGames }) {
             <ReadMore paragraph={genreDetail.description} />
           </Box>
         }
-        content={
-          <Stack alignItems={"center"} direction={"row"} gap={3}>
-            <Stack alignItems={"center"} direction={"row"} spacing={-1}>
-              <Typography>Sorted by</Typography>
-              <Select
-                onChange={handleChangeOrdering}
-                size="small"
-                sx={{
-                  ".MuiOutlinedInput-notchedOutline": {
-                    border: "none",
-                  },
-                }}
-                value={queries.sort || "popularity"}
-              >
-                {sortValues.map((item) => (
-                  <MenuItem key={item.value} value={item.value}>
-                    {item.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </Stack>
-            <FormGroup>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={queries.reverse === "true"}
-                    onChange={handleReverseOrder}
-                    size="small"
-                  />
-                }
-                label="Reverse"
-              />
-            </FormGroup>
-          </Stack>
-        }
+        content={<SortComp />}
         img={genreDetail.image_background}
       />
       <Container maxWidth="2xl">
