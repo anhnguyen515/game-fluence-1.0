@@ -1,5 +1,4 @@
 import { getGamesListAPI } from "@/apis/game";
-import { getGenreDetailAPI } from "@/apis/genre";
 import { getPlatformDetailAPI } from "@/apis/platform";
 import PageHeader from "@/components/common/PageHeader";
 import ReadMore from "@/components/common/ReadMore";
@@ -22,8 +21,8 @@ import { useRouter } from "next/router";
 import React from "react";
 import { toast } from "react-toastify";
 
-const GenresNavigator = dynamic(
-  () => import("@/components/Genre/GenresNavigator"),
+const PlatformsNavigator = dynamic(
+  () => import("@/components/Platform/PlatformsNavigator"),
   { ssr: false }
 );
 
@@ -119,7 +118,7 @@ export default function PlatformDetailPage({ platformDetail, platformGames }) {
           <Grid container spacing={2}>
             {!isSmallScreen && (
               <Grid item xs={12} md={2.4} lg={2}>
-                <GenresNavigator />
+                <PlatformsNavigator />
               </Grid>
             )}
             <Grid item container spacing={2} xs={12} md={9.6} lg={10}>
