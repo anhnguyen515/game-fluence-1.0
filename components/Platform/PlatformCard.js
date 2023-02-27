@@ -43,12 +43,13 @@ export default function PlatformCard({ platform }) {
         borderRadius: 1,
         transition: "transform 0.1s",
         color: "white",
-        p: 1,
+        p: 2,
         transform: hover && "scale(1.1)",
       }}
     >
       <Link href={`/platforms/${platform.slug}`}>
         <Typography
+          className={hover ? "line-clamp-1" : null}
           variant="h2"
           fontSize={"1.5rem"}
           fontWeight={600}

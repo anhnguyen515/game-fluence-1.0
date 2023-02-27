@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 export async function getStaticProps() {
   const genres = await getGenresListAPI({
     ordering: "name",
+    page_size: 20,
   }).then((res) => res.data);
 
   return {
