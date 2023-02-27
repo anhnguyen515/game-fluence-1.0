@@ -12,11 +12,11 @@ export default function PageHeader({
 }) {
   const themeStore = useSelector(selectTheme);
   return (
-    <Stack
+    <Box
       sx={{
         backgroundImage: `linear-gradient(to bottom, ${
           getTheme(themeStore).theme.palette.background.default + "99"
-        } ,${
+        }, ${
           getTheme(themeStore).theme.palette.background.default
         }), url(${img})`,
         backgroundPosition: "center",
@@ -29,7 +29,7 @@ export default function PageHeader({
           alignItems={"center"}
           justifyContent={"center"}
           gap={1}
-          sx={{ px: { xs: 1, md: 3 }, py: 3 }}
+          sx={{ px: { xs: 1, md: 3 }, py: 5 }}
         >
           <Typography fontSize={titleFontSize} fontWeight={600} variant="h1">
             {title}
@@ -38,6 +38,6 @@ export default function PageHeader({
           <div>{content}</div>
         </Stack>
       </Container>
-    </Stack>
+    </Box>
   );
 }

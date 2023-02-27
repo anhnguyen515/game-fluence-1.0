@@ -54,13 +54,14 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
+      slug,
       genreDetail,
       genreGames,
     },
   };
 }
 
-export default function GenreDetailPage({ genreDetail, genreGames }) {
+export default function GenreDetailPage({ slug, genreDetail, genreGames }) {
   const title = `${genreDetail.name} Games`;
   const router = useRouter();
 
@@ -94,7 +95,7 @@ export default function GenreDetailPage({ genreDetail, genreGames }) {
     <>
       <NextSeo
         title={`${title} - ${SITE_NAME}`}
-        canonical={router.pathname}
+        canonical={router.pathname.replace("[slug]", slug)}
         openGraph={{ url: router.asPath }}
       />
       <PageHeader

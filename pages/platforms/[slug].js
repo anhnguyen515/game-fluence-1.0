@@ -59,13 +59,18 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
+      slug,
       platformDetail,
       platformGames,
     },
   };
 }
 
-export default function PlatformDetailPage({ platformDetail, platformGames }) {
+export default function PlatformDetailPage({
+  slug,
+  platformDetail,
+  platformGames,
+}) {
   const title = `${platformDetail.name} Games`;
   const router = useRouter();
 
@@ -99,7 +104,7 @@ export default function PlatformDetailPage({ platformDetail, platformGames }) {
     <>
       <NextSeo
         title={`${title} - ${SITE_NAME}`}
-        canonical={router.pathname}
+        canonical={router.pathname.replace("[slug]", slug)}
         openGraph={{ url: router.asPath }}
       />
       <PageHeader

@@ -54,6 +54,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
+      slug,
       publisherDetail,
       publisherGames,
     },
@@ -61,6 +62,7 @@ export async function getServerSideProps(context) {
 }
 
 export default function PublisherDetailPage({
+  slug,
   publisherDetail,
   publisherGames,
 }) {
@@ -97,7 +99,7 @@ export default function PublisherDetailPage({
     <>
       <NextSeo
         title={`${title} - ${SITE_NAME}`}
-        canonical={router.pathname}
+        canonical={router.pathname.replace("[slug]", slug)}
         openGraph={{ url: router.asPath }}
       />
       <PageHeader

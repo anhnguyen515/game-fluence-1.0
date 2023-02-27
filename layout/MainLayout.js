@@ -21,10 +21,16 @@ export default function MainLayout({ children }) {
         <Footer />
       </Stack>
       <ScrollToTop
-        component={<KeyboardArrowUpIcon />}
+        component={
+          <KeyboardArrowUpIcon
+            sx={{
+              color: getTheme(themeStore).theme.palette.primary.contrastText,
+            }}
+          />
+        }
         smooth
         style={{
-          backgroundColor: getTheme(themeStore).theme.palette.background.paper,
+          backgroundColor: getTheme(themeStore).theme.palette.primary.main,
         }}
       />
       <ToastContainer
@@ -32,9 +38,7 @@ export default function MainLayout({ children }) {
         autoClose={3000}
         hideProgressBar
         newestOnTop
-        theme={
-          getTheme(themeStore).theme.palette.mode === "light" ? "light" : "dark"
-        }
+        theme={getTheme(themeStore).theme.palette.mode}
       />
     </>
   );
