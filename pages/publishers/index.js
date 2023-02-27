@@ -1,6 +1,6 @@
 import { getPublishersListAPI } from "@/apis/publisher";
 import PageHeader from "@/components/common/PageHeader";
-import PublisherCard from "@/components/Publishers/PublisherCard";
+import PublisherCard from "@/components/Publisher/PublisherCard";
 import { SITE_NAME } from "@/utils/constants";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LoadingButton } from "@mui/lab";
