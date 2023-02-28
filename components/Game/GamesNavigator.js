@@ -1,3 +1,5 @@
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import SkipNextIcon from "@mui/icons-material/SkipNext";
 import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
@@ -5,8 +7,6 @@ import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import { Button, Stack } from "@mui/material";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import React from "react";
 
 const routes = [
@@ -53,8 +53,9 @@ const newGamesSubRoutes = [
   },
 ];
 
-export default function GamesNavigator({ category, subcategory }) {
+export default function GamesNavigator() {
   const router = useRouter();
+  const { category, subcategory } = router.query;
   const [showSubcategories, setShowSubcategories] = React.useState(
     category === "new" ? true : false
   );
@@ -64,15 +65,17 @@ export default function GamesNavigator({ category, subcategory }) {
   }
 
   return (
-    <Stack gap={1} sx={{ position: "sticky", top: 16 }}>
+    <>
       {routes.map((item, index) => (
-        <div key={index}>
+        <div key={index} className="w-full ">
           <Button
             color={
-              (!category && !item.category) || category === item.category
+              (router.pathname === "/games" && !category && !item.category) ||
+              category === item.category
                 ? "primary"
                 : "text"
             }
+            fullWidth
             onClick={() => {
               if (item.category !== "new") {
                 router.push(
@@ -92,19 +95,20 @@ export default function GamesNavigator({ category, subcategory }) {
               }
             }}
             size="large"
-            endIcon={showSubcategories ? item.alternateIcon : item.icon}
             sx={{
+              justifyContent: "space-between",
               fontSize: "1.1rem",
               fontWeight:
-                (!category && !item.category) || category === item.category
+                (router.pathname === "/games" && !category && !item.category) ||
+                category === item.category
                   ? "bold"
                   : "normal",
             }}
           >
-            {item.name}
+            {item.name} {showSubcategories ? item.alternateIcon : item.icon}
           </Button>
           {item.category === "new" && showSubcategories && (
-            <Stack alignItems={"flex-start"} gap={1} ml={2} mt={1}>
+            <Stack alignItems={"flex-start"} gap={1} pl={2} mt={1}>
               {newGamesSubRoutes.map((i) => (
                 <Button
                   color={subcategory === i.subcategory ? "primary" : "text"}
@@ -132,6 +136,6 @@ export default function GamesNavigator({ category, subcategory }) {
           )}
         </div>
       ))}
-    </Stack>
+    </>
   );
 }

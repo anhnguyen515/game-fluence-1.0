@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 
 export default function MainLayout({ children }) {
   const themeStore = useSelector(selectTheme);
+
   return (
     <>
       <Stack sx={{ minHeight: "100vh" }}>

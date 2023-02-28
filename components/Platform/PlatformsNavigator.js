@@ -1,5 +1,4 @@
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-import GridViewIcon from "@mui/icons-material/GridView";
 import { Button, Stack } from "@mui/material";
 import { useRouter } from "next/router";
 
@@ -43,17 +42,12 @@ export default function Navigator() {
   const { slug } = router.query;
 
   return (
-    <Stack
-      alignItems={"flex-start"}
-      gap={1}
-      sx={{ position: "sticky", top: 16, overflow: "auto" }}
-    >
+    <>
       <Button
         color="text"
         fullWidth
         onClick={() => router.push(`/platforms`)}
         size="large"
-        startIcon={<GridViewIcon />}
         sx={{
           fontSize: "1.1rem",
           justifyContent: "flex-start",
@@ -65,32 +59,24 @@ export default function Navigator() {
           },
         }}
       >
-        All Platforms{" "}
+        Platforms{" "}
         {<ArrowRightIcon className="is-hover" sx={{ display: "none" }} />}
       </Button>
-      {routes.map((item, index) => (
-        <Button
-          key={index}
-          color={slug === item.slug ? "primary" : "text"}
-          fullWidth
-          onClick={() => router.push(`/platforms/${item.slug}`)}
-          size="large"
-          sx={{
-            fontSize: "1.1rem",
-            fontWeight: slug === item.slug ? "bold" : "normal",
-            justifyContent: "flex-start",
-            "&:hover": {
-              ".is-hover": {
-                display: "block",
-                ml: "auto",
-              },
-            },
-          }}
-        >
-          {item.name}{" "}
-          {<ArrowRightIcon className="is-hover" sx={{ display: "none" }} />}
-        </Button>
-      ))}
-    </Stack>
+      <Stack alignItems={"flex-start"} gap={1} ml={2}>
+        {routes.map((item, index) => (
+          <Button
+            key={index}
+            color={slug === item.slug ? "primary" : "text"}
+            onClick={() => router.push(`/platforms/${item.slug}`)}
+            size="large"
+            sx={{
+              fontWeight: slug === item.slug ? "bold" : "normal",
+            }}
+          >
+            {item.name}
+          </Button>
+        ))}
+      </Stack>
+    </>
   );
 }

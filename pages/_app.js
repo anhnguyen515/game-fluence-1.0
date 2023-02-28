@@ -11,10 +11,10 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import Cookies from "js-cookie";
 import { DefaultSeo } from "next-seo";
 import Head from "next/head";
+import NextNProgress from "nextjs-progressbar";
 import React from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
-import NextNProgress from "nextjs-progressbar";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -99,7 +99,6 @@ function MyApp({ Component, ...rest }) {
           <ThemeProvider theme={getTheme(themeStore).theme}>
             <CssBaseline />
             <MainLayout>
-              {/* {loading && <FullScreenLoader />} */}
               <Component {...pageProps} key={router.asPath} />
             </MainLayout>
           </ThemeProvider>

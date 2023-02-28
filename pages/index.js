@@ -1,6 +1,7 @@
 import { getGamesListAPI } from "@/apis/game";
 import PageHeader from "@/components/common/PageHeader";
 import GamesList from "@/components/Game/Homepage/GamesList";
+import InnerLayout from "@/layout/InnerLayout";
 import { selectUser } from "@/store/slices/userSlice";
 import { SITE_NAME } from "@/utils/constants";
 import { dateFormat } from "@/utils/utils";
@@ -15,13 +16,13 @@ export async function getStaticProps() {
       dates: `${dateFormat(dayjs().subtract(3, "month"))},${dateFormat(
         dayjs().add(6, "month")
       )}`,
-      page_size: 10,
+      page_size: 12,
     }).then((res) => res.data),
     getGamesListAPI({
       dates: `${dateFormat(
         dayjs().subtract(1, "year").startOf("year")
       )},${dateFormat(dayjs().subtract(1, "year").endOf("year"))}`,
-      page_size: 10,
+      page_size: 12,
     }).then((res) => res.data),
   ]);
 
@@ -43,8 +44,7 @@ export default function Home({ newGames, popularGamesLastYear }) {
 
   return (
     <>
-      {/* hero section */}
-      <PageHeader
+      <InnerLayout
         title={
           <>
             Welcome to{" "}
@@ -80,11 +80,8 @@ export default function Home({ newGames, popularGamesLastYear }) {
           </Stack>
         }
         img={heroImage}
-      />
-
-      {/* content section */}
-      <Container maxWidth="2xl">
-        <Stack gap={6} sx={{ px: { xs: 1, md: 3 }, py: 3 }}>
+      >
+        <Stack gap={6}>
           <GamesList
             title={"New & Upcoming"}
             games={newGames}
@@ -96,7 +93,7 @@ export default function Home({ newGames, popularGamesLastYear }) {
             href={"/games?category=popular-last-year"}
           />
         </Stack>
-      </Container>
+      </InnerLayout>
     </>
   );
 }
