@@ -1,7 +1,7 @@
 import { selectTheme, setTheme } from "@/store/slices/themeSlice";
 import { getTheme } from "@/utils/utils";
 import PaletteIcon from "@mui/icons-material/Palette";
-import { IconButton, ListItemIcon, ListItemText } from "@mui/material";
+import { Button, IconButton, ListItemIcon, ListItemText } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Cookies from "js-cookie";
@@ -46,8 +46,10 @@ const themes = [
 export default function ThemePicker() {
   const themeStore = useSelector(selectTheme);
   const dispatch = useDispatch();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -62,16 +64,14 @@ export default function ThemePicker() {
 
   return (
     <div>
-      <IconButton
-        id="basic-button"
-        aria-controls={open ? "basic-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
+      <Button
+        color="text"
         onClick={handleClick}
         size="small"
+        startIcon={<PaletteIcon />}
       >
-        <PaletteIcon sx={{ fontSize: "1rem" }} />
-      </IconButton>
+        {themes.filter((i) => i.value === themeStore)[0].text}
+      </Button>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}

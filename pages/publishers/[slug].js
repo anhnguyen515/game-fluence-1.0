@@ -1,30 +1,18 @@
 import { getGamesListAPI } from "@/apis/game";
 import { getPublisherDetailAPI } from "@/apis/publisher";
-import PageHeader from "@/components/common/PageHeader";
 import ReadMore from "@/components/common/ReadMore";
 import GameCard from "@/components/Game/GameCard";
+import InnerLayout from "@/layout/InnerLayout";
 import { SITE_NAME } from "@/utils/constants";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LoadingButton } from "@mui/lab";
-import {
-  Box,
-  Container,
-  Grid,
-  Stack,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Box, Grid, Stack } from "@mui/material";
 import axios from "axios";
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import React from "react";
 import { toast } from "react-toastify";
-
-const PublishersNavigator = dynamic(
-  () => import("@/components/Publisher/PublishersNavigator"),
-  { ssr: false }
-);
 
 const SortComp = dynamic(() => import("@/components/common/SortComp"), {
   ssr: false,
@@ -69,9 +57,6 @@ export default function PublisherDetailPage({
   const title = `${publisherDetail.name} Games`;
   const router = useRouter();
 
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
-
   const [games, setGames] = React.useState(publisherGames);
   const [loading, setLoading] = React.useState(false);
 
@@ -102,7 +87,7 @@ export default function PublisherDetailPage({
         canonical={router.pathname.replace("[slug]", slug)}
         openGraph={{ url: router.asPath }}
       />
-      <PageHeader
+      <InnerLayout
         title={title}
         titleFontSize={"2.6rem"}
         subtitle={
@@ -112,42 +97,27 @@ export default function PublisherDetailPage({
         }
         content={<SortComp />}
         img={publisherDetail.image_background}
-      />
-      <Container maxWidth="2xl">
-        <Box sx={{ px: { xs: 1, md: 3 }, py: 3 }}>
-          <Grid container spacing={2}>
-            {!isSmallScreen && (
-              <Grid item xs={12} md={2.4} lg={2}>
-                <PublishersNavigator />
-              </Grid>
-            )}
-            <Grid item container spacing={2} xs={12} md={9.6} lg={10}>
-              {games.results.map((item, index) => (
-                <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
-                  <GameCard game={item} />
-                </Grid>
-              ))}
-              {games.next && (
-                <Stack
-                  alignItems={"center"}
-                  mt={3}
-                  ml={2}
-                  sx={{ width: "100%" }}
-                >
-                  <LoadingButton
-                    loading={loading}
-                    onClick={handleLoadMore}
-                    size="large"
-                    startIcon={<ExpandMoreIcon />}
-                  >
-                    Load more
-                  </LoadingButton>
-                </Stack>
-              )}
+      >
+        <Grid container spacing={2}>
+          {games.results.map((item, index) => (
+            <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+              <GameCard game={item} />
             </Grid>
-          </Grid>
-        </Box>
-      </Container>
+          ))}
+        </Grid>
+        {games.next && (
+          <Stack alignItems={"center"} mt={3} ml={2} sx={{ width: "100%" }}>
+            <LoadingButton
+              loading={loading}
+              onClick={handleLoadMore}
+              size="large"
+              startIcon={<ExpandMoreIcon />}
+            >
+              Load more
+            </LoadingButton>
+          </Stack>
+        )}
+      </InnerLayout>
     </>
   );
 }

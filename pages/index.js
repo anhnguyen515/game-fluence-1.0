@@ -1,11 +1,10 @@
 import { getGamesListAPI } from "@/apis/game";
-import PageHeader from "@/components/common/PageHeader";
 import GamesList from "@/components/Game/Homepage/GamesList";
 import InnerLayout from "@/layout/InnerLayout";
 import { selectUser } from "@/store/slices/userSlice";
 import { SITE_NAME } from "@/utils/constants";
 import { dateFormat } from "@/utils/utils";
-import { Button, Container, Stack, Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";

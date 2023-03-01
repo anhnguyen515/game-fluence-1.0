@@ -4,9 +4,9 @@ import {
   blackPinkTheme,
   chicagoTheme,
   defaultTheme,
+  mecha01Theme,
   veryPeriTheme,
   waveSonicTheme,
-  mecha01Theme,
 } from "@/styles/theme";
 import { Box } from "@mui/material";
 import dayjs from "dayjs";
@@ -22,7 +22,7 @@ import {
 } from "react-icons/fa";
 import { GoBrowser } from "react-icons/go";
 import { IoIosPhonePortrait } from "react-icons/io";
-import { SiAtari, SiNintendo, SiSega } from "react-icons/si";
+import { SiAtari, SiNintendoswitch, SiSega } from "react-icons/si";
 
 dayjs.extend(relativeTime);
 
@@ -43,7 +43,7 @@ export function getParentPlatform(platform, size = 16) {
     case "Linux":
       return <FaLinux size={size} />;
     case "Nintendo":
-      return <SiNintendo size={size} />;
+      return <SiNintendoswitch size={size} />;
     case "Atari":
       return <SiAtari size={size} />;
     case "SEGA":

@@ -1,6 +1,7 @@
 import { getGenresListAPI } from "@/apis/genre";
 import PageHeader from "@/components/common/PageHeader";
 import GenreCard from "@/components/Genre/GenreCard";
+import InnerLayout from "@/layout/InnerLayout";
 import { SITE_NAME } from "@/utils/constants";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LoadingButton } from "@mui/lab";
@@ -63,30 +64,27 @@ export default function GenresPage({ data }) {
           url: router.asPath,
         }}
       />
-      <PageHeader title={title} titleFontSize={"2.6rem"} img={img} />
-      <Container maxWidth="2xl">
-        <Box sx={{ px: { xs: 1, md: 3 }, py: 3 }}>
-          <Grid container spacing={2}>
-            {genres.results.map((item) => (
-              <Grid key={item.id} item xs={12} sm={6} md={4} lg={3} xl={2.4}>
-                <GenreCard genre={item} />
-              </Grid>
-            ))}
-          </Grid>
-          {genres.next && (
-            <Stack alignItems={"center"} mt={3} sx={{ width: "100%" }}>
-              <LoadingButton
-                loading={loading}
-                onClick={handleLoadMore}
-                size="large"
-                startIcon={<ExpandMoreIcon />}
-              >
-                Load More
-              </LoadingButton>
-            </Stack>
-          )}
-        </Box>
-      </Container>
+      <InnerLayout title={title} titleFontSize={"2.6rem"} img={img}>
+        <Grid container spacing={2}>
+          {genres.results.map((item) => (
+            <Grid key={item.id} item xs={12} sm={6} md={4} lg={3}>
+              <GenreCard genre={item} />
+            </Grid>
+          ))}
+        </Grid>
+        {genres.next && (
+          <Stack alignItems={"center"} mt={3} sx={{ width: "100%" }}>
+            <LoadingButton
+              loading={loading}
+              onClick={handleLoadMore}
+              size="large"
+              startIcon={<ExpandMoreIcon />}
+            >
+              Load More
+            </LoadingButton>
+          </Stack>
+        )}
+      </InnerLayout>
     </>
   );
 }

@@ -1,10 +1,10 @@
 import { getPublishersListAPI } from "@/apis/publisher";
-import PageHeader from "@/components/common/PageHeader";
 import PublisherCard from "@/components/Publisher/PublisherCard";
+import InnerLayout from "@/layout/InnerLayout";
 import { SITE_NAME } from "@/utils/constants";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LoadingButton } from "@mui/lab";
-import { Box, Container, Grid, Stack } from "@mui/material";
+import { Grid, Stack } from "@mui/material";
 import axios from "axios";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
@@ -62,30 +62,27 @@ export default function GenresPage({ data }) {
           url: router.asPath,
         }}
       />
-      <PageHeader title={title} titleFontSize={"2.6rem"} img={img} />
-      <Container maxWidth="2xl">
-        <Box sx={{ px: { xs: 1, md: 3 }, py: 3 }}>
-          <Grid container spacing={2}>
-            {publishers.results.map((item) => (
-              <Grid key={item.id} item xs={12} sm={6} md={4} lg={3} xl={2.4}>
-                <PublisherCard publisher={item} />
-              </Grid>
-            ))}
-          </Grid>
-          {publishers.next && (
-            <Stack alignItems={"center"} mt={3} sx={{ width: "100%" }}>
-              <LoadingButton
-                loading={loading}
-                onClick={handleLoadMore}
-                size="large"
-                startIcon={<ExpandMoreIcon />}
-              >
-                Load More
-              </LoadingButton>
-            </Stack>
-          )}
-        </Box>
-      </Container>
+      <InnerLayout title={title} titleFontSize={"2.6rem"} img={img}>
+        <Grid container spacing={2}>
+          {publishers.results.map((item) => (
+            <Grid key={item.id} item xs={12} sm={6} md={4} lg={3}>
+              <PublisherCard publisher={item} />
+            </Grid>
+          ))}
+        </Grid>
+        {publishers.next && (
+          <Stack alignItems={"center"} mt={3} sx={{ width: "100%" }}>
+            <LoadingButton
+              loading={loading}
+              onClick={handleLoadMore}
+              size="large"
+              startIcon={<ExpandMoreIcon />}
+            >
+              Load More
+            </LoadingButton>
+          </Stack>
+        )}
+      </InnerLayout>
     </>
   );
 }

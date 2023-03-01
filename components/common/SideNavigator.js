@@ -10,7 +10,19 @@ export default function SideNavigator() {
     <Stack
       alignItems={"flex-start"}
       gap={1}
-      //   sx={{ position: "sticky", top: 16 }}
+      sx={{
+        position: "sticky",
+        top: 16,
+        // maxHeight: "50vh",
+        // overflow: "auto",
+        "::-webkit-scrollbar": {
+          width: 0,
+        },
+        "::-webkit-scrollbar-thumb": {
+          backgroundColor: "text.main",
+          borderRadius: 1,
+        },
+      }}
     >
       <GamesNavigator />
       <GenresNavigator />

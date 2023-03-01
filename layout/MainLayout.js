@@ -22,16 +22,21 @@ export default function MainLayout({ children }) {
         <Footer />
       </Stack>
       <ScrollToTop
+        className="scroll-to-top"
         component={
           <KeyboardArrowUpIcon
             sx={{
-              color: getTheme(themeStore).theme.palette.primary.contrastText,
+              color: getTheme(themeStore).theme.palette.primary.main,
             }}
           />
         }
         smooth
         style={{
-          backgroundColor: getTheme(themeStore).theme.palette.primary.main,
+          backgroundColor:
+            getTheme(themeStore).theme.palette.background.default,
+          border: `2px solid ${
+            getTheme(themeStore).theme.palette.primary.main
+          }`,
         }}
       />
       <ToastContainer

@@ -37,3 +37,13 @@ a {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.scroll-to-top {
+  box-shadow: none;
+  opacity: 0.6;
+  transition: opacity 0.2s linear;
+}
+
+.scroll-to-top:hover {
+  opacity: 1;
+}

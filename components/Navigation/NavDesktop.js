@@ -1,10 +1,9 @@
 import { selectTheme } from "@/store/slices/themeSlice";
 import { getTheme } from "@/utils/utils";
-import { Divider, Stack, Typography } from "@mui/material";
+import { Divider, Stack } from "@mui/material";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 
 const SearchModal = dynamic(() => import("./SearchModal"), { ssr: false });
@@ -15,29 +14,7 @@ const NavAuth = dynamic(() => import("./NavAuth"), {
   ssr: false,
 });
 
-function ActiveLink({ href, item, router }) {
-  return (
-    <>
-      <Link href={href}>
-        <Typography
-          sx={{
-            color: router.pathname.includes(href) ? "primary.light" : "text",
-            fontWeight: router.pathname.includes(href) ? "bold" : "normal",
-            "&:hover": {
-              borderBottom: 1,
-              transition: "all 0.1s",
-            },
-          }}
-        >
-          {item}
-        </Typography>
-      </Link>
-    </>
-  );
-}
-
 export default function NavDesktop() {
-  const router = useRouter();
   const themeStore = useSelector(selectTheme);
 
   return (
@@ -65,17 +42,7 @@ export default function NavDesktop() {
           />
         )}
       </Link>
-      <Stack
-        alignItems={"center"}
-        direction={"row"}
-        divider={<Divider orientation="vertical" flexItem />}
-        gap={3}
-      >
-        <ActiveLink href={"/games"} item={"Games"} router={router} />
-        <ActiveLink href={"/genres"} item={"Genres"} router={router} />
-        <ActiveLink href={"/platforms"} item={"Platforms"} router={router} />
-        <ActiveLink href={"/publishers"} item={"Publishers"} router={router} />
-      </Stack>
+      <SearchModal />
       <Stack
         alignItems={"center"}
         direction={"row"}
@@ -83,7 +50,6 @@ export default function NavDesktop() {
         gap={1}
         sx={{ ml: "auto" }}
       >
-        <SearchModal />
         <NavAuth />
         <ThemePicker />
       </Stack>
