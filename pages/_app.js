@@ -46,13 +46,13 @@ function MyApp({ Component, ...rest }) {
             rel="icon"
             type="image/png"
             sizes="250x181"
-            href="/img/logo-white-250px.png"
+            href="/img/icon-white-250px.png"
           />
           <link
             rel="icon"
             type="image/png"
             sizes="250x181"
-            href="/img/logo-black-250px.png"
+            href="/img/icon-black-250px.png"
           />
         </Head>
         <DefaultSeo

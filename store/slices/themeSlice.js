@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
-  themeName: "",
+  themeName: "defaultTheme",
 };
 
 export const themeSlice = createSlice({
