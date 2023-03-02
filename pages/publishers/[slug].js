@@ -6,10 +6,11 @@ import InnerLayout from "@/layout/InnerLayout";
 import { SITE_NAME } from "@/utils/constants";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LoadingButton } from "@mui/lab";
-import { Box, Grid, Stack } from "@mui/material";
+import { Box, Breadcrumbs, Grid, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { toast } from "react-toastify";
@@ -91,13 +92,22 @@ export default function PublisherDetailPage({
         title={title}
         titleFontSize={"2.6rem"}
         subtitle={
-          <Box>
-            <ReadMore paragraph={publisherDetail.description} />
-          </Box>
+          <Breadcrumbs>
+            <Link href={"/"}>
+              <Typography color={"text.main"}>Home</Typography>
+            </Link>
+            <Link href={"/publishers"}>
+              <Typography color={"text.main"}>Publishers</Typography>
+            </Link>
+            <Typography>{publisherDetail.name}</Typography>
+          </Breadcrumbs>
         }
         content={<SortComp />}
         img={publisherDetail.image_background}
       >
+        <Box mb={3}>
+          <ReadMore paragraph={publisherDetail.description} />
+        </Box>
         <Grid container spacing={2}>
           {games.results.map((item, index) => (
             <Grid key={index} item xs={12} sm={6} md={4} lg={3}>

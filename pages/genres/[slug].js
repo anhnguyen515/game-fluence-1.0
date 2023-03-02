@@ -6,10 +6,11 @@ import InnerLayout from "@/layout/InnerLayout";
 import { SITE_NAME } from "@/utils/constants";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LoadingButton } from "@mui/lab";
-import { Box, Grid, Stack } from "@mui/material";
+import { Box, Breadcrumbs, Grid, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { toast } from "react-toastify";
@@ -87,13 +88,22 @@ export default function GenreDetailPage({ slug, genreDetail, genreGames }) {
         title={title}
         titleFontSize={"2.6rem"}
         subtitle={
-          <Box>
-            <ReadMore paragraph={genreDetail.description} />
-          </Box>
+          <Breadcrumbs>
+            <Link href={"/"}>
+              <Typography color={"text.main"}>Home</Typography>
+            </Link>
+            <Link href={"/genres"}>
+              <Typography color={"text.main"}>Genres</Typography>
+            </Link>
+            <Typography>{genreDetail.name}</Typography>
+          </Breadcrumbs>
         }
         content={<SortComp />}
         img={genreDetail.image_background}
       >
+        <Box mb={3}>
+          <ReadMore paragraph={genreDetail.description} />
+        </Box>
         <Grid container spacing={2}>
           {games.results.map((item, index) => (
             <Grid key={index} item xs={12} sm={6} md={4} lg={3}>

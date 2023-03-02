@@ -33,7 +33,7 @@ export default function GameCard({ game }) {
     <Box sx={{ position: "relative", height: "100%" }}>
       <Card
         elevation={hover ? 24 : 0}
-        variant={hover ? "elevation" : "outlined"}
+        // variant={hover ? "elevation" : "outlined"}
         onMouseOver={() => {
           if (!isSmallScreen) {
             setHover(true);
@@ -90,7 +90,7 @@ export default function GameCard({ game }) {
         )}
         <Link href={`/games/${game.slug}`}>
           <CardMedia
-            sx={{ width: "100%", aspectRatio: "2/1" }}
+            sx={{ width: "100%", aspectRatio: hover ? "2/1" : "3/1" }}
             image={
               game.background_image
                 ? game.background_image
@@ -101,7 +101,7 @@ export default function GameCard({ game }) {
             alt={game.name}
           />
         </Link>
-        <CardContent>
+        <Box py={1} px={hover && 2}>
           {/* title */}
           <Link href={`/games/${game.slug}`}>
             <Typography
@@ -239,7 +239,7 @@ export default function GameCard({ game }) {
               )}
             </Stack>
           )}
-        </CardContent>
+        </Box>
       </Card>
     </Box>
   );

@@ -64,7 +64,7 @@ export default function SortComp() {
               border: "none",
             },
           }}
-          value={queries.sort || "popularity"}
+          defaultValue={queries.sort || "popularity"}
         >
           {sortValues.map((item) => (
             <MenuItem key={item.value} value={item.value}>
@@ -77,7 +77,7 @@ export default function SortComp() {
         <FormControlLabel
           control={
             <Checkbox
-              checked={queries.reverse === "true"}
+              defaultChecked={queries.reverse === "true"}
               onChange={handleReverseOrder}
               size="small"
             />

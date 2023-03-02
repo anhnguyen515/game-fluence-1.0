@@ -32,7 +32,7 @@ export default function GenreCard({ genre }) {
         alignItems: "center",
         justifyContent: "center",
         width: "100%",
-        aspectRatio: "1.25/1",
+        aspectRatio: "1.5/1",
         backgroundImage:
           !hover && !isSmallScreen
             ? `linear-gradient(to bottom, rgba(21, 21, 21, 0.7), rgba(21, 21, 21, 0.7)), url(${genre.image_background})`

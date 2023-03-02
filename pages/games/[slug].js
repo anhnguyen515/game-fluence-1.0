@@ -1,7 +1,9 @@
 import { getGameDetailAPI } from "@/apis/game";
 import InnerLayout from "@/layout/InnerLayout";
 import { SITE_NAME } from "@/utils/constants";
+import { Breadcrumbs, Typography } from "@mui/material";
 import { NextSeo } from "next-seo";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {
@@ -36,6 +38,17 @@ export default function GameDetailPage({ slug, gameDetail }) {
       <InnerLayout
         title={title}
         titleFontSize={"3.5rem"}
+        subtitle={
+          <Breadcrumbs>
+            <Link href={"/"}>
+              <Typography color={"text.main"}>Home</Typography>
+            </Link>
+            <Link href={"/games"}>
+              <Typography color={"text.main"}>Games</Typography>
+            </Link>
+            <Typography>{title}</Typography>
+          </Breadcrumbs>
+        }
         img={gameDetail.background_image}
       >
         <pre>{JSON.stringify(gameDetail, null, 2)}</pre>
