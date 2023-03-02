@@ -102,57 +102,6 @@ export const chicagoTheme = createTheme({
   },
 });
 
-export const veryPeriTheme = createTheme({
-  components: {
-    MuiButton: {
-      defaultProps: {
-        disableElevation: true,
-      },
-      styleOverrides: {
-        root: {
-          textTransform: "none",
-        },
-      },
-    },
-    MuiChip: {
-      styleOverrides: {
-        root: {
-          borderRadius: 2,
-        },
-      },
-    },
-  },
-  typography: {
-    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Source Sans Pro"].join(
-      ","
-    ),
-  },
-  palette: {
-    mode: "light",
-    primary: {
-      light: "#937CDE",
-      main: "#7B7DC8",
-      dark: "#6A6CAD",
-    },
-    secondary: {
-      light: "#83E070",
-      main: "#9FCA70",
-      dark: "#8AB061",
-      contrastText: "#ffffff",
-    },
-    background: {
-      default: "#ffffff",
-      paper: "#ffffff",
-    },
-    text: {
-      primary: grey[800],
-      light: grey[200],
-      main: grey[600],
-      dark: grey[700],
-    },
-  },
-});
-
 // dark themes
 export const blackPinkTheme = createTheme({
   components: {
@@ -301,7 +250,7 @@ export const blackCyanTheme = createTheme({
   },
 });
 
-export const waveSonicTheme = createTheme({
+export const wavezTheme = createTheme({
   components: {
     MuiButton: {
       defaultProps: {
@@ -334,13 +283,13 @@ export const waveSonicTheme = createTheme({
       dark: "#44A828",
     },
     secondary: {
-      light: "#295154",
-      main: "#0B373A",
-      dark: "#0E4447",
+      light: "#48648C",
+      main: "#202D3F",
+      dark: "#1A2433",
     },
     background: {
-      default: "#202D3F",
-      paper: "#202D3F",
+      default: "#0A373B",
+      paper: "#0A373B",
     },
     text: {
       light: grey[700],
@@ -390,6 +339,104 @@ export const mecha01Theme = createTheme({
     background: {
       default: "#37145F",
       paper: "#37145F",
+    },
+    text: {
+      light: grey[700],
+      main: grey[500],
+      dark: grey[400],
+    },
+  },
+});
+
+export const nautilusTheme = createTheme({
+  components: {
+    MuiButton: {
+      defaultProps: {
+        disableElevation: true,
+      },
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: 2,
+        },
+      },
+    },
+  },
+  typography: {
+    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Source Sans Pro"].join(
+      ","
+    ),
+  },
+  palette: {
+    mode: "dark",
+    primary: {
+      light: "#FFF826",
+      main: "#FFCE34",
+      dark: "#E8A623",
+    },
+    secondary: {
+      light: "#183FA1",
+      main: "#1B5789",
+      dark: "#164870",
+    },
+    background: {
+      default: "#24335A",
+      paper: "#24335A",
+    },
+    text: {
+      light: grey[700],
+      main: grey[500],
+      dark: grey[400],
+    },
+  },
+});
+
+export const laserTheme = createTheme({
+  components: {
+    MuiButton: {
+      defaultProps: {
+        disableElevation: true,
+      },
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: 2,
+        },
+      },
+    },
+  },
+  typography: {
+    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Source Sans Pro"].join(
+      ","
+    ),
+  },
+  palette: {
+    mode: "dark",
+    primary: {
+      light: "#FF7396",
+      main: "#F1557C",
+      dark: "#D94C6F",
+    },
+    secondary: {
+      light: "#804ECF",
+      main: "#5C4FB8",
+      dark: "#4E449E",
+    },
+    background: {
+      default: "#3D3775",
+      paper: "#3D3775",
     },
     text: {
       light: grey[700],

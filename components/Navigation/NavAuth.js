@@ -7,7 +7,7 @@ export default function NavAuth() {
   const userStore = useSelector(selectUser);
   return (
     <>
-      <Button size="small" startIcon={<LoginIcon />}>
+      <Button size="small" startIcon={<LoginIcon />} variant="contained">
         Login
       </Button>
     </>

@@ -14,10 +14,6 @@ const themes = [
     text: "Blue on White",
   },
   {
-    value: "veryPeriTheme",
-    text: "Very Peri",
-  },
-  {
     value: "chicagoTheme",
     text: "Chicago",
   },
@@ -34,12 +30,20 @@ const themes = [
     text: "Black & Cyan",
   },
   {
-    value: "waveSonicTheme",
-    text: "Wave Sonic",
+    value: "wavezTheme",
+    text: "Wavez",
   },
   {
     value: "mecha01Theme",
     text: "Mecha-01",
+  },
+  {
+    value: "nautilusTheme",
+    text: "Nautilus",
+  },
+  {
+    value: "neonTheme",
+    text: "Neon",
   },
 ];
 
@@ -65,12 +69,12 @@ export default function ThemePicker() {
   return (
     <div>
       <Button
-        color="text"
+        color="primary"
         onClick={handleClick}
         size="small"
         startIcon={<PaletteIcon />}
       >
-        {themes.filter((i) => i.value === themeStore)[0].text}
+        Theme
       </Button>
       <Menu
         id="basic-menu"

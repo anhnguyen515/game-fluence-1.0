@@ -4,9 +4,10 @@ import {
   blackPinkTheme,
   chicagoTheme,
   defaultTheme,
+  nautilusTheme,
   mecha01Theme,
-  veryPeriTheme,
-  waveSonicTheme,
+  laserTheme,
+  wavezTheme,
 } from "@/styles/theme";
 import { Box } from "@mui/material";
 import dayjs from "dayjs";
@@ -115,13 +116,13 @@ export function getTheme(themeName) {
           />
         ),
       };
-    case "waveSonicTheme":
+    case "wavezTheme":
       return {
-        theme: waveSonicTheme,
+        theme: wavezTheme,
         avatar: (
           <ThemeAvatar
-            primary={waveSonicTheme.palette.primary.main}
-            background={waveSonicTheme.palette.background.default}
+            primary={wavezTheme.palette.primary.main}
+            background={wavezTheme.palette.background.default}
           />
         ),
       };
@@ -135,16 +136,6 @@ export function getTheme(themeName) {
           />
         ),
       };
-    case "veryPeriTheme":
-      return {
-        theme: veryPeriTheme,
-        avatar: (
-          <ThemeAvatar
-            primary={veryPeriTheme.palette.primary.main}
-            background={veryPeriTheme.palette.background.default}
-          />
-        ),
-      };
     case "chicagoTheme":
       return {
         theme: chicagoTheme,
@@ -152,6 +143,26 @@ export function getTheme(themeName) {
           <ThemeAvatar
             primary={chicagoTheme.palette.primary.main}
             background={chicagoTheme.palette.background.default}
+          />
+        ),
+      };
+    case "nautilusTheme":
+      return {
+        theme: nautilusTheme,
+        avatar: (
+          <ThemeAvatar
+            primary={nautilusTheme.palette.primary.main}
+            background={nautilusTheme.palette.background.default}
+          />
+        ),
+      };
+    case "neonTheme":
+      return {
+        theme: laserTheme,
+        avatar: (
+          <ThemeAvatar
+            primary={laserTheme.palette.primary.main}
+            background={laserTheme.palette.background.default}
           />
         ),
       };
