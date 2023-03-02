@@ -1,11 +1,10 @@
 import { getGenresListAPI } from "@/apis/genre";
-import PageHeader from "@/components/common/PageHeader";
-import GenreCard from "@/components/Genre/GenreCard";
+import GeneralItemCard from "@/components/common/GeneralItemCard";
 import InnerLayout from "@/layout/InnerLayout";
 import { SITE_NAME } from "@/utils/constants";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LoadingButton } from "@mui/lab";
-import { Box, Container, Grid, Stack } from "@mui/material";
+import { Grid, Stack } from "@mui/material";
 import axios from "axios";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
@@ -68,7 +67,7 @@ export default function GenresPage({ data }) {
         <Grid container spacing={2}>
           {genres.results.map((item) => (
             <Grid key={item.id} item xs={12} sm={6} md={4} lg={3}>
-              <GenreCard genre={item} />
+              <GeneralItemCard item={item} />
             </Grid>
           ))}
         </Grid>

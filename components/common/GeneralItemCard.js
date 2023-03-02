@@ -7,12 +7,15 @@ import {
   useTheme,
 } from "@mui/material";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 
-export default function GenreCard({ genre }) {
+export default function GeneralItemCard({ item }) {
+  const router = useRouter();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [hover, setHover] = React.useState(false);
+
   return (
     <Paper
       elevation={hover ? 24 : 0}
@@ -35,8 +38,8 @@ export default function GenreCard({ genre }) {
         aspectRatio: "1.5/1",
         backgroundImage:
           !hover && !isSmallScreen
-            ? `linear-gradient(to bottom, rgba(21, 21, 21, 0.7), rgba(21, 21, 21, 0.7)), url(${genre.image_background})`
-            : `linear-gradient(to bottom, rgba(21, 21, 21, 0.5), rgba(21, 21, 21, 0.5)), url(${genre.image_background})`,
+            ? `linear-gradient(to bottom, rgba(21, 21, 21, 0.7), rgba(21, 21, 21, 0.7)), url(${item.image_background})`
+            : `linear-gradient(to bottom, rgba(21, 21, 21, 0.5), rgba(21, 21, 21, 0.5)), url(${item.image_background})`,
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
@@ -47,7 +50,11 @@ export default function GenreCard({ genre }) {
         transform: hover && "scale(1.1)",
       }}
     >
-      <Link href={`/genres/${genre.slug}`}>
+      <Link
+        href={{
+          pathname: router.pathname + item.slug,
+        }}
+      >
         <Typography
           className={hover ? "line-clamp-1" : null}
           variant="h2"
@@ -56,7 +63,7 @@ export default function GenreCard({ genre }) {
           textAlign={"center"}
           sx={{ "&:hover": { color: "primary.light" } }}
         >
-          {genre.name}
+          {item.name}
         </Typography>
       </Link>
 
@@ -67,9 +74,9 @@ export default function GenreCard({ genre }) {
           fontSize={"0.95rem"}
           fontWeight={600}
         >
-          {genre.games_count.toLocaleString()}
+          {item.games_count.toLocaleString()}
         </Typography>{" "}
-        {genre.games_count > 1 ? "games" : "game"}
+        {item.games_count > 1 ? "games" : "game"}
       </Typography>
       {(hover || isSmallScreen) && (
         <Stack gap={1} mt={3} sx={{ width: "100%" }}>
@@ -77,29 +84,29 @@ export default function GenreCard({ genre }) {
             Popular items
           </Typography>
           <Stack gap={1}>
-            {genre.games.slice(0, 3).map((item) => (
+            {item.games.slice(0, 3).map((i) => (
               <Stack
-                key={item.id}
+                key={i.id}
                 alignItems={"center"}
                 direction={"row"}
                 gap={1}
                 justifyContent={"space-between"}
               >
-                <Link href={`/games/${item.slug}`}>
+                <Link href={`/games/${i.slug}`}>
                   <Typography
                     className="line-clamp-1"
                     fontSize={"0.8rem"}
                     fontWeight={600}
                     sx={{ "&:hover": { color: "primary.light" } }}
                   >
-                    {item.name}
+                    {i.name}
                   </Typography>
                 </Link>
                 <Typography
                   fontSize={"0.8rem"}
                   sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
                 >
-                  {item.added.toLocaleString()}{" "}
+                  {i.added.toLocaleString()}{" "}
                   <PersonIcon sx={{ fontSize: "0.8rem" }} />
                 </Typography>
               </Stack>

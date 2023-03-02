@@ -37,7 +37,7 @@ export default function GameDetailPage({ slug, gameDetail }) {
 
       <InnerLayout
         title={title}
-        titleFontSize={"3.5rem"}
+        titleFontSize={"4rem"}
         subtitle={
           <Breadcrumbs>
             <Link href={"/"}>

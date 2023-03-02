@@ -1,4 +1,5 @@
 import { getPlatformsListAPI } from "@/apis/platform";
+import GeneralItemCard from "@/components/common/GeneralItemCard";
 import PlatformCard from "@/components/Platform/PlatformCard";
 import InnerLayout from "@/layout/InnerLayout";
 import { SITE_NAME } from "@/utils/constants";
@@ -66,7 +67,7 @@ export default function PlatformsPage({ data }) {
         <Grid container spacing={2}>
           {platforms.results.map((item) => (
             <Grid key={item.id} item xs={12} sm={6} md={4} lg={3}>
-              <PlatformCard platform={item} />
+              <GeneralItemCard item={item} />
             </Grid>
           ))}
         </Grid>

@@ -1,7 +1,7 @@
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Button, Stack } from "@mui/material";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 
@@ -9,54 +9,37 @@ const routes = [
   {
     name: "Bethesda Softworks",
     slug: "bethesda-softworks",
-    icon: (
-      <Image
-        alt="Bethesda logo"
-        src={"/img/bethesda-svgrepo-com.svg"}
-        width={24}
-        height={24}
-      />
-    ),
+    endIcon: null,
+  },
+  {
+    name: "Capcom",
+    slug: "capcom",
+    endIcon: null,
   },
   {
     name: "Electronic Arts",
     slug: "electronic-arts",
-    icon: (
-      <Image
-        alt="Electronic Arts logo"
-        src={"/img/electronic-arts-svgrepo-com.svg"}
-        width={24}
-        height={24}
-      />
-    ),
+    endIcon: null,
   },
   {
     name: "Square Enix",
     slug: "square-enix",
-    icon: (
-      <Image
-        alt="Square Enix logo"
-        src={"/img/square-enix-svgrepo-com.svg"}
-        width={24}
-        height={24}
-      />
-    ),
+    endIcon: null,
   },
   {
     name: "Ubisoft Entertainment",
     slug: "ubisoft-entertainment",
-    icon: (
-      <Image
-        alt="Ubisoft Entertainment logo"
-        src={"/img/uplay-svgrepo-com.svg"}
-        width={24}
-        height={24}
-      />
-    ),
+    endIcon: null,
+  },
+  {
+    name: "Valve",
+    slug: "valve",
+    endIcon: null,
   },
   {
     name: "All Publishers",
     slug: null,
+    endIcon: <ArrowRightIcon />,
   },
 ];
 
@@ -94,13 +77,14 @@ export default function GamesNavigator() {
           <Stack alignItems={"flex-start"} gap={1} pl={2} mt={1}>
             {routes.map((i) => (
               <Button
+                key={i.slug}
                 color={
                   slug === i.slug ||
                   (router.pathname.includes("/publishers") && !i.slug && !slug)
                     ? "primary"
                     : "text"
                 }
-                key={i.slug}
+                endIcon={i.endIcon}
                 onClick={() =>
                   router.push({
                     pathname: i.slug ? `/publishers/${i.slug}` : "/publishers",

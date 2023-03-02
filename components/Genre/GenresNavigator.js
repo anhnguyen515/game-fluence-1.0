@@ -1,3 +1,4 @@
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Button, Stack } from "@mui/material";
@@ -17,36 +18,43 @@ const routes = [
     name: "Action",
     slug: "action",
     icon: <GiRustySword />,
+    endIcon: null,
   },
   {
     name: "Adventure",
     slug: "adventure",
     icon: <MdExplore />,
+    endIcon: null,
   },
   {
     name: "Platformer",
     slug: "platformer",
     icon: <GiFloatingPlatforms />,
+    endIcon: null,
   },
   {
     name: "Shooter",
     slug: "shooter",
     icon: <GiGunshot />,
+    endIcon: null,
   },
   {
     name: "RPG",
     slug: "role-playing-games-rpg",
     icon: <GiRunningNinja />,
+    endIcon: null,
   },
   {
     name: "Fighting",
     slug: "fighting",
     icon: <GiPunch />,
+    endIcon: null,
   },
   {
     name: "All Genres",
     slug: null,
     icon: null,
+    endIcon: <ArrowRightIcon />,
   },
 ];
 
@@ -81,13 +89,14 @@ export default function GamesNavigator() {
           <Stack alignItems={"flex-start"} gap={1} pl={2} mt={1}>
             {routes.map((i) => (
               <Button
+                key={i.slug}
                 color={
                   slug === i.slug ||
                   (router.pathname.includes("/genres") && !i.slug && !slug)
                     ? "primary"
                     : "text"
                 }
-                key={i.slug}
+                endIcon={i.endIcon}
                 onClick={() =>
                   router.push({
                     pathname: i.slug ? `/genres/${i.slug}` : "/genres",

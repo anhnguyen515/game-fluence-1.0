@@ -1,5 +1,5 @@
 import { getPublishersListAPI } from "@/apis/publisher";
-import PublisherCard from "@/components/Publisher/PublisherCard";
+import GeneralItemCard from "@/components/common/GeneralItemCard";
 import InnerLayout from "@/layout/InnerLayout";
 import { SITE_NAME } from "@/utils/constants";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -66,7 +66,7 @@ export default function GenresPage({ data }) {
         <Grid container spacing={2}>
           {publishers.results.map((item) => (
             <Grid key={item.id} item xs={12} sm={6} md={4} lg={3}>
-              <PublisherCard publisher={item} />
+              <GeneralItemCard item={item} />
             </Grid>
           ))}
         </Grid>

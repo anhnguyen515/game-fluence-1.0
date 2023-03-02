@@ -3,7 +3,7 @@ import React from "react";
 import GamesNavigator from "../Game/GamesNavigator";
 import GenresNavigator from "../Genre/GenresNavigator";
 import PlatformsNavigator from "../Platform/PlatformsNavigator";
-// import PublishersNavigator from "../Publisher/PublishersNavigator";
+import PublishersNavigator from "../Publisher/PublishersNavigator";
 
 export default function SideNavigator() {
   return (
@@ -13,8 +13,8 @@ export default function SideNavigator() {
       sx={{
         position: "sticky",
         top: 16,
-        // maxHeight: "50vh",
-        // overflow: "auto",
+        maxHeight: "100vh",
+        overflow: "auto",
         "::-webkit-scrollbar": {
           width: 0,
         },
@@ -27,7 +27,7 @@ export default function SideNavigator() {
       <GamesNavigator />
       <GenresNavigator />
       <PlatformsNavigator />
-      {/* <PublishersNavigator /> */}
+      <PublishersNavigator />
     </Stack>
   );
 }

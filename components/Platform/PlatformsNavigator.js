@@ -1,3 +1,4 @@
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Button, Stack } from "@mui/material";
@@ -12,36 +13,43 @@ const routes = [
     name: "PC",
     slug: "pc",
     icon: <FaWindows />,
+    endIcon: null,
   },
   {
     name: "PlayStation 5",
     slug: "playstation5",
     icon: <FaPlaystation />,
+    endIcon: null,
   },
   {
     name: "Xbox Series S/X",
     slug: "xbox-series-x",
     icon: <FaXbox />,
+    endIcon: null,
   },
   {
     name: "Nintendo Switch",
     slug: "nintendo-switch",
     icon: <SiNintendoswitch />,
+    endIcon: null,
   },
   {
     name: "iOS",
     slug: "ios",
     icon: <IoIosPhonePortrait />,
+    endIcon: null,
   },
   {
     name: "Android",
     slug: "android",
     icon: <FaAndroid />,
+    endIcon: null,
   },
   {
     name: "All Platforms",
     slug: null,
     icon: null,
+    endIcon: <ArrowRightIcon />,
   },
 ];
 
@@ -79,13 +87,14 @@ export default function GamesNavigator() {
           <Stack alignItems={"flex-start"} gap={1} pl={2} mt={1}>
             {routes.map((i) => (
               <Button
+                key={i.slug}
                 color={
                   slug === i.slug ||
                   (router.pathname.includes("/platforms") && !i.slug && !slug)
                     ? "primary"
                     : "text"
                 }
-                key={i.slug}
+                endIcon={i.endIcon}
                 onClick={() =>
                   router.push({
                     pathname: i.slug ? `/platforms/${i.slug}` : "/platforms",

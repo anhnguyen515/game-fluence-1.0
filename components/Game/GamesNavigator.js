@@ -1,3 +1,4 @@
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
@@ -15,31 +16,37 @@ const routes = [
     name: `Popular In ${dayjs().subtract(1, "year").year()}`,
     category: "popular-last-year",
     icon: <GiTrophy />,
+    endIcon: null,
   },
   {
     name: "New & upcoming",
     category: "new-and-upcoming",
     icon: <StarRoundedIcon />,
+    endIcon: null,
   },
   {
     name: "Last 30 days",
     category: "last-30-days",
     icon: <SkipPreviousIcon />,
+    endIcon: null,
   },
   {
     name: "This week",
     category: "this-week",
     icon: <LocalFireDepartmentIcon />,
+    endIcon: null,
   },
   {
     name: "Next week",
     category: "next-week",
     icon: <SkipNextIcon />,
+    endIcon: null,
   },
   {
     name: "All Games",
     category: null,
     icon: null,
+    endIcon: <ArrowRightIcon />,
   },
 ];
 
@@ -74,6 +81,7 @@ export default function GamesNavigator() {
           <Stack alignItems={"flex-start"} gap={1} pl={2} mt={1}>
             {routes.map((i) => (
               <Button
+                key={i.slug}
                 color={
                   category === i.category ||
                   (router.pathname.includes("/games") &&
@@ -82,7 +90,7 @@ export default function GamesNavigator() {
                     ? "primary"
                     : "text"
                 }
-                key={i.slug}
+                endIcon={i.endIcon}
                 onClick={() =>
                   router.push({
                     pathname: "/games",
