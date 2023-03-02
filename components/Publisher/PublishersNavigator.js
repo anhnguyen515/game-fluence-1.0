@@ -1,37 +1,58 @@
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Button, Stack } from "@mui/material";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 
 const routes = [
   {
+    name: "Bethesda Softworks",
+    slug: "bethesda-softworks",
+    icon: (
+      <Image
+        alt="Bethesda logo"
+        src={"/img/bethesda-svgrepo-com.svg"}
+        width={24}
+        height={24}
+      />
+    ),
+  },
+  {
     name: "Electronic Arts",
     slug: "electronic-arts",
+    icon: (
+      <Image
+        alt="Electronic Arts logo"
+        src={"/img/electronic-arts-svgrepo-com.svg"}
+        width={24}
+        height={24}
+      />
+    ),
   },
   {
     name: "Square Enix",
     slug: "square-enix",
+    icon: (
+      <Image
+        alt="Square Enix logo"
+        src={"/img/square-enix-svgrepo-com.svg"}
+        width={24}
+        height={24}
+      />
+    ),
   },
   {
     name: "Ubisoft Entertainment",
     slug: "ubisoft-entertainment",
-  },
-  {
-    name: "Microsoft Studios",
-    slug: "microsoft-studios",
-  },
-  {
-    name: "Capcom",
-    slug: "capcom",
-  },
-  {
-    name: "2K Games",
-    slug: "2k-games",
-  },
-  {
-    name: "Bethesda Softworks",
-    slug: "bethesda-softworks",
+    icon: (
+      <Image
+        alt="Ubisoft Entertainment logo"
+        src={"/img/uplay-svgrepo-com.svg"}
+        width={24}
+        height={24}
+      />
+    ),
   },
   {
     name: "All Publishers",

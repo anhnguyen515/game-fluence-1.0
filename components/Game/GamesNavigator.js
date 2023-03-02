@@ -8,56 +8,46 @@ import { Button, Stack } from "@mui/material";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import React from "react";
+import { GiTrophy } from "react-icons/gi";
 
 const routes = [
   {
-    name: "All Games",
-    category: null,
-    icon: null,
-    alternateIcon: null,
-  },
-  {
     name: `Popular In ${dayjs().subtract(1, "year").year()}`,
     category: "popular-last-year",
-    icon: null,
-    alternateIcon: null,
+    icon: <GiTrophy />,
   },
-  {
-    name: "New Releases",
-    category: "new",
-    icon: <ExpandMoreIcon />,
-    alternateIcon: <ExpandLessIcon />,
-  },
-];
-
-const newGamesSubRoutes = [
   {
     name: "New & upcoming",
-    subcategory: "new-and-upcoming",
+    category: "new-and-upcoming",
     icon: <StarRoundedIcon />,
   },
   {
     name: "Last 30 days",
-    subcategory: "last-30-days",
+    category: "last-30-days",
     icon: <SkipPreviousIcon />,
   },
   {
     name: "This week",
-    subcategory: "this-week",
+    category: "this-week",
     icon: <LocalFireDepartmentIcon />,
   },
   {
     name: "Next week",
-    subcategory: "next-week",
+    category: "next-week",
     icon: <SkipNextIcon />,
+  },
+  {
+    name: "All Games",
+    category: null,
+    icon: null,
   },
 ];
 
 export default function GamesNavigator() {
   const router = useRouter();
-  const { category, subcategory } = router.query;
+  const { category } = router.query;
   const [showSubcategories, setShowSubcategories] = React.useState(
-    category === "new" ? true : false
+    router.pathname.includes("/games") ? true : false
   );
 
   function handleShowSubcategories() {
@@ -66,76 +56,59 @@ export default function GamesNavigator() {
 
   return (
     <>
-      {routes.map((item, index) => (
-        <div key={index} className="w-full ">
-          <Button
-            color={
-              (router.pathname === "/games" && !category && !item.category) ||
-              category === item.category
-                ? "primary"
-                : "text"
-            }
-            fullWidth
-            onClick={() => {
-              if (item.category !== "new") {
-                router.push(
-                  item.category
-                    ? {
-                        pathname: "/games",
-                        query: {
-                          category: item.category,
-                        },
-                      }
-                    : {
-                        pathname: "/games",
-                      }
-                );
-              } else {
-                handleShowSubcategories();
-              }
-            }}
-            size="large"
-            sx={{
-              justifyContent: "space-between",
-              fontSize: "1.1rem",
-              fontWeight:
-                (router.pathname === "/games" && !category && !item.category) ||
-                category === item.category
-                  ? "bold"
-                  : "normal",
-            }}
-          >
-            {item.name} {showSubcategories ? item.alternateIcon : item.icon}
-          </Button>
-          {item.category === "new" && showSubcategories && (
-            <Stack alignItems={"flex-start"} gap={1} pl={2} mt={1}>
-              {newGamesSubRoutes.map((i) => (
-                <Button
-                  color={subcategory === i.subcategory ? "primary" : "text"}
-                  key={i.subcategory}
-                  onClick={() =>
-                    router.push({
-                      pathname: "/games",
-                      query: {
-                        category: item.category,
-                        subcategory: i.subcategory,
-                      },
-                    })
-                  }
-                  size="large"
-                  startIcon={i.icon}
-                  sx={{
-                    fontWeight:
-                      subcategory === i.subcategory ? "bold" : "normal",
-                  }}
-                >
-                  {i.name}
-                </Button>
-              ))}
-            </Stack>
-          )}
-        </div>
-      ))}
+      <div className="w-full ">
+        <Button
+          color={router.pathname.includes("/games") ? "primary" : "text"}
+          fullWidth
+          onClick={() => handleShowSubcategories()}
+          size="large"
+          sx={{
+            justifyContent: "space-between",
+            fontSize: "1.1rem",
+            fontWeight: router.pathname.includes("/games") ? "bold" : "normal",
+          }}
+        >
+          Games {showSubcategories ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        </Button>
+        {showSubcategories && (
+          <Stack alignItems={"flex-start"} gap={1} pl={2} mt={1}>
+            {routes.map((i) => (
+              <Button
+                color={
+                  category === i.category ||
+                  (router.pathname.includes("/games") &&
+                    !i.category &&
+                    !category)
+                    ? "primary"
+                    : "text"
+                }
+                key={i.slug}
+                onClick={() =>
+                  router.push({
+                    pathname: "/games",
+                    query: {
+                      category: i.category,
+                    },
+                  })
+                }
+                size="large"
+                startIcon={i.icon}
+                sx={{
+                  fontWeight:
+                    category === i.category ||
+                    (router.pathname.includes("/games") &&
+                      !i.category &&
+                      !category)
+                      ? "bold"
+                      : "normal",
+                }}
+              >
+                {i.name}
+              </Button>
+            ))}
+          </Stack>
+        )}
+      </div>
     </>
   );
 }
