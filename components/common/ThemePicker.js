@@ -45,6 +45,14 @@ const themes = [
     value: "neonTheme",
     text: "Neon",
   },
+  {
+    value: "blueSamuraiTheme",
+    text: "Blue Samurai",
+  },
+  {
+    value: "redSamuraiTheme",
+    text: "Red Samurai",
+  },
 ];
 
 export default function ThemePicker() {

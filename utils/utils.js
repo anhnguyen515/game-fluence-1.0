@@ -2,11 +2,13 @@ import {
   blackCyanTheme,
   blackGoldTheme,
   blackPinkTheme,
+  blueSamuraiTheme,
   chicagoTheme,
   defaultTheme,
-  nautilusTheme,
-  mecha01Theme,
   laserTheme,
+  mecha01Theme,
+  nautilusTheme,
+  redSamuraiTheme,
   wavezTheme,
 } from "@/styles/theme";
 import { Box } from "@mui/material";
@@ -163,6 +165,26 @@ export function getTheme(themeName) {
           <ThemeAvatar
             primary={laserTheme.palette.primary.main}
             background={laserTheme.palette.background.default}
+          />
+        ),
+      };
+    case "blueSamuraiTheme":
+      return {
+        theme: blueSamuraiTheme,
+        avatar: (
+          <ThemeAvatar
+            primary={blueSamuraiTheme.palette.primary.main}
+            background={blueSamuraiTheme.palette.background.default}
+          />
+        ),
+      };
+    case "redSamuraiTheme":
+      return {
+        theme: redSamuraiTheme,
+        avatar: (
+          <ThemeAvatar
+            primary={redSamuraiTheme.palette.primary.main}
+            background={redSamuraiTheme.palette.background.default}
           />
         ),
       };

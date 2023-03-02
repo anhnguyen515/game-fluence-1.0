@@ -445,3 +445,101 @@ export const laserTheme = createTheme({
     },
   },
 });
+
+export const blueSamuraiTheme = createTheme({
+  components: {
+    MuiButton: {
+      defaultProps: {
+        disableElevation: true,
+      },
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: 2,
+        },
+      },
+    },
+  },
+  typography: {
+    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Source Sans Pro"].join(
+      ","
+    ),
+  },
+  palette: {
+    mode: "dark",
+    primary: {
+      light: "#E8BC43",
+      main: "#D09E47",
+      dark: "#B88B3E",
+    },
+    secondary: {
+      light: "#828282",
+      main: "#363636",
+      dark: "#333333",
+    },
+    background: {
+      default: "#172643",
+      paper: "#172643",
+    },
+    text: {
+      light: grey[700],
+      main: grey[500],
+      dark: grey[400],
+    },
+  },
+});
+
+export const redSamuraiTheme = createTheme({
+  components: {
+    MuiButton: {
+      defaultProps: {
+        disableElevation: true,
+      },
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: 2,
+        },
+      },
+    },
+  },
+  typography: {
+    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Source Sans Pro"].join(
+      ","
+    ),
+  },
+  palette: {
+    mode: "dark",
+    primary: {
+      light: "#E8BC43",
+      main: "#D09E47",
+      dark: "#B88B3E",
+    },
+    secondary: {
+      light: "#828282",
+      main: "#363636",
+      dark: "#333333",
+    },
+    background: {
+      default: "#4A1310",
+      paper: "#4A1310",
+    },
+    text: {
+      light: grey[700],
+      main: grey[500],
+      dark: grey[400],
+    },
+  },
+});
