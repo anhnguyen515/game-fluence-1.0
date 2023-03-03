@@ -1,5 +1,5 @@
+import { getDeveloperDetailAPI } from "@/apis/developer";
 import { getGamesListAPI } from "@/apis/game";
-import { getPlatformDetailAPI } from "@/apis/platform";
 import ReadMore from "@/components/common/ReadMore";
 import GameCard from "@/components/Game/GameCard";
 import InnerLayout from "@/layout/InnerLayout";
@@ -31,16 +31,11 @@ export async function getServerSideProps(context) {
     ordering = ordering.replace("-", "");
   }
 
-  const platformDetail = await getPlatformDetailAPI(slug).then(
-    (res) => res.data
-  );
-
-  const platformGames = await getGamesListAPI({
-    ordering,
-    platforms: platformDetail.id,
-  }).then((res) => res.data);
-
-  if (platformDetail.detail || platformGames.detail) {
+  const [developerDetail, developerGames] = await Promise.all([
+    getDeveloperDetailAPI(slug).then((res) => res.data),
+    getGamesListAPI({ ordering, developers: slug }).then((res) => res.data),
+  ]);
+  if (developerDetail.detail || developerGames.detail) {
     return {
       notFound: true,
     };
@@ -49,21 +44,21 @@ export async function getServerSideProps(context) {
   return {
     props: {
       slug,
-      platformDetail,
-      platformGames,
+      developerDetail,
+      developerGames,
     },
   };
 }
 
-export default function PlatformDetailPage({
+export default function DeveloperDetailPage({
   slug,
-  platformDetail,
-  platformGames,
+  developerDetail,
+  developerGames,
 }) {
-  const title = `Games for ${platformDetail.name}`;
+  const title = `Developed by ${developerDetail.name}`;
   const router = useRouter();
 
-  const [games, setGames] = React.useState(platformGames);
+  const [games, setGames] = React.useState(developerGames);
   const [loading, setLoading] = React.useState(false);
 
   function handleLoadMore() {
@@ -101,17 +96,17 @@ export default function PlatformDetailPage({
             <Link href={"/"}>
               <Typography color={"text.main"}>Home</Typography>
             </Link>
-            <Link href={"/platforms"}>
-              <Typography color={"text.main"}>Platforms</Typography>
+            <Link href={"/developers"}>
+              <Typography color={"text.main"}>Developers</Typography>
             </Link>
-            <Typography>{platformDetail.name}</Typography>
+            <Typography>{developerDetail.name}</Typography>
           </Breadcrumbs>
         }
         content={<SortComp />}
-        img={platformDetail.image_background}
+        img={developerDetail.image_background}
       >
         <Box mb={3}>
-          <ReadMore paragraph={platformDetail.description} />
+          <ReadMore paragraph={developerDetail.description} />
         </Box>
         <Grid container spacing={2}>
           {games.results.map((item, index) => (

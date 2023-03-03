@@ -55,7 +55,7 @@ export default function PublisherDetailPage({
   publisherDetail,
   publisherGames,
 }) {
-  const title = `${publisherDetail.name} Games`;
+  const title = `Published by ${publisherDetail.name}`;
   const router = useRouter();
 
   const [games, setGames] = React.useState(publisherGames);
@@ -116,7 +116,7 @@ export default function PublisherDetailPage({
           ))}
         </Grid>
         {games.next && (
-          <Stack alignItems={"center"} mt={3} ml={2} sx={{ width: "100%" }}>
+          <Stack alignItems={"center"} mt={3} sx={{ width: "100%" }}>
             <LoadingButton
               loading={loading}
               onClick={handleLoadMore}

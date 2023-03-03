@@ -24,7 +24,7 @@ export async function getStaticProps() {
   };
 }
 
-export default function GenresPage({ data }) {
+export default function PublishersPage({ data }) {
   const title = `Publishers`;
   const router = useRouter();
   const img =

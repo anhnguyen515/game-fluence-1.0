@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import React from "react";
+import DevelopersNavigator from "../Developer/DevelopersNavigator";
 import GamesNavigator from "../Game/GamesNavigator";
 import GenresNavigator from "../Genre/GenresNavigator";
 import PlatformsNavigator from "../Platform/PlatformsNavigator";
@@ -27,6 +27,7 @@ export default function SideNavigator() {
       <GamesNavigator />
       <GenresNavigator />
       <PlatformsNavigator />
+      <DevelopersNavigator />
       <PublishersNavigator />
     </Stack>
   );

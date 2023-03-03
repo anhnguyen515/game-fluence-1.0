@@ -1,4 +1,4 @@
-import { getPlatformsListAPI } from "@/apis/platform";
+import { getDevelopersListAPI } from "@/apis/developer";
 import GeneralItemCard from "@/components/common/GeneralItemCard";
 import InnerLayout from "@/layout/InnerLayout";
 import { SITE_NAME } from "@/utils/constants";
@@ -12,35 +12,35 @@ import React from "react";
 import { toast } from "react-toastify";
 
 export async function getStaticProps() {
-  const platforms = await getPlatformsListAPI({
-    page_size: 20,
-  }).then((res) => res.data);
+  const developers = await getDevelopersListAPI({ page_size: 20 }).then(
+    (res) => res.data
+  );
 
   return {
     props: {
-      data: platforms,
+      data: developers,
     },
     revalidate: 60,
   };
 }
 
-export default function PlatformsPage({ data }) {
-  const title = `Platforms`;
+export default function DevelopersPage({ data }) {
+  const title = `Developers`;
   const router = useRouter();
   const img =
     data.results[Math.floor(Math.random() * data.results.length)]
       .image_background;
 
-  const [platforms, setPlatforms] = React.useState(data);
+  const [developers, setDevelopers] = React.useState(data);
   const [loading, setLoading] = React.useState(false);
 
   function handleLoadMore() {
     setLoading(true);
     axios
-      .get(platforms.next)
+      .get(developers.next)
       .then((res) => {
         const data = res.data;
-        setPlatforms((prev) => ({
+        setDevelopers((prev) => ({
           ...prev,
           next: data.next,
           previous: data.previous,
@@ -64,14 +64,14 @@ export default function PlatformsPage({ data }) {
       />
       <InnerLayout title={title} titleFontSize={"2.6rem"} img={img}>
         <Grid container spacing={2}>
-          {platforms.results.map((item) => (
+          {developers.results.map((item) => (
             <Grid key={item.id} item xs={12} sm={6} md={4} lg={3}>
               <GeneralItemCard item={item} />
             </Grid>
           ))}
         </Grid>
-        {platforms.next && (
-          <Stack alignItems={"center"} mt={3}>
+        {developers.next && (
+          <Stack alignItems={"center"} mt={3} sx={{ width: "100%" }}>
             <LoadingButton
               loading={loading}
               onClick={handleLoadMore}

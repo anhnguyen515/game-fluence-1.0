@@ -24,14 +24,16 @@ export default function ReadMore({ paragraph }) {
         {parse(paragraph)}
       </Box>
       {readMore && (
-        <Button
-          color="text"
-          onClick={() => setReadMore((prev) => !prev)}
-          size="small"
-          startIcon={readMore ? <ExpandMoreIcon /> : <ExpandLessIcon />}
-        >
-          {readMore ? "Read more" : "Show less"}
-        </Button>
+        <Stack alignItems={"flex-end"}>
+          <Button
+            color="text"
+            onClick={() => setReadMore((prev) => !prev)}
+            size="small"
+            startIcon={readMore ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+          >
+            {readMore ? "Read more" : "Show less"}
+          </Button>
+        </Stack>
       )}
     </>
   );

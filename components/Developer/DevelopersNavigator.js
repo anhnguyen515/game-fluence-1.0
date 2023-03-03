@@ -4,65 +4,45 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Button, Stack } from "@mui/material";
 import { useRouter } from "next/router";
 import React from "react";
-import {
-  GiFloatingPlatforms,
-  GiGunshot,
-  GiPunch,
-  GiRunningNinja,
-  GiRustySword,
-} from "react-icons/gi";
-import { MdExplore } from "react-icons/md";
 
 const routes = [
   {
-    name: "Action",
-    slug: "action",
-    icon: <GiRustySword />,
+    name: "Ubisoft",
+    slug: "ubisoft",
     endIcon: null,
   },
   {
-    name: "Adventure",
-    slug: "adventure",
-    icon: <MdExplore />,
+    name: "Valve Software",
+    slug: "valve-software",
     endIcon: null,
   },
   {
-    name: "Platformer",
-    slug: "platformer",
-    icon: <GiFloatingPlatforms />,
+    name: "Feral Interactive",
+    slug: "feral-interactive",
     endIcon: null,
   },
   {
-    name: "Shooter",
-    slug: "shooter",
-    icon: <GiGunshot />,
+    name: "Square Enix",
+    slug: "square-enix",
     endIcon: null,
   },
   {
-    name: "RPG",
-    slug: "role-playing-games-rpg",
-    icon: <GiRunningNinja />,
+    name: "Capcom",
+    slug: "capcom",
     endIcon: null,
   },
   {
-    name: "Fighting",
-    slug: "fighting",
-    icon: <GiPunch />,
-    endIcon: null,
-  },
-  {
-    name: "All Genres",
+    name: "All Publishers",
     slug: null,
-    icon: null,
     endIcon: <ArrowRightIcon />,
   },
 ];
 
-export default function GenresNavigator() {
+export default function DevelopersNavigator() {
   const router = useRouter();
   const { slug } = router.query;
   const [showSubcategories, setShowSubcategories] = React.useState(
-    router.pathname.includes("/genres") ? true : false
+    router.pathname.includes("/developers") ? true : false
   );
 
   function handleShowSubcategories() {
@@ -73,17 +53,20 @@ export default function GenresNavigator() {
     <>
       <div className="w-full ">
         <Button
-          color={router.pathname.includes("/genres") ? "primary" : "text"}
+          color={router.pathname.includes("/developers") ? "primary" : "text"}
           fullWidth
           onClick={() => handleShowSubcategories()}
           size="large"
           sx={{
             justifyContent: "space-between",
             fontSize: "1.1rem",
-            fontWeight: router.pathname.includes("/genres") ? "bold" : "normal",
+            fontWeight: router.pathname.includes("/developers")
+              ? "bold"
+              : "normal",
           }}
         >
-          Genres {showSubcategories ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          Developers{" "}
+          {showSubcategories ? <ExpandLessIcon /> : <ExpandMoreIcon />}
         </Button>
         {showSubcategories && (
           <Stack alignItems={"flex-start"} gap={1} pl={2} mt={1}>
@@ -92,14 +75,14 @@ export default function GenresNavigator() {
                 key={i.slug}
                 color={
                   slug === i.slug ||
-                  (router.pathname.includes("/genres") && !i.slug && !slug)
+                  (router.pathname.includes("/developers") && !i.slug && !slug)
                     ? "primary"
                     : "text"
                 }
                 endIcon={i.endIcon}
                 onClick={() =>
                   router.push({
-                    pathname: i.slug ? `/genres/${i.slug}` : "/genres",
+                    pathname: i.slug ? `/developers/${i.slug}` : "/developers",
                   })
                 }
                 size="large"
@@ -107,7 +90,9 @@ export default function GenresNavigator() {
                 sx={{
                   fontWeight:
                     slug === i.slug ||
-                    (router.pathname.includes("/genres") && !i.slug && !slug)
+                    (router.pathname.includes("/developers") &&
+                      !i.slug &&
+                      !slug)
                       ? "bold"
                       : "normal",
                 }}

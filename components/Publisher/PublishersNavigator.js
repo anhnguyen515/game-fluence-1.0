@@ -43,7 +43,7 @@ const routes = [
   },
 ];
 
-export default function GamesNavigator() {
+export default function PublishersNavigator() {
   const router = useRouter();
   const { slug } = router.query;
   const [showSubcategories, setShowSubcategories] = React.useState(

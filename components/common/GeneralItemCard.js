@@ -44,7 +44,7 @@ export default function GeneralItemCard({ item }) {
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         borderRadius: 1,
-        transition: "transform 0.1s",
+        transition: "transform 0.2s",
         color: "white",
         p: 2,
         transform: hover && "scale(1.1)",
@@ -52,7 +52,7 @@ export default function GeneralItemCard({ item }) {
     >
       <Link
         href={{
-          pathname: router.pathname + item.slug,
+          pathname: router.pathname + `/${item.slug}`,
         }}
       >
         <Typography
@@ -79,7 +79,13 @@ export default function GeneralItemCard({ item }) {
         {item.games_count > 1 ? "games" : "game"}
       </Typography>
       {(hover || isSmallScreen) && (
-        <Stack gap={1} mt={3} sx={{ width: "100%" }}>
+        <Stack
+          gap={1}
+          mt={3}
+          sx={{
+            width: "100%",
+          }}
+        >
           <Typography fontSize={"0.9rem"} fontWeight={600} textAlign={"center"}>
             Popular items
           </Typography>
