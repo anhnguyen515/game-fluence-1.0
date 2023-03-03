@@ -1,13 +1,10 @@
 import { getGamesListAPI } from "@/apis/game";
 import GamesList from "@/components/Game/Homepage/GamesList";
 import InnerLayout from "@/layout/InnerLayout";
-import { selectUser } from "@/store/slices/userSlice";
 import { SITE_NAME } from "@/utils/constants";
 import { dateFormat } from "@/utils/utils";
-import { Button, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import dayjs from "dayjs";
-import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
 
 export async function getStaticProps() {
   const [newGames, popularGamesLastYear] = await Promise.all([
@@ -35,38 +32,29 @@ export async function getStaticProps() {
 }
 
 export default function Home({ newGames, popularGamesLastYear }) {
-  const title = `Welcome to ${SITE_NAME}`;
   const heroImage =
     newGames.results[Math.floor(Math.random() * newGames.results.length)]
       .background_image;
-  const userStore = useSelector(selectUser);
-  const router = useRouter();
 
   return (
     <>
       <InnerLayout
-        title={title}
-        subtitle={"Everything you need for video games is here"}
-        content={
-          <Stack alignItems={"center"} direction={"row"} gap={1} mt={3}>
-            {!userStore.isAuthenticated && (
-              <Button
-                onClick={() => router.push("/auth/login")}
-                size="large"
-                variant="contained"
-              >
-                GET STARTED
-              </Button>
-            )}
-            <Button
-              onClick={() => router.push("/games")}
-              size="large"
-              variant="outlined"
+        title={
+          <>
+            Welcome to{" "}
+            <Typography
+              color={"primary"}
+              component={"span"}
+              fontSize="inherit"
+              fontWeight={600}
+              variant="h1"
             >
-              Browse Games
-            </Button>
-          </Stack>
+              {SITE_NAME}
+            </Typography>
+          </>
         }
+        titleFontSize={"2.4rem"}
+        subtitle={"Everything you need for video games is here"}
         img={heroImage}
       >
         <Stack gap={6}>

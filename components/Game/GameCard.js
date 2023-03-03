@@ -49,7 +49,7 @@ export default function GameCard({ game }) {
             ? {
                 display: "flex",
                 flexDirection: "column",
-                transition: "transform 0.1s",
+                transition: "transform 0.2s",
                 position: "absolute",
                 transform: "scale(1.1)",
                 width: "100%",
@@ -58,7 +58,7 @@ export default function GameCard({ game }) {
             : {
                 display: "flex",
                 flexDirection: "column",
-                transition: "transform 0.1s",
+                transition: "transform 0.2s",
                 height: "100%",
               }
         }
@@ -90,10 +90,19 @@ export default function GameCard({ game }) {
         )}
         <Link href={`/games/${game.slug}`}>
           <CardMedia
-            sx={{
-              width: "100%",
-              aspectRatio: hover || isSmallScreen ? "2/1" : "3/1",
-            }}
+            sx={
+              hover || isSmallScreen
+                ? {
+                    width: "100%",
+                    aspectRatio: "2/1",
+                    transition: "aspect-ratio 0.2s",
+                  }
+                : {
+                    width: "100%",
+                    aspectRatio: "3/1",
+                    transition: "aspect-ratio 0s",
+                  }
+            }
             image={
               game.background_image
                 ? game.background_image
@@ -108,6 +117,9 @@ export default function GameCard({ game }) {
           py={1}
           px={(hover || isSmallScreen) && 2}
           pb={hover || isSmallScreen ? 2 : 1}
+          sx={{
+            transition: hover ? "padding 0.2s" : "padding 0s",
+          }}
         >
           {/* title */}
           <Link href={`/games/${game.slug}`}>

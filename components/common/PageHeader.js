@@ -31,12 +31,7 @@ export default function PageHeader({
           gap={1}
           sx={{ px: { xs: 1, md: 3 }, py: 5 }}
         >
-          <Typography
-            // color={"primary"}
-            fontSize={titleFontSize}
-            fontWeight={600}
-            variant="h1"
-          >
+          <Typography fontSize={titleFontSize} fontWeight={600} variant="h1">
             {title}
           </Typography>
           <div>{subtitle}</div>
