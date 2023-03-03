@@ -38,6 +38,13 @@ a {
   overflow: hidden;
 }
 
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .scroll-to-top {
   box-shadow: none;
   opacity: 0.6;

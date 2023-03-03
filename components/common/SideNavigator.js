@@ -20,6 +20,7 @@ export default function SideNavigator() {
         },
         "::-webkit-scrollbar-thumb": {
           backgroundColor: "text.main",
+          opacity: 0.5,
           borderRadius: 1,
         },
       }}

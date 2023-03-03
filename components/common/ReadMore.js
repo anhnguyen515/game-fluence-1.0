@@ -11,13 +11,13 @@ export default function ReadMore({ paragraph }) {
 
   React.useLayoutEffect(() => {
     const height = heightRef.current.clientHeight;
-    setReadMore(height > 56);
+    setReadMore(height > 84);
   }, []);
 
   return (
-    <>
+    <div>
       <Box
-        className={readMore ? "line-clamp-2" : null}
+        className={readMore ? "line-clamp-3" : null}
         ref={heightRef}
         sx={{ lineHeight: "32px", color: "text.dark", fontSize: "0.9rem" }}
       >
@@ -35,6 +35,6 @@ export default function ReadMore({ paragraph }) {
           </Button>
         </Stack>
       )}
-    </>
+    </div>
   );
 }

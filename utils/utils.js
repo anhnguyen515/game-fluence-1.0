@@ -144,3 +144,31 @@ export function timeFromNow(dateStr) {
 export function insertAtIndex(str, substr, index = 1) {
   return str.slice(0, index) + substr + str.slice(index);
 }
+
+export function upperCaseFirstLetter(str) {
+  return str.slice(0, 1).toUpperCase() + str.slice(1, str.length);
+}
+
+export function ratingColor(scoreStr) {
+  if (scoreStr === "Exceptional" || scoreStr >= 4) {
+    return {
+      backgroundColor: "rgba(34, 197, 94, 0.2)",
+      borderColor: "rgba(34, 197, 94, 1)",
+    };
+  } else if (scoreStr === "Recommended" || (scoreStr >= 3 && scoreStr < 4)) {
+    return {
+      backgroundColor: "rgba(59, 130, 246, 0.2)",
+      borderColor: "rgba(59, 130, 246, 1)",
+    };
+  } else if (scoreStr === "Meh" || (scoreStr >= 2 && scoreStr < 3)) {
+    return {
+      backgroundColor: "rgba(249, 115, 22, 0.2)",
+      borderColor: "rgba(249, 115, 22, 1)",
+    };
+  } else {
+    return {
+      backgroundColor: "rgba(239, 68, 68, 0.2)",
+      borderColor: "rgba(239, 68, 68, 1)",
+    };
+  }
+}
