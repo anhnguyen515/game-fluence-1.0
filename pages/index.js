@@ -35,6 +35,7 @@ export async function getStaticProps() {
 }
 
 export default function Home({ newGames, popularGamesLastYear }) {
+  const title = `Welcome to ${SITE_NAME}`;
   const heroImage =
     newGames.results[Math.floor(Math.random() * newGames.results.length)]
       .background_image;
@@ -44,19 +45,7 @@ export default function Home({ newGames, popularGamesLastYear }) {
   return (
     <>
       <InnerLayout
-        title={
-          <>
-            Welcome to{" "}
-            <Typography
-              color={"primary.main"}
-              component={"span"}
-              fontSize={"2.2rem"}
-              fontWeight={600}
-            >
-              {SITE_NAME}
-            </Typography>
-          </>
-        }
+        title={title}
         subtitle={"Everything you need for video games is here"}
         content={
           <Stack alignItems={"center"} direction={"row"} gap={1} mt={3}>
@@ -84,7 +73,7 @@ export default function Home({ newGames, popularGamesLastYear }) {
           <GamesList
             title={"New & Upcoming"}
             games={newGames}
-            href={"/games?category=new&subcategory=new-and-upcoming"}
+            href={"/games?category=new-and-upcoming"}
           />
           <GamesList
             title={`Popular in ${dayjs().subtract(1, "year").year()}`}

@@ -42,8 +42,8 @@ const themes = [
     text: "Nautilus",
   },
   {
-    value: "neonTheme",
-    text: "Neon",
+    value: "laserTheme",
+    text: "Laser",
   },
   {
     value: "blueSamuraiTheme",

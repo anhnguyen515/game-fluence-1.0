@@ -12,7 +12,7 @@ export default function SideNavigator() {
       gap={1}
       sx={{
         position: "sticky",
-        top: 16,
+        top: 0,
         maxHeight: "100vh",
         overflow: "auto",
         "::-webkit-scrollbar": {

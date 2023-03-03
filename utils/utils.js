@@ -58,31 +58,16 @@ export function getParentPlatform(platform, size = 16) {
   }
 }
 
-function ThemeAvatar({ primary, background }) {
+function ThemeAvatar({ theme }) {
   return (
     <Box
       sx={{
-        position: "relative",
-        height: "1.2rem",
         width: "1.2rem",
+        height: "1.2rem",
         borderRadius: "50%",
-        backgroundColor: background,
-        border: 1,
-        borderColor: "divider",
+        backgroundImage: `linear-gradient(135deg, ${theme.palette.primary.main} 50%, ${theme.palette.background.default} 50%)`,
       }}
-    >
-      <Box
-        sx={{
-          position: "absolute",
-          top: -1,
-          left: -2,
-          backgroundColor: primary,
-          borderRadius: "10rem 0 0 10rem",
-          width: "0.65rem",
-          height: "1.2rem",
-        }}
-      ></Box>
-    </Box>
+    />
   );
 }
 
@@ -91,113 +76,58 @@ export function getTheme(themeName) {
     case "blackPinkTheme":
       return {
         theme: blackPinkTheme,
-        avatar: (
-          <ThemeAvatar
-            primary={blackPinkTheme.palette.primary.main}
-            background={blackPinkTheme.palette.background.default}
-          />
-        ),
+        avatar: <ThemeAvatar theme={blackPinkTheme} />,
       };
     case "blackGoldTheme":
       return {
         theme: blackGoldTheme,
-        avatar: (
-          <ThemeAvatar
-            primary={blackGoldTheme.palette.primary.main}
-            background={blackGoldTheme.palette.background.default}
-          />
-        ),
+        avatar: <ThemeAvatar theme={blackGoldTheme} />,
       };
     case "blackCyanTheme":
       return {
         theme: blackCyanTheme,
-        avatar: (
-          <ThemeAvatar
-            primary={blackCyanTheme.palette.primary.main}
-            background={blackCyanTheme.palette.background.default}
-          />
-        ),
+        avatar: <ThemeAvatar theme={blackCyanTheme} />,
       };
     case "wavezTheme":
       return {
         theme: wavezTheme,
-        avatar: (
-          <ThemeAvatar
-            primary={wavezTheme.palette.primary.main}
-            background={wavezTheme.palette.background.default}
-          />
-        ),
+        avatar: <ThemeAvatar theme={wavezTheme} />,
       };
     case "mecha01Theme":
       return {
         theme: mecha01Theme,
-        avatar: (
-          <ThemeAvatar
-            primary={mecha01Theme.palette.primary.main}
-            background={mecha01Theme.palette.background.default}
-          />
-        ),
+        avatar: <ThemeAvatar theme={mecha01Theme} />,
       };
     case "chicagoTheme":
       return {
         theme: chicagoTheme,
-        avatar: (
-          <ThemeAvatar
-            primary={chicagoTheme.palette.primary.main}
-            background={chicagoTheme.palette.background.default}
-          />
-        ),
+        avatar: <ThemeAvatar theme={chicagoTheme} />,
       };
     case "nautilusTheme":
       return {
         theme: nautilusTheme,
-        avatar: (
-          <ThemeAvatar
-            primary={nautilusTheme.palette.primary.main}
-            background={nautilusTheme.palette.background.default}
-          />
-        ),
+        avatar: <ThemeAvatar theme={nautilusTheme} />,
       };
-    case "neonTheme":
+    case "laserTheme":
       return {
         theme: laserTheme,
-        avatar: (
-          <ThemeAvatar
-            primary={laserTheme.palette.primary.main}
-            background={laserTheme.palette.background.default}
-          />
-        ),
+        avatar: <ThemeAvatar theme={laserTheme} />,
       };
     case "blueSamuraiTheme":
       return {
         theme: blueSamuraiTheme,
-        avatar: (
-          <ThemeAvatar
-            primary={blueSamuraiTheme.palette.primary.main}
-            background={blueSamuraiTheme.palette.background.default}
-          />
-        ),
+        avatar: <ThemeAvatar theme={blueSamuraiTheme} />,
       };
     case "redSamuraiTheme":
       return {
         theme: redSamuraiTheme,
-        avatar: (
-          <ThemeAvatar
-            primary={redSamuraiTheme.palette.primary.main}
-            background={redSamuraiTheme.palette.background.default}
-          />
-        ),
+        avatar: <ThemeAvatar theme={redSamuraiTheme} />,
       };
     case "defaultTheme":
     default:
       return {
         theme: defaultTheme,
-        avatar: (
-          <ThemeAvatar
-            primary={defaultTheme.palette.primary.main}
-            background={defaultTheme.palette.background.default}
-          />
-        ),
+        avatar: <ThemeAvatar theme={defaultTheme} />,
       };
   }
 }

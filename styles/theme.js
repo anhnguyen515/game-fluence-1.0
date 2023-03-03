@@ -484,8 +484,8 @@ export const blueSamuraiTheme = createTheme({
       dark: "#333333",
     },
     background: {
-      default: "#172643",
-      paper: "#172643",
+      default: "#284360",
+      paper: "#284360",
     },
     text: {
       light: grey[700],
@@ -533,8 +533,8 @@ export const redSamuraiTheme = createTheme({
       dark: "#333333",
     },
     background: {
-      default: "#4A1310",
-      paper: "#4A1310",
+      default: "#5D2D3B",
+      paper: "#5D2D3B",
     },
     text: {
       light: grey[700],
