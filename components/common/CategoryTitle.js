@@ -28,12 +28,7 @@ export default function CategoryTitle({ title, href = "#" }) {
           },
         }}
       >
-        <Typography
-          variant="h2"
-          fontSize={"1.8rem"}
-          fontWeight={"bold"}
-          sx={{}}
-        >
+        <Typography variant="h2" fontSize={"1.8rem"} fontWeight={"bold"}>
           {title}
         </Typography>
         <ArrowRightIcon className="hide" sx={{ display: "none" }} />

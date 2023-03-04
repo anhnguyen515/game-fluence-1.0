@@ -58,21 +58,21 @@ export default function Footer() {
                     <Image
                       alt="logo"
                       src="/img/GameFluence-black-250px.png"
-                      width={150}
-                      height={63}
+                      width={250}
+                      height={105}
                     />
                   ) : (
                     <Image
                       alt="logo"
                       src="/img/GameFluence-white-250px.png"
-                      width={150}
-                      height={63}
+                      width={250}
+                      height={105}
                     />
                   )}
-                  <Typography variant="caption">
+                  {/* <Typography variant="caption">
                     I made this website mainly to hone my Front-end skills
                     (〜￣▽￣)〜
-                  </Typography>
+                  </Typography> */}
                 </Stack>
               </Grid>
               <Grid item xs={12} md={4}>

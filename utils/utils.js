@@ -18,14 +18,24 @@ import { BsFillQuestionCircleFill } from "react-icons/bs";
 import {
   FaAndroid,
   FaApple,
+  FaAppStore,
+  FaGooglePlay,
   FaLinux,
   FaPlaystation,
+  FaSteam,
   FaWindows,
   FaXbox,
 } from "react-icons/fa";
 import { GoBrowser } from "react-icons/go";
 import { IoIosPhonePortrait } from "react-icons/io";
-import { SiAtari, SiNintendoswitch, SiSega } from "react-icons/si";
+import {
+  SiAtari,
+  SiEpicgames,
+  SiGogdotcom,
+  SiItchdotio,
+  SiNintendoswitch,
+  SiSega,
+} from "react-icons/si";
 
 dayjs.extend(relativeTime);
 
@@ -170,5 +180,65 @@ export function ratingColor(scoreStr) {
       backgroundColor: "rgba(239, 68, 68, 0.2)",
       borderColor: "rgba(239, 68, 68, 1)",
     };
+  }
+}
+
+export function getGameStore(storeId) {
+  switch (storeId) {
+    case 1:
+      return {
+        name: "Steam",
+        icon: <FaSteam />,
+      };
+    case 3:
+      return {
+        name: "PlayStation Store",
+        icon: <FaPlaystation />,
+      };
+    case 2:
+      return {
+        name: "Xbox Store",
+        icon: <FaXbox />,
+      };
+    case 4:
+      return {
+        name: "App Store",
+        icon: <FaAppStore />,
+      };
+    case 5:
+      return {
+        name: "GOG",
+        icon: <SiGogdotcom />,
+      };
+    case 6:
+      return {
+        name: "Nintendo Store",
+        icon: <SiNintendoswitch />,
+      };
+    case 7:
+      return {
+        name: "Xbox 360 Store",
+        icon: <FaXbox />,
+      };
+    case 8:
+      return {
+        name: "Google Play",
+        icon: <FaGooglePlay />,
+      };
+    case 9:
+      return {
+        name: "itch.io",
+        icon: <SiItchdotio />,
+      };
+    case 11:
+      return {
+        name: "Epic Games",
+        icon: <SiEpicgames />,
+      };
+    default:
+      return {
+        name: "Unknown",
+        icon: <BsFillQuestionCircleFill />,
+      };
   }
 }

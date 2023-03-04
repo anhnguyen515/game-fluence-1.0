@@ -32,12 +32,12 @@ export default function InnerLayout({
           <Grid container spacing={2}>
             {/* sidebar section */}
             {!isSmallScreen && (
-              <Grid item xs={12} md={2.4} lg={2}>
+              <Grid item xs={12} md={3} lg={2}>
                 <SideNavigator />
               </Grid>
             )}
             {/* content section */}
-            <Grid item xs={12} md={9.6} lg={10}>
+            <Grid item xs={12} md={9} lg={10}>
               {children}
             </Grid>
           </Grid>
