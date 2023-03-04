@@ -89,18 +89,12 @@ export default function GameDetailPage({ slug, gameDetail }) {
           <Grid item xs={12} md={8}>
             <Stack gap={3}>
               {/* ratings graph */}
-              <Stack
-                alignItems={"flex-start"}
-                direction={"row"}
-                flexWrap={"wrap"}
-                gap={2}
-                justifyContent={"center"}
-              >
+              <Stack justifyContent={"center"}>
                 {gameDetail.rating > 0 && (
                   <Stack alignItems={"center"}>
                     <Box
                       sx={{
-                        maxWidth: "15rem",
+                        maxWidth: "16rem",
                         aspectRatio: "1",
                         position: "relative",
                       }}
@@ -126,7 +120,7 @@ export default function GameDetailPage({ slug, gameDetail }) {
                               upperCaseFirstLetter(gameDetail.ratings[0].title)
                             ).borderColor
                           }
-                          fontSize={"2.5rem"}
+                          fontSize={"2.6rem"}
                           fontWeight={600}
                         >
                           {gameDetail.rating}
@@ -159,7 +153,7 @@ export default function GameDetailPage({ slug, gameDetail }) {
                         }}
                       />
                     </Box>
-                    <Typography sx={{ mt: 3 }}>
+                    <Typography fontSize={"1.2rem"} sx={{ mt: 2 }}>
                       {gameDetail.ratings_count.toLocaleString()}{" "}
                       {gameDetail.ratings_count > 1 ? `ratings` : `rating`}
                     </Typography>
@@ -167,7 +161,7 @@ export default function GameDetailPage({ slug, gameDetail }) {
                       alignItems={"center"}
                       direction={"row"}
                       flexWrap={"wrap"}
-                      gap={2}
+                      gap={1}
                       justifyContent={"center"}
                       mt={1}
                     >
@@ -184,7 +178,7 @@ export default function GameDetailPage({ slug, gameDetail }) {
                                 {upperCaseFirstLetter(item.title)}
                               </Typography>
                               <Typography
-                                color={"text.main"}
+                                color={"text.dark"}
                                 fontSize={"0.8rem"}
                               >
                                 {item.count.toLocaleString()}
@@ -196,7 +190,8 @@ export default function GameDetailPage({ slug, gameDetail }) {
                             backgroundColor: ratingColor(
                               upperCaseFirstLetter(item.title)
                             ).backgroundColor,
-                            color: "text.primary",
+                            color: ratingColor(upperCaseFirstLetter(item.title))
+                              .borderColor,
                           }}
                         />
                       ))}
@@ -208,7 +203,10 @@ export default function GameDetailPage({ slug, gameDetail }) {
               {/* summary */}
               <Stack>
                 <CategoryTitle title={"Summary"} />
-                <ReadMore paragraph={gameDetail.description_raw} />
+                <ReadMore
+                  paragraph={gameDetail.description_raw}
+                  fontSize="1rem"
+                />
               </Stack>
 
               {/* platforms, genres, ... */}
@@ -216,15 +214,97 @@ export default function GameDetailPage({ slug, gameDetail }) {
                 <Grid container spacing={3}>
                   <Grid item xs={6}>
                     <CategoryTitle title={"Platforms"} />
+                    <Stack
+                      alignItems={"center"}
+                      direction={"row"}
+                      divider={
+                        <Divider
+                          orientation="vertical"
+                          flexItem
+                          variant="middle"
+                        />
+                      }
+                      gap={1}
+                      flexWrap={"wrap"}
+                    >
+                      {gameDetail.platforms.map((platform, index) => (
+                        <Link
+                          key={index}
+                          href={`/platforms/${platform.platform.slug}`}
+                        >
+                          <Typography
+                            className="content"
+                            component={"span"}
+                            sx={{
+                              transition: "color 0.2s",
+                              "&:hover": { color: "primary.light" },
+                            }}
+                          >
+                            {platform.platform.name}
+                          </Typography>
+                        </Link>
+                      ))}
+                    </Stack>
                   </Grid>
                   <Grid item xs={6}>
                     <CategoryTitle title={"Metascore"} />
+                    <Typography
+                      className={
+                        gameDetail.metacritic >= 75
+                          ? "text-green-500"
+                          : game.metacritic < 50
+                          ? "text-red-500"
+                          : "text-yellow-500"
+                      }
+                      component={"span"}
+                      fontSize={"1.6rem"}
+                      fontWeight={600}
+                      sx={{
+                        border: 2,
+                        borderRadius: 1,
+                        px: 1,
+                        py: 0.5,
+                      }}
+                    >
+                      {gameDetail.metacritic}
+                    </Typography>
                   </Grid>
                   <Grid item xs={6}>
                     <CategoryTitle title={"Genres"} />
+                    <Stack
+                      alignItems={"center"}
+                      direction={"row"}
+                      divider={
+                        <Divider
+                          orientation="vertical"
+                          flexItem
+                          variant="middle"
+                        />
+                      }
+                      gap={1}
+                      flexWrap={"wrap"}
+                    >
+                      {gameDetail.genres.map((genre, index) => (
+                        <Link key={index} href={`/genres/${genre.slug}`}>
+                          <Typography
+                            className="content"
+                            component={"span"}
+                            sx={{
+                              transition: "color 0.2s",
+                              "&:hover": { color: "primary.light" },
+                            }}
+                          >
+                            {genre.name}
+                          </Typography>
+                        </Link>
+                      ))}
+                    </Stack>
                   </Grid>
                   <Grid item xs={6}>
                     <CategoryTitle title={"Released date"} />
+                    <Typography className="content">
+                      {dateFormat(gameDetail.released, "MMM DD, YYYY")}
+                    </Typography>
                   </Grid>
                   <Grid item xs={6}>
                     <CategoryTitle title={"Developer"} />

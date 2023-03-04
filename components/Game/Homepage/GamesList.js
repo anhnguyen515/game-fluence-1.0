@@ -5,7 +5,7 @@ import GameCard from "../GameCard";
 export default function GamesList({ title, href, games }) {
   return (
     <Stack alignItems={"flex-start"} gap={2}>
-      <CategoryTitle title={title} href={href} />
+      <CategoryTitle title={title} fontSize={"1.8rem"} href={href} />
       <Grid container spacing={2}>
         {games.results.map((item, index) => (
           <Grid key={index} item xs={12} sm={6} md={4} lg={3}>

@@ -3,10 +3,19 @@ import Link from "next/link";
 import React from "react";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
-export default function CategoryTitle({ title, href = "#" }) {
+export default function CategoryTitle({
+  title,
+  fontSize = "1.5rem",
+  href = "#",
+}) {
   if (href === "#") {
     return (
-      <Typography variant="h2" fontSize={"1.8rem"} fontWeight={"bold"}>
+      <Typography
+        variant="h2"
+        fontSize={fontSize}
+        fontWeight={"bold"}
+        gutterBottom
+      >
         {title}
       </Typography>
     );
@@ -28,7 +37,12 @@ export default function CategoryTitle({ title, href = "#" }) {
           },
         }}
       >
-        <Typography variant="h2" fontSize={"1.8rem"} fontWeight={"bold"}>
+        <Typography
+          variant="h2"
+          fontSize={fontSize}
+          fontWeight={"bold"}
+          gutterBottom
+        >
           {title}
         </Typography>
         <ArrowRightIcon className="hide" sx={{ display: "none" }} />
