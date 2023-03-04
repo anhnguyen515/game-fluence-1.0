@@ -46,7 +46,7 @@ export const defaultTheme = createTheme({
     text: {
       primary: grey[800],
       light: grey[200],
-      main: grey[600],
+      main: grey[500],
       dark: grey[700],
     },
   },
@@ -96,7 +96,7 @@ export const chicagoTheme = createTheme({
     text: {
       primary: grey[800],
       light: grey[200],
-      main: grey[600],
+      main: grey[500],
       dark: grey[700],
     },
   },
