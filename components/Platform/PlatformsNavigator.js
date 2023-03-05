@@ -95,6 +95,7 @@ export default function PlatformsNavigator() {
                     : "text"
                 }
                 endIcon={i.endIcon}
+                fullWidth
                 onClick={() =>
                   router.push({
                     pathname: i.slug ? `/platforms/${i.slug}` : "/platforms",
@@ -108,6 +109,7 @@ export default function PlatformsNavigator() {
                     (router.pathname.includes("/platforms") && !i.slug && !slug)
                       ? "bold"
                       : "normal",
+                  justifyContent: "flex-start",
                 }}
               >
                 {i.name}

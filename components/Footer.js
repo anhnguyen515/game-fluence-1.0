@@ -16,11 +16,11 @@ export default function Footer() {
   return (
     <footer>
       <Box
-        sx={{
-          borderTop: 1,
-          borderColor: "divider",
-          backgroundColor: "background.default",
-        }}
+      // sx={{
+      //   borderTop: 1,
+      //   borderColor: "divider",
+      //   backgroundColor: "background.default",
+      // }}
       >
         <Container maxWidth="2xl">
           <Box sx={{ px: { xs: 1, md: 3 }, py: 3 }}>

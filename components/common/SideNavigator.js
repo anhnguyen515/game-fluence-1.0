@@ -1,11 +1,30 @@
-import { Stack } from "@mui/material";
-import DevelopersNavigator from "../Developer/DevelopersNavigator";
+import { Button, Stack } from "@mui/material";
+import { useRouter } from "next/router";
 import GamesNavigator from "../Game/GamesNavigator";
 import GenresNavigator from "../Genre/GenresNavigator";
 import PlatformsNavigator from "../Platform/PlatformsNavigator";
-import PublishersNavigator from "../Publisher/PublishersNavigator";
+
+const routes = [
+  {
+    name: "Developers",
+    route: "/developers",
+  },
+  {
+    name: "Publishers",
+    route: "/publishers",
+  },
+  {
+    name: "Stores",
+    route: "/stores",
+  },
+  {
+    name: "Tags",
+    route: "/tags",
+  },
+];
 
 export default function SideNavigator() {
+  const router = useRouter();
   return (
     <Stack
       alignItems={"flex-start"}
@@ -28,8 +47,18 @@ export default function SideNavigator() {
       <GamesNavigator />
       <GenresNavigator />
       <PlatformsNavigator />
-      <DevelopersNavigator />
-      <PublishersNavigator />
+      {routes.map((item, index) => (
+        <Button
+          key={index}
+          color="text"
+          fullWidth
+          onClick={() => router.push(item.route)}
+          size="large"
+          sx={{ fontSize: "1.1rem", justifyContent: "space-between" }}
+        >
+          {item.name}
+        </Button>
+      ))}
     </Stack>
   );
 }

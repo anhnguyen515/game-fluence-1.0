@@ -1,4 +1,4 @@
-import { getGenresListAPI } from "@/apis/genre";
+import { getTagsListAPI } from "@/apis/tag";
 import GeneralItemCard from "@/components/common/GeneralItemCard";
 import InnerLayout from "@/layout/InnerLayout";
 import { SITE_NAME } from "@/utils/constants";
@@ -12,35 +12,35 @@ import React from "react";
 import { toast } from "react-toastify";
 
 export async function getStaticProps() {
-  const genres = await getGenresListAPI({
+  const tags = await getTagsListAPI({
     page_size: 20,
   }).then((res) => res.data);
 
   return {
     props: {
-      data: genres,
+      data: tags,
     },
     revalidate: 60,
   };
 }
 
-export default function GenresPage({ data }) {
-  const title = `Genres`;
+export default function TagsPage({ data }) {
+  const title = `Tags`;
   const router = useRouter();
   const img =
     data.results[Math.floor(Math.random() * data.results.length)]
       .image_background;
 
-  const [genres, setGenres] = React.useState(data);
+  const [tags, setTags] = React.useState(data);
   const [loading, setLoading] = React.useState(false);
 
   function handleLoadMore() {
     setLoading(true);
     axios
-      .get(genres.next)
+      .get(tags.next)
       .then((res) => {
         const data = res.data;
-        setGenres((prev) => ({
+        setTags((prev) => ({
           ...prev,
           next: data.next,
           previous: data.previous,
@@ -64,13 +64,13 @@ export default function GenresPage({ data }) {
       />
       <InnerLayout title={title} titleFontSize={"2.6rem"} img={img}>
         <Grid container spacing={2}>
-          {genres.results.map((item) => (
+          {tags.results.map((item) => (
             <Grid key={item.id} item xs={12} sm={6} md={4} lg={3}>
               <GeneralItemCard item={item} />
             </Grid>
           ))}
         </Grid>
-        {genres.next && (
+        {tags.next && (
           <Stack alignItems={"center"} mt={3} sx={{ width: "100%" }}>
             <LoadingButton
               loading={loading}

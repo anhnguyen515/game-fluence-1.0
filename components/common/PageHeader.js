@@ -13,16 +13,22 @@ export default function PageHeader({
   const themeStore = useSelector(selectTheme);
   return (
     <Box
-      sx={{
-        backgroundImage: `linear-gradient(to bottom, ${
-          getTheme(themeStore).theme.palette.background.default + "99"
-        }, ${
-          getTheme(themeStore).theme.palette.background.default
-        }), url(${img})`,
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-      }}
+      sx={
+        img
+          ? {
+              backgroundImage: `linear-gradient(to bottom, ${
+                getTheme(themeStore).theme.palette.background.default + "99"
+              }, ${
+                getTheme(themeStore).theme.palette.background.default
+              }), url(${img})`,
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+            }
+          : {
+              backgroundColor: "transparent",
+            }
+      }
     >
       <Container maxWidth="2xl">
         <Stack

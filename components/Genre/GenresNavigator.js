@@ -97,6 +97,7 @@ export default function GenresNavigator() {
                     : "text"
                 }
                 endIcon={i.endIcon}
+                fullWidth
                 onClick={() =>
                   router.push({
                     pathname: i.slug ? `/genres/${i.slug}` : "/genres",
@@ -110,6 +111,7 @@ export default function GenresNavigator() {
                     (router.pathname.includes("/genres") && !i.slug && !slug)
                       ? "bold"
                       : "normal",
+                  justifyContent: "flex-start",
                 }}
               >
                 {i.name}

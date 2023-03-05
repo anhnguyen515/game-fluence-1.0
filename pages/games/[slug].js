@@ -8,12 +8,14 @@ import {
 import CategoryTitle from "@/components/common/CategoryTitle";
 import ReadMore from "@/components/common/ReadMore";
 import InnerLayout from "@/layout/InnerLayout";
+import { selectTheme } from "@/store/slices/themeSlice";
 import { SITE_NAME } from "@/utils/constants";
 import {
   dateFormat,
+  getParentPlatform,
+  getTheme,
   ratingColor,
   upperCaseFirstLetter,
-  getParentPlatform,
 } from "@/utils/utils";
 import {
   Box,
@@ -29,6 +31,7 @@ import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Doughnut } from "react-chartjs-2";
+import { useSelector } from "react-redux";
 
 ChartJS.register(ArcElement, Tooltip);
 
@@ -70,6 +73,7 @@ export default function GameDetailPage({
 }) {
   const title = gameDetail.name;
   const router = useRouter();
+  const themeStore = useSelector(selectTheme);
 
   return (
     <>
@@ -79,7 +83,24 @@ export default function GameDetailPage({
         description={gameDetail.description_raw}
         openGraph={{ url: router.asPath }}
       />
-
+      <Box
+        sx={{
+          position: "fixed",
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0,
+          backgroundImage: `linear-gradient(to bottom, ${
+            getTheme(themeStore).theme.palette.background.default + "99"
+          }, ${getTheme(themeStore).theme.palette.background.default}), url(${
+            gameDetail.background_image
+          })`,
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          zIndex: -1,
+        }}
+      />
       <InnerLayout
         title={title}
         titleFontSize={"4rem"}
@@ -99,15 +120,15 @@ export default function GameDetailPage({
         content={
           <Breadcrumbs>
             <Link href={"/"}>
-              <Typography color={"text.main"}>Home</Typography>
+              <Typography color={"text.dark"}>Home</Typography>
             </Link>
             <Link href={"/games"}>
-              <Typography color={"text.main"}>Games</Typography>
+              <Typography color={"text.dark"}>Games</Typography>
             </Link>
             <Typography>{title}</Typography>
           </Breadcrumbs>
         }
-        img={gameDetail.background_image}
+        // img={gameDetail.background_image}
       >
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
@@ -235,7 +256,7 @@ export default function GameDetailPage({
               {/* other information */}
               <Box
                 sx={{
-                  ".content": { color: "text.main" },
+                  ".content": { color: "text.dark" },
                   ".link": {
                     transition: "color 0.2s",
                     "&:hover": { color: "primary.light" },
@@ -282,7 +303,7 @@ export default function GameDetailPage({
                       className={
                         gameDetail.metacritic >= 75
                           ? "text-green-500"
-                          : game.metacritic < 50
+                          : gameDetail.metacritic < 50
                           ? "text-red-500"
                           : "text-yellow-500"
                       }
@@ -340,12 +361,7 @@ export default function GameDetailPage({
                   {/* developers */}
                   <Grid item xs={6}>
                     <CategoryTitle title={"Developers"} />
-                    <Stack
-                      alignItems={"center"}
-                      direction={"row"}
-                      divider={<span className="content mr-1">,</span>}
-                      flexWrap={"wrap"}
-                    >
+                    <Stack alignItems={"flex-start"}>
                       {gameDetail.developers.map((developer, index) => (
                         <Link
                           key={index}
@@ -365,12 +381,7 @@ export default function GameDetailPage({
                   {/* publishers */}
                   <Grid item xs={6}>
                     <CategoryTitle title={"Publishers"} />
-                    <Stack
-                      alignItems={"center"}
-                      direction={"row"}
-                      divider={<span className="content mr-1">,</span>}
-                      flexWrap={"wrap"}
-                    >
+                    <Stack alignItems={"flex-start"}>
                       {gameDetail.publishers.map((publisher, index) => (
                         <Link
                           key={index}
@@ -427,7 +438,7 @@ export default function GameDetailPage({
                     <Stack
                       alignItems={"center"}
                       direction={"row"}
-                      gap={0.5}
+                      gap={1}
                       flexWrap={"wrap"}
                     >
                       {gameDetail.tags.map((tag, index) => (

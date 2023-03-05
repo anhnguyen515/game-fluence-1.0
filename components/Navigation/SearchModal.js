@@ -22,7 +22,6 @@ export default function SearchModal() {
   return (
     <>
       <Button
-        color="text"
         disableTouchRipple
         onClick={handleClickOpen}
         startIcon={<SearchIcon />}
@@ -31,7 +30,7 @@ export default function SearchModal() {
           "&:hover": { backgroundColor: "transparent" },
         }}
       >
-        Search games by name...
+        Search games...
       </Button>
       <Dialog maxWidth="lg" fullWidth open={open} onClose={handleClose}>
         <Stack sx={{ p: 3 }}>

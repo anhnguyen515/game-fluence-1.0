@@ -14,7 +14,7 @@ export default function Navbar() {
         elevation={0}
         // variant="outlined"
         position="static"
-        color="background"
+        sx={{ backgroundColor: "transparent" }}
       >
         <Container maxWidth="2xl">
           <Toolbar>{isSmallScreen ? <NavMobile /> : <NavDesktop />}</Toolbar>

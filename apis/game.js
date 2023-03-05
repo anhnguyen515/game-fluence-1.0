@@ -23,3 +23,7 @@ export function getGameScreenshotsAPI(gameSlug, params) {
 export function getGameStoresAPI(gameSlug, params) {
   return axiosClient.get(`games/${gameSlug}/stores`, { params });
 }
+
+export function getGameTrailersAPI(gameSlug, params) {
+  return axiosClient.get(`games/${gameSlug}/movies`, { params });
+}

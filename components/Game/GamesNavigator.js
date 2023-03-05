@@ -91,6 +91,7 @@ export default function GamesNavigator() {
                     : "text"
                 }
                 endIcon={i.endIcon}
+                fullWidth
                 onClick={() =>
                   router.push({
                     pathname: "/games",
@@ -109,6 +110,7 @@ export default function GamesNavigator() {
                       !category)
                       ? "bold"
                       : "normal",
+                  justifyContent: "flex-start",
                 }}
               >
                 {i.name}

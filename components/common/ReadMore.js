@@ -19,7 +19,7 @@ export default function ReadMore({ paragraph, fontSize = "0.9rem" }) {
       <Box
         className={readMore ? "line-clamp-3" : null}
         ref={heightRef}
-        sx={{ lineHeight: "32px", color: "text.main", fontSize: fontSize }}
+        sx={{ lineHeight: "32px", color: "text.dark", fontSize: fontSize }}
       >
         {parse(paragraph)}
       </Box>
