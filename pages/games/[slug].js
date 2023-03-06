@@ -345,7 +345,7 @@ export default function GameDetailPage({
                   {/* genres */}
                   <Grid item xs={6}>
                     <CategoryTitle title={"Genres"} />
-                    {gameDetail.genres > 0 ? (
+                    {gameDetail.genres.length > 0 ? (
                       <Stack
                         alignItems={"center"}
                         direction={"row"}
