@@ -4,6 +4,7 @@ import {
   getGameScreenshotsAPI,
   getGamesSeriesAPI,
   getGameStoresAPI,
+  getGameTrailersAPI,
 } from "@/apis/game";
 import CategoryTitle from "@/components/common/CategoryTitle";
 import ReadMore from "@/components/common/ReadMore";
@@ -12,6 +13,7 @@ import { selectTheme } from "@/store/slices/themeSlice";
 import { SITE_NAME } from "@/utils/constants";
 import {
   dateFormat,
+  getGameStore,
   getParentPlatform,
   getTheme,
   ratingColor,
@@ -20,6 +22,7 @@ import {
 import {
   Box,
   Breadcrumbs,
+  Button,
   Chip,
   Divider,
   Grid,
@@ -28,22 +31,24 @@ import {
 } from "@mui/material";
 import { ArcElement, Chart as ChartJS, Tooltip } from "chart.js";
 import { NextSeo } from "next-seo";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import React from "react";
 import { Doughnut } from "react-chartjs-2";
+import ReactPlayer from "react-player";
 import { useSelector } from "react-redux";
 
 ChartJS.register(ArcElement, Tooltip);
 
 export async function getServerSideProps(context) {
   const { slug } = context.params;
-  const [gameDetail, gameAdditions, gamesSeries, gameScreenshots, gameStores] =
+  const [gameDetail, gameAdditions, gamesSeries, gameScreenshots] =
     await Promise.all([
       getGameDetailAPI(slug).then((res) => res.data),
       getGameAdditionsAPI(slug).then((res) => res.data),
       getGamesSeriesAPI(slug).then((res) => res.data),
       getGameScreenshotsAPI(slug).then((res) => res.data),
-      getGameStoresAPI(slug).then((res) => res.data),
     ]);
   if (gameDetail.detail) {
     return {
@@ -58,7 +63,6 @@ export async function getServerSideProps(context) {
       gameAdditions,
       gamesSeries,
       gameScreenshots,
-      gameStores,
     },
   };
 }
@@ -69,11 +73,19 @@ export default function GameDetailPage({
   gameAdditions,
   gamesSeries,
   gameScreenshots,
-  gameStores,
 }) {
   const title = gameDetail.name;
   const router = useRouter();
   const themeStore = useSelector(selectTheme);
+
+  const [gameTrailers, setGameTrailers] = React.useState(null);
+  const [gameStores, setGameStores] = React.useState(null);
+
+  React.useEffect(() => {
+    getGameTrailersAPI(slug).then((res) => setGameTrailers(res.data));
+
+    getGameStoresAPI(slug).then((res) => setGameStores(res.data));
+  }, []);
 
   return (
     <>
@@ -85,11 +97,11 @@ export default function GameDetailPage({
       />
       <Box
         sx={{
-          position: "fixed",
+          position: "absolute",
           top: 0,
           right: 0,
-          bottom: 0,
           left: 0,
+          bottom: 0,
           backgroundImage: `linear-gradient(to bottom, ${
             getTheme(themeStore).theme.palette.background.default + "99"
           }, ${getTheme(themeStore).theme.palette.background.default}), url(${
@@ -130,8 +142,18 @@ export default function GameDetailPage({
         }
         // img={gameDetail.background_image}
       >
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
+        <Grid
+          container
+          spacing={2}
+          sx={{
+            ".content": { color: "text.dark" },
+            ".link": {
+              transition: "color 0.2s",
+              "&:hover": { color: "primary.light" },
+            },
+          }}
+        >
+          <Grid item xs={12} md={8}>
             <Stack gap={3}>
               {/* ratings graph */}
               {gameDetail.rating > 0 && (
@@ -260,15 +282,7 @@ export default function GameDetailPage({
               }
 
               {/* other information */}
-              <Box
-                sx={{
-                  ".content": { color: "text.dark" },
-                  ".link": {
-                    transition: "color 0.2s",
-                    "&:hover": { color: "primary.light" },
-                  },
-                }}
-              >
+              <Box>
                 <Grid container spacing={3}>
                   {/* platforms */}
                   <Grid item xs={6}>
@@ -277,14 +291,7 @@ export default function GameDetailPage({
                       <Stack
                         alignItems={"center"}
                         direction={"row"}
-                        divider={
-                          <Divider
-                            orientation="vertical"
-                            flexItem
-                            variant="middle"
-                          />
-                        }
-                        gap={1}
+                        divider={<span className="content mr-1">,</span>}
                         flexWrap={"wrap"}
                       >
                         {gameDetail.platforms.map((platform, index) => (
@@ -342,14 +349,7 @@ export default function GameDetailPage({
                       <Stack
                         alignItems={"center"}
                         direction={"row"}
-                        divider={
-                          <Divider
-                            orientation="vertical"
-                            flexItem
-                            variant="middle"
-                          />
-                        }
-                        gap={1}
+                        divider={<span className="content mr-1">,</span>}
                         flexWrap={"wrap"}
                       >
                         {gameDetail.genres.map((genre, index) => (
@@ -513,8 +513,87 @@ export default function GameDetailPage({
               </Box>
             </Stack>
           </Grid>
-          <Grid item xs={12} md={6}>
-            Screenshots & Stores
+          <Grid item xs={12} md={4}>
+            <Stack gap={3}>
+              <div>
+                {gameTrailers?.count > 0 && (
+                  <Box sx={{ borderRadius: 1, overflow: "hidden", mb: 1 }}>
+                    <ReactPlayer
+                      url={gameTrailers.results[0].data["480"]}
+                      playing
+                      controls
+                      light={
+                        <img
+                          alt="Thumbnail"
+                          src={gameTrailers.results[0].preview}
+                        />
+                      }
+                      width={"100%"}
+                      height={"100%"}
+                    />
+                  </Box>
+                )}
+                {gameScreenshots.count > 0 && (
+                  <Grid container spacing={1}>
+                    {gameScreenshots.results.map((item, index) => (
+                      <Grid key={index} item xs={12} sm={6}>
+                        <Box
+                          sx={{
+                            position: "relative",
+                            width: "100%",
+                            aspectRatio: `1920/1080`,
+                            borderRadius: 1,
+                            overflow: "hidden",
+                          }}
+                        >
+                          <Image
+                            alt=""
+                            src={item.image}
+                            fill
+                            placeholder="blur"
+                            blurDataURL={
+                              getTheme(themeStore).theme.palette.mode ===
+                              "light"
+                                ? "/img/logo-black-1200px.png"
+                                : "/img/logo-white-1200px.png"
+                            }
+                            objectFit={"cover"}
+                          />
+                        </Box>
+                      </Grid>
+                    ))}
+                  </Grid>
+                )}
+              </div>
+              {gameStores && (
+                <div>
+                  <CategoryTitle title={"Available at"} />
+                  {gameStores.count > 0 ? (
+                    <Grid container spacing={1}>
+                      {gameStores.results.map((item) => (
+                        <Grid key={item.id} item xs={12} sm={6}>
+                          <Button
+                            component={"a"}
+                            target="_blank"
+                            rel="noreferrer"
+                            href={item.url}
+                            fullWidth
+                            size="large"
+                            startIcon={getGameStore(item.store_id).icon}
+                            sx={{ aspectRatio: "4/1" }}
+                            variant="outlined"
+                          >
+                            {getGameStore(item.store_id).name}
+                          </Button>
+                        </Grid>
+                      ))}
+                    </Grid>
+                  ) : (
+                    <Typography className="content">-</Typography>
+                  )}
+                </div>
+              )}
+            </Stack>
           </Grid>
         </Grid>
       </InnerLayout>
