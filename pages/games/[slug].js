@@ -24,7 +24,6 @@ import {
   Breadcrumbs,
   Button,
   Chip,
-  Divider,
   Grid,
   Stack,
   Typography,
@@ -41,7 +40,14 @@ import { useSelector } from "react-redux";
 
 ChartJS.register(ArcElement, Tooltip);
 
-export async function getServerSideProps(context) {
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: "blocking",
+  };
+}
+
+export async function getStaticProps(context) {
   const { slug } = context.params;
   const [gameDetail, gameAdditions, gamesSeries, gameScreenshots] =
     await Promise.all([
@@ -64,6 +70,7 @@ export async function getServerSideProps(context) {
       gamesSeries,
       gameScreenshots,
     },
+    revalidate: 60,
   };
 }
 
@@ -557,7 +564,7 @@ export default function GameDetailPage({
                                 ? "/img/logo-black-1200px.png"
                                 : "/img/logo-white-1200px.png"
                             }
-                            objectFit={"cover"}
+                            style={{ objectFit: "cover" }}
                           />
                         </Box>
                       </Grid>

@@ -6,11 +6,10 @@ import InnerLayout from "@/layout/InnerLayout";
 import { SITE_NAME } from "@/utils/constants";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LoadingButton } from "@mui/lab";
-import { Box, Breadcrumbs, Grid, Stack, Typography } from "@mui/material";
+import { Box, Grid, Stack } from "@mui/material";
 import axios from "axios";
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { toast } from "react-toastify";
@@ -91,17 +90,6 @@ export default function DeveloperDetailPage({
       <InnerLayout
         title={title}
         titleFontSize={"2.6rem"}
-        subtitle={
-          <Breadcrumbs>
-            <Link href={"/"}>
-              <Typography color={"text.main"}>Home</Typography>
-            </Link>
-            <Link href={"/developers"}>
-              <Typography color={"text.main"}>Developers</Typography>
-            </Link>
-            <Typography>{developerDetail.name}</Typography>
-          </Breadcrumbs>
-        }
         content={<SortComp />}
         img={developerDetail.image_background}
       >
