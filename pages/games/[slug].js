@@ -338,78 +338,92 @@ export default function GameDetailPage({
                   {/* genres */}
                   <Grid item xs={6}>
                     <CategoryTitle title={"Genres"} />
-                    <Stack
-                      alignItems={"center"}
-                      direction={"row"}
-                      divider={
-                        <Divider
-                          orientation="vertical"
-                          flexItem
-                          variant="middle"
-                        />
-                      }
-                      gap={1}
-                      flexWrap={"wrap"}
-                    >
-                      {gameDetail.genres.map((genre, index) => (
-                        <Link key={index} href={`/genres/${genre.slug}`}>
-                          <Typography
-                            className="content link"
-                            component={"span"}
-                          >
-                            {genre.name}
-                          </Typography>
-                        </Link>
-                      ))}
-                    </Stack>
+                    {gameDetail.genres > 0 ? (
+                      <Stack
+                        alignItems={"center"}
+                        direction={"row"}
+                        divider={
+                          <Divider
+                            orientation="vertical"
+                            flexItem
+                            variant="middle"
+                          />
+                        }
+                        gap={1}
+                        flexWrap={"wrap"}
+                      >
+                        {gameDetail.genres.map((genre, index) => (
+                          <Link key={index} href={`/genres/${genre.slug}`}>
+                            <Typography
+                              className="content link"
+                              component={"span"}
+                            >
+                              {genre.name}
+                            </Typography>
+                          </Link>
+                        ))}
+                      </Stack>
+                    ) : (
+                      <Typography className="content">-</Typography>
+                    )}
                   </Grid>
 
                   {/* released date */}
                   <Grid item xs={6}>
                     <CategoryTitle title={"Released date"} />
                     <Typography className="content">
-                      {dateFormat(gameDetail.released, "MMM DD, YYYY")}
+                      {gameDetail.released
+                        ? dateFormat(gameDetail.released, "MMM DD, YYYY")
+                        : "-"}
                     </Typography>
                   </Grid>
 
                   {/* developers */}
                   <Grid item xs={6}>
                     <CategoryTitle title={"Developers"} />
-                    <Stack alignItems={"flex-start"}>
-                      {gameDetail.developers.map((developer, index) => (
-                        <Link
-                          key={index}
-                          href={`/developers/${developer.slug}`}
-                        >
-                          <Typography
-                            className="content link"
-                            component={"span"}
+                    {gameDetail.developers.length > 0 ? (
+                      <Stack alignItems={"flex-start"}>
+                        {gameDetail.developers.map((developer, index) => (
+                          <Link
+                            key={index}
+                            href={`/developers/${developer.slug}`}
                           >
-                            {developer.name}
-                          </Typography>
-                        </Link>
-                      ))}
-                    </Stack>
+                            <Typography
+                              className="content link"
+                              component={"span"}
+                            >
+                              {developer.name}
+                            </Typography>
+                          </Link>
+                        ))}
+                      </Stack>
+                    ) : (
+                      <Typography className="content">-</Typography>
+                    )}
                   </Grid>
 
                   {/* publishers */}
                   <Grid item xs={6}>
                     <CategoryTitle title={"Publishers"} />
-                    <Stack alignItems={"flex-start"}>
-                      {gameDetail.publishers.map((publisher, index) => (
-                        <Link
-                          key={index}
-                          href={`/publishers/${publisher.slug}`}
-                        >
-                          <Typography
-                            className="content link"
-                            component={"span"}
+                    {gameDetail.publishers.length > 0 ? (
+                      <Stack alignItems={"flex-start"}>
+                        {gameDetail.publishers.map((publisher, index) => (
+                          <Link
+                            key={index}
+                            href={`/publishers/${publisher.slug}`}
                           >
-                            {publisher.name}
-                          </Typography>
-                        </Link>
-                      ))}
-                    </Stack>
+                            <Typography
+                              className="content link"
+                              component={"span"}
+                            >
+                              {publisher.name}
+                            </Typography>
+                          </Link>
+                        ))}
+                      </Stack>
+                    ) : (
+                      <Typography className="content">-</Typography>
+                    )}
                   </Grid>
 
                   {/* ESRB */}
@@ -425,59 +439,75 @@ export default function GameDetailPage({
                   {/* games in series */}
                   <Grid item xs={12}>
                     <CategoryTitle title={"Other games in the series"} />
-                    <Stack alignItems={"flex-start"}>
-                      {gamesSeries.results.map((item, index) => (
-                        <Link key={index} href={item.slug}>
-                          <Typography className="content link">
-                            {item.name}
-                          </Typography>
-                        </Link>
-                      ))}
-                    </Stack>
+                    {gamesSeries.count > 0 ? (
+                      <Stack alignItems={"flex-start"}>
+                        {gamesSeries.results.map((item, index) => (
+                          <Link key={index} href={item.slug}>
+                            <Typography className="content link">
+                              {item.name}
+                            </Typography>
+                          </Link>
+                        ))}
+                      </Stack>
+                    ) : (
+                      <Typography className="content">-</Typography>
+                    )}
                   </Grid>
 
                   {/* additions */}
                   <Grid item xs={12}>
                     <CategoryTitle title={"DLC & editions"} />
-                    <Stack alignItems={"flex-start"}>
-                      {gameAdditions.results.map((item, index) => (
-                        <Link key={index} href={item.slug}>
-                          <Typography className="content link">
-                            {item.name}
-                          </Typography>
-                        </Link>
-                      ))}
-                    </Stack>
+                    {gameAdditions.count > 0 ? (
+                      <Stack alignItems={"flex-start"}>
+                        {gameAdditions.results.map((item, index) => (
+                          <Link key={index} href={item.slug}>
+                            <Typography className="content link">
+                              {item.name}
+                            </Typography>
+                          </Link>
+                        ))}
+                      </Stack>
+                    ) : (
+                      <Typography className="content">-</Typography>
+                    )}
                   </Grid>
                   <Grid item xs={12}>
                     <CategoryTitle title={"Tags"} />
-                    <Stack
-                      alignItems={"center"}
-                      direction={"row"}
-                      gap={1}
-                      flexWrap={"wrap"}
-                    >
-                      {gameDetail.tags.map((tag, index) => (
-                        <Chip
-                          key={index}
-                          label={tag.name}
-                          onClick={() => router.push(`/tags/${tag.slug}`)}
-                          size="small"
-                        />
-                      ))}
-                    </Stack>
+                    {gameDetail.tags.length > 0 ? (
+                      <Stack
+                        alignItems={"center"}
+                        direction={"row"}
+                        gap={1}
+                        flexWrap={"wrap"}
+                      >
+                        {gameDetail.tags.map((tag, index) => (
+                          <Chip
+                            key={index}
+                            label={tag.name}
+                            onClick={() => router.push(`/tags/${tag.slug}`)}
+                            size="small"
+                          />
+                        ))}
+                      </Stack>
+                    ) : (
+                      <Typography className="content">-</Typography>
+                    )}
                   </Grid>
                   <Grid item xs={12}>
                     <CategoryTitle title={"Website"} />
-                    <a
-                      target="_blank"
-                      rel="noreferrer"
-                      href={gameDetail.website}
-                    >
-                      <Typography className="content link" component={"span"}>
-                        {gameDetail.website}
-                      </Typography>
-                    </a>
+                    {gameDetail.website ? (
+                      <a
+                        target="_blank"
+                        rel="noreferrer"
+                        href={gameDetail.website}
+                      >
+                        <Typography className="content link" component={"span"}>
+                          {gameDetail.website}
+                        </Typography>
+                      </a>
+                    ) : (
+                      <Typography className="content">-</Typography>
+                    )}
                   </Grid>
                 </Grid>
               </Box>
