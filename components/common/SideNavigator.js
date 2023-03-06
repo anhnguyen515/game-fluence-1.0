@@ -1,3 +1,7 @@
+import CodeIcon from "@mui/icons-material/Code";
+import PublishIcon from "@mui/icons-material/Publish";
+import StoreIcon from "@mui/icons-material/Store";
+import TagIcon from "@mui/icons-material/Tag";
 import { Button, Stack } from "@mui/material";
 import { useRouter } from "next/router";
 import GamesNavigator from "../Game/GamesNavigator";
@@ -8,18 +12,22 @@ const routes = [
   {
     name: "Developers",
     route: "/developers",
+    icon: <CodeIcon />,
   },
   {
     name: "Publishers",
     route: "/publishers",
+    icon: <PublishIcon />,
   },
   {
     name: "Stores",
     route: "/stores",
+    icon: <StoreIcon />,
   },
   {
     name: "Tags",
     route: "/tags",
+    icon: <TagIcon />,
   },
 ];
 
@@ -54,7 +62,8 @@ export default function SideNavigator() {
           fullWidth
           onClick={() => router.push(item.route)}
           size="large"
-          sx={{ fontSize: "1.1rem", justifyContent: "space-between" }}
+          startIcon={item.icon}
+          sx={{ fontSize: "1.1rem", justifyContent: "flex-start" }}
         >
           {item.name}
         </Button>

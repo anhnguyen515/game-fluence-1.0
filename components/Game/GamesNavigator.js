@@ -4,6 +4,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import SkipNextIcon from "@mui/icons-material/SkipNext";
 import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
+import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import { Button, Stack } from "@mui/material";
 import dayjs from "dayjs";
@@ -69,13 +70,19 @@ export default function GamesNavigator() {
           fullWidth
           onClick={() => handleShowSubcategories()}
           size="large"
+          startIcon={<SportsEsportsIcon />}
           sx={{
-            justifyContent: "space-between",
+            justifyContent: "flex-start",
             fontSize: "1.1rem",
             fontWeight: router.pathname.includes("/games") ? "bold" : "normal",
           }}
         >
-          Games {showSubcategories ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          Games{" "}
+          {showSubcategories ? (
+            <ExpandLessIcon sx={{ ml: "auto" }} />
+          ) : (
+            <ExpandMoreIcon sx={{ ml: "auto" }} />
+          )}
         </Button>
         {showSubcategories && (
           <Stack alignItems={"flex-start"} gap={1} pl={2} mt={1}>

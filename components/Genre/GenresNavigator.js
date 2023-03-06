@@ -1,4 +1,5 @@
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoard";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Button, Stack } from "@mui/material";
@@ -77,13 +78,19 @@ export default function GenresNavigator() {
           fullWidth
           onClick={() => handleShowSubcategories()}
           size="large"
+          startIcon={<DeveloperBoardIcon />}
           sx={{
-            justifyContent: "space-between",
+            justifyContent: "flex-start",
             fontSize: "1.1rem",
             fontWeight: router.pathname.includes("/genres") ? "bold" : "normal",
           }}
         >
-          Genres {showSubcategories ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          Genres{" "}
+          {showSubcategories ? (
+            <ExpandLessIcon sx={{ ml: "auto" }} />
+          ) : (
+            <ExpandMoreIcon sx={{ ml: "auto" }} />
+          )}
         </Button>
         {showSubcategories && (
           <Stack alignItems={"flex-start"} gap={1} pl={2} mt={1}>

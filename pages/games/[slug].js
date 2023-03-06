@@ -134,8 +134,8 @@ export default function GameDetailPage({
           <Grid item xs={12} md={6}>
             <Stack gap={3}>
               {/* ratings graph */}
-              <Stack justifyContent={"center"}>
-                {gameDetail.rating > 0 && (
+              {gameDetail.rating > 0 && (
+                <Stack justifyContent={"center"}>
                   <Stack alignItems={"center"}>
                     <Box
                       sx={{
@@ -241,17 +241,23 @@ export default function GameDetailPage({
                       ))}
                     </Stack>
                   </Stack>
-                )}
-              </Stack>
+                </Stack>
+              )}
 
               {/* summary */}
-              <Stack>
-                <CategoryTitle title={"Summary"} />
-                <ReadMore
-                  paragraph={gameDetail.description_raw}
-                  fontSize="1rem"
-                />
-              </Stack>
+              {
+                <Stack>
+                  <CategoryTitle title={"Summary"} />
+                  {gameDetail.description_raw ? (
+                    <ReadMore
+                      paragraph={gameDetail.description_raw}
+                      fontSize="1rem"
+                    />
+                  ) : (
+                    <Typography sx={{ color: "text.dark" }}>-</Typography>
+                  )}
+                </Stack>
+              }
 
               {/* other information */}
               <Box
@@ -267,58 +273,66 @@ export default function GameDetailPage({
                   {/* platforms */}
                   <Grid item xs={6}>
                     <CategoryTitle title={"Platforms"} />
-                    <Stack
-                      alignItems={"center"}
-                      direction={"row"}
-                      divider={
-                        <Divider
-                          orientation="vertical"
-                          flexItem
-                          variant="middle"
-                        />
-                      }
-                      gap={1}
-                      flexWrap={"wrap"}
-                    >
-                      {gameDetail.platforms.map((platform, index) => (
-                        <Link
-                          key={index}
-                          href={`/platforms/${platform.platform.slug}`}
-                        >
-                          <Typography
-                            className="content link"
-                            component={"span"}
+                    {gameDetail.platforms.length > 0 ? (
+                      <Stack
+                        alignItems={"center"}
+                        direction={"row"}
+                        divider={
+                          <Divider
+                            orientation="vertical"
+                            flexItem
+                            variant="middle"
+                          />
+                        }
+                        gap={1}
+                        flexWrap={"wrap"}
+                      >
+                        {gameDetail.platforms.map((platform, index) => (
+                          <Link
+                            key={index}
+                            href={`/platforms/${platform.platform.slug}`}
                           >
-                            {platform.platform.name}
-                          </Typography>
-                        </Link>
-                      ))}
-                    </Stack>
+                            <Typography
+                              className="content link"
+                              component={"span"}
+                            >
+                              {platform.platform.name}
+                            </Typography>
+                          </Link>
+                        ))}
+                      </Stack>
+                    ) : (
+                      <Typography className="content">-</Typography>
+                    )}
                   </Grid>
 
                   {/* metascore */}
                   <Grid item xs={6}>
                     <CategoryTitle title={"Metascore"} />
-                    <Typography
-                      className={
-                        gameDetail.metacritic >= 75
-                          ? "text-green-500"
-                          : gameDetail.metacritic < 50
-                          ? "text-red-500"
-                          : "text-yellow-500"
-                      }
-                      component={"span"}
-                      fontSize={"1.6rem"}
-                      fontWeight={600}
-                      sx={{
-                        border: 2,
-                        borderRadius: 1,
-                        px: 1,
-                        py: 0.5,
-                      }}
-                    >
-                      {gameDetail.metacritic}
-                    </Typography>
+                    {gameDetail.metacritic ? (
+                      <Typography
+                        className={
+                          gameDetail.metacritic >= 75
+                            ? "text-green-500"
+                            : gameDetail.metacritic < 50
+                            ? "text-red-500"
+                            : "text-yellow-500"
+                        }
+                        component={"span"}
+                        fontSize={"1.6rem"}
+                        fontWeight={600}
+                        sx={{
+                          border: 2,
+                          borderRadius: 1,
+                          px: 1,
+                          py: 0.5,
+                        }}
+                      >
+                        {gameDetail.metacritic}
+                      </Typography>
+                    ) : (
+                      <Typography className="content">-</Typography>
+                    )}
                   </Grid>
 
                   {/* genres */}
@@ -402,7 +416,9 @@ export default function GameDetailPage({
                   <Grid item xs={12}>
                     <CategoryTitle title={"ESRB rating"} />
                     <Typography className="content">
-                      {gameDetail.esrb_rating.name}
+                      {gameDetail.esrb_rating
+                        ? gameDetail.esrb_rating.name
+                        : "-"}
                     </Typography>
                   </Grid>
 

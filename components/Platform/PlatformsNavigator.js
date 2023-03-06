@@ -1,6 +1,7 @@
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import GamepadIcon from "@mui/icons-material/Gamepad";
 import { Button, Stack } from "@mui/material";
 import { useRouter } from "next/router";
 import React from "react";
@@ -72,8 +73,9 @@ export default function PlatformsNavigator() {
           fullWidth
           onClick={() => handleShowSubcategories()}
           size="large"
+          startIcon={<GamepadIcon />}
           sx={{
-            justifyContent: "space-between",
+            justifyContent: "flex-start",
             fontSize: "1.1rem",
             fontWeight: router.pathname.includes("/platforms")
               ? "bold"
@@ -81,7 +83,11 @@ export default function PlatformsNavigator() {
           }}
         >
           Platforms{" "}
-          {showSubcategories ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          {showSubcategories ? (
+            <ExpandLessIcon sx={{ ml: "auto" }} />
+          ) : (
+            <ExpandMoreIcon sx={{ ml: "auto" }} />
+          )}
         </Button>
         {showSubcategories && (
           <Stack alignItems={"flex-start"} gap={1} pl={2} mt={1}>
