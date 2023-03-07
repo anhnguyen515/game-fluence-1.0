@@ -103,7 +103,7 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
           backdrop: {
             sx: {
               backgroundColor:
-                getTheme(themeStore).theme.palette.background.default + "80",
+                getTheme(themeStore).theme.palette.background.default + "CC",
             },
           },
         }}
@@ -159,7 +159,7 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
 export default function GameScreenshots({ screenshots }) {
   return (
     <>
-      <Grid container spacing={2}>
+      <Grid container spacing={1}>
         {screenshots.results.map((item, index) => (
           <Grid key={index} item xs={12} sm={6}>
             <ScreenshotComponent
