@@ -548,43 +548,35 @@ export default function GameDetailPage({
                   </Box>
                 )}
                 {gameScreenshots.count > 0 && (
+                  <GameScreenshots screenshots={gameScreenshots} />
+                )}
+              </div>
+              <div>
+                <CategoryTitle title={"Available at"} />
+                {gameStores && gameStores.count > 0 ? (
                   <Grid container spacing={1}>
-                    {gameScreenshots.results.map((item, index) => (
-                      <Grid key={index} item xs={12} sm={6}>
-                        <GameScreenshots img={item.image} />
+                    {gameStores.results.map((item) => (
+                      <Grid key={item.id} item xs={12} sm={6}>
+                        <Button
+                          component={"a"}
+                          target="_blank"
+                          rel="noreferrer"
+                          href={item.url}
+                          fullWidth
+                          size="large"
+                          startIcon={getGameStore(item.store_id).icon}
+                          sx={{ py: 2 }}
+                          variant="outlined"
+                        >
+                          {getGameStore(item.store_id).name}
+                        </Button>
                       </Grid>
                     ))}
                   </Grid>
+                ) : (
+                  <Typography className="content">-</Typography>
                 )}
               </div>
-              {gameStores && (
-                <div>
-                  <CategoryTitle title={"Available at"} />
-                  {gameStores.count > 0 ? (
-                    <Grid container spacing={1}>
-                      {gameStores.results.map((item) => (
-                        <Grid key={item.id} item xs={12} sm={6}>
-                          <Button
-                            component={"a"}
-                            target="_blank"
-                            rel="noreferrer"
-                            href={item.url}
-                            fullWidth
-                            size="large"
-                            startIcon={getGameStore(item.store_id).icon}
-                            sx={{ py: 2 }}
-                            variant="outlined"
-                          >
-                            {getGameStore(item.store_id).name}
-                          </Button>
-                        </Grid>
-                      ))}
-                    </Grid>
-                  ) : (
-                    <Typography className="content">-</Typography>
-                  )}
-                </div>
-              )}
             </Stack>
           </Grid>
         </Grid>

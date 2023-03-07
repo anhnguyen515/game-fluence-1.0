@@ -1,20 +1,34 @@
 import { selectTheme } from "@/store/slices/themeSlice";
 import { getTheme } from "@/utils/utils";
-import { Dialog, DialogContent, useMediaQuery } from "@mui/material";
+import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
+import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
+import { Dialog, Grid, IconButton, Stack, useMediaQuery } from "@mui/material";
 import Box from "@mui/material/Box";
 import Image from "next/image";
 import * as React from "react";
 import { useSelector } from "react-redux";
 
-export default function GameScreenshots({ img }) {
+function ScreenshotComponent({ screenshots, activeIndex }) {
   const themeStore = useSelector(selectTheme);
   const isSmallScreen = useMediaQuery(
     getTheme(themeStore).theme.breakpoints.down("sm")
   );
   const [open, setOpen] = React.useState(false);
+  const [currIndex, setCurrIndex] = React.useState(activeIndex);
 
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setCurrIndex(activeIndex);
+    setOpen(true);
+  };
   const handleClose = () => setOpen(false);
+
+  function handleChangeActiveIndex(type = "increment") {
+    if (type === "decrement") {
+      setCurrIndex((prev) => prev - 1);
+    } else {
+      setCurrIndex((prev) => prev + 1);
+    }
+  }
 
   if (isSmallScreen) {
     return (
@@ -30,7 +44,7 @@ export default function GameScreenshots({ img }) {
       >
         <Image
           alt=""
-          src={img}
+          src={screenshots.results[activeIndex].image}
           fill
           placeholder="blur"
           blurDataURL={
@@ -64,7 +78,7 @@ export default function GameScreenshots({ img }) {
       >
         <Image
           alt=""
-          src={img}
+          src={screenshots.results[activeIndex].image}
           fill
           placeholder="blur"
           blurDataURL={
@@ -100,7 +114,13 @@ export default function GameScreenshots({ img }) {
           },
         }}
       >
-        <DialogContent>
+        <Stack alignItems={"center"} direction={"row"} gap={1}>
+          <IconButton
+            disabled={currIndex === 0}
+            onClick={() => handleChangeActiveIndex("decrement")}
+          >
+            <ArrowBackIosRoundedIcon fontSize="large" />
+          </IconButton>
           <Box
             sx={{
               position: "relative",
@@ -112,7 +132,7 @@ export default function GameScreenshots({ img }) {
           >
             <Image
               alt=""
-              src={img}
+              src={screenshots.results[currIndex].image}
               fill
               placeholder="blur"
               blurDataURL={
@@ -124,8 +144,31 @@ export default function GameScreenshots({ img }) {
               style={{ objectFit: "cover" }}
             />
           </Box>
-        </DialogContent>
+          <IconButton
+            disabled={currIndex === screenshots.count - 1}
+            onClick={handleChangeActiveIndex}
+          >
+            <ArrowForwardIosRoundedIcon fontSize="large" />
+          </IconButton>
+        </Stack>
       </Dialog>
     </div>
+  );
+}
+
+export default function GameScreenshots({ screenshots }) {
+  return (
+    <>
+      <Grid container spacing={2}>
+        {screenshots.results.map((item, index) => (
+          <Grid key={index} item xs={12} sm={6}>
+            <ScreenshotComponent
+              screenshots={screenshots}
+              activeIndex={index}
+            />
+          </Grid>
+        ))}
+      </Grid>
+    </>
   );
 }
