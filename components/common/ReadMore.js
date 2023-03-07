@@ -1,8 +1,8 @@
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Box, Button, Stack } from "@mui/material";
-import React from "react";
+import { Box, Button } from "@mui/material";
 import parse from "html-react-parser";
+import React from "react";
 
 export default function ReadMore({ paragraph, fontSize = "0.9rem" }) {
   const heightRef = React.useRef(null);
@@ -11,7 +11,7 @@ export default function ReadMore({ paragraph, fontSize = "0.9rem" }) {
 
   React.useLayoutEffect(() => {
     const height = heightRef.current.clientHeight;
-    setReadMore(height > 84);
+    setReadMore(height >= 96);
   }, []);
 
   return (

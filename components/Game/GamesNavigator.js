@@ -86,9 +86,9 @@ export default function GamesNavigator() {
         </Button>
         {showSubcategories && (
           <Stack alignItems={"flex-start"} gap={1} pl={2} mt={1}>
-            {routes.map((i) => (
+            {routes.map((i, index) => (
               <Button
-                key={i.slug}
+                key={index}
                 color={
                   category === i.category ||
                   (router.pathname.includes("/games") &&

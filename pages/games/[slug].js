@@ -8,6 +8,7 @@ import {
 } from "@/apis/game";
 import CategoryTitle from "@/components/common/CategoryTitle";
 import ReadMore from "@/components/common/ReadMore";
+import GameScreenshots from "@/components/Game/Detail/GameScreenshots";
 import InnerLayout from "@/layout/InnerLayout";
 import { selectTheme } from "@/store/slices/themeSlice";
 import { SITE_NAME } from "@/utils/constants";
@@ -30,7 +31,6 @@ import {
 } from "@mui/material";
 import { ArcElement, Chart as ChartJS, Tooltip } from "chart.js";
 import { NextSeo } from "next-seo";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
@@ -524,7 +524,14 @@ export default function GameDetailPage({
             <Stack gap={3}>
               <div>
                 {gameTrailers?.count > 0 && (
-                  <Box sx={{ borderRadius: 1, overflow: "hidden", mb: 1 }}>
+                  <Box
+                    sx={{
+                      borderRadius: 1,
+                      overflow: "hidden",
+                      mb: 1,
+                      aspectRatio: "1920/1080",
+                    }}
+                  >
                     <ReactPlayer
                       url={gameTrailers.results[0].data["480"]}
                       playing
@@ -544,29 +551,7 @@ export default function GameDetailPage({
                   <Grid container spacing={1}>
                     {gameScreenshots.results.map((item, index) => (
                       <Grid key={index} item xs={12} sm={6}>
-                        <Box
-                          sx={{
-                            position: "relative",
-                            width: "100%",
-                            aspectRatio: `1920/1080`,
-                            borderRadius: 1,
-                            overflow: "hidden",
-                          }}
-                        >
-                          <Image
-                            alt=""
-                            src={item.image}
-                            fill
-                            placeholder="blur"
-                            blurDataURL={
-                              getTheme(themeStore).theme.palette.mode ===
-                              "light"
-                                ? "/img/logo-black-1200px.png"
-                                : "/img/logo-white-1200px.png"
-                            }
-                            style={{ objectFit: "cover" }}
-                          />
-                        </Box>
+                        <GameScreenshots img={item.image} />
                       </Grid>
                     ))}
                   </Grid>
@@ -587,7 +572,7 @@ export default function GameDetailPage({
                             fullWidth
                             size="large"
                             startIcon={getGameStore(item.store_id).icon}
-                            sx={{ aspectRatio: "4/1" }}
+                            sx={{ py: 2 }}
                             variant="outlined"
                           >
                             {getGameStore(item.store_id).name}
