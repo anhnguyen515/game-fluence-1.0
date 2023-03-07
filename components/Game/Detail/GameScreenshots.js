@@ -143,7 +143,8 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
           >
             {loading && (
               <CircularProgress
-                sx={{ position: "absolute", top: 10, left: 10, zIndex: 2 }}
+                size={64}
+                sx={{ position: "absolute", top: 20, right: 20, zIndex: 2 }}
               />
             )}
             <Image
