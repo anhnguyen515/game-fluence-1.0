@@ -2,7 +2,14 @@ import { selectTheme } from "@/store/slices/themeSlice";
 import { getTheme } from "@/utils/utils";
 import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
-import { Dialog, Grid, IconButton, Stack, useMediaQuery } from "@mui/material";
+import {
+  CircularProgress,
+  Dialog,
+  Grid,
+  IconButton,
+  Stack,
+  useMediaQuery,
+} from "@mui/material";
 import Box from "@mui/material/Box";
 import Image from "next/image";
 import * as React from "react";
@@ -121,7 +128,9 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
           >
             <ArrowBackIosRoundedIcon fontSize="large" />
           </IconButton>
-          <Box
+          <Stack
+            alignItems={"center"}
+            justifyContent={"center"}
             sx={{
               position: "relative",
               width: "100%",
@@ -140,10 +149,11 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
                   ? "/img/logo-black-1200px.png"
                   : "/img/logo-white-1200px.png"
               }
+              priority
               quality={100}
-              style={{ objectFit: "cover" }}
+              style={{ objectFit: "cover", transition: "0.2s" }}
             />
-          </Box>
+          </Stack>
           <IconButton
             disabled={currIndex === screenshots.count - 1}
             onClick={handleChangeActiveIndex}
