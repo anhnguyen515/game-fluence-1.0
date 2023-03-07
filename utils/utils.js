@@ -162,23 +162,31 @@ export function upperCaseFirstLetter(str) {
 export function ratingColor(scoreStr) {
   if (scoreStr === "Exceptional" || scoreStr >= 4) {
     return {
-      backgroundColor: "rgba(34, 197, 94, 0.2)",
-      borderColor: "rgba(34, 197, 94, 1)",
+      backgroundColor: "rgba(16, 185, 129, 0.2)",
+      borderColor: "rgba(16, 185, 129, 1)",
+      // backgroundColor: "rgba(239, 68, 68, 0.2)",
+      // borderColor: "rgba(239, 68, 68, 1)",
     };
   } else if (scoreStr === "Recommended" || (scoreStr >= 3 && scoreStr < 4)) {
     return {
       backgroundColor: "rgba(59, 130, 246, 0.2)",
       borderColor: "rgba(59, 130, 246, 1)",
+      // backgroundColor: "rgba(245, 158, 11, 0.2)",
+      // borderColor: "rgba(245, 158, 11, 1)",
     };
   } else if (scoreStr === "Meh" || (scoreStr >= 2 && scoreStr < 3)) {
     return {
-      backgroundColor: "rgba(249, 115, 22, 0.2)",
-      borderColor: "rgba(249, 115, 22, 1)",
+      backgroundColor: "rgba(245, 158, 11, 0.2)",
+      borderColor: "rgba(245, 158, 11, 1)",
+      // backgroundColor: "rgba(139, 92, 246, 0.2)",
+      // borderColor: "rgba(139, 92, 246, 1)",
     };
   } else {
     return {
       backgroundColor: "rgba(239, 68, 68, 0.2)",
       borderColor: "rgba(239, 68, 68, 1)",
+      // backgroundColor: "rgba(59, 130, 246, 0.2)",
+      // borderColor: "rgba(59, 130, 246, 1)",
     };
   }
 }

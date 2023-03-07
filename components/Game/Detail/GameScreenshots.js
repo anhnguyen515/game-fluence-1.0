@@ -58,8 +58,8 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
           placeholder="blur"
           blurDataURL={
             getTheme(themeStore).theme.palette.mode === "light"
-              ? "/img/logo-black-1200px.png"
-              : "/img/logo-white-1200px.png"
+              ? "/img/logo-black-600px.png"
+              : "/img/logo-white-600px.png"
           }
           sizes={`(max-width: ${
             getTheme(themeStore).theme.breakpoints.values.sm
@@ -92,8 +92,8 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
           placeholder="blur"
           blurDataURL={
             getTheme(themeStore).theme.palette.mode === "light"
-              ? "/img/logo-black-1200px.png"
-              : "/img/logo-white-1200px.png"
+              ? "/img/logo-black-600px.png"
+              : "/img/logo-white-600px.png"
           }
           sizes={`(max-width: ${
             getTheme(themeStore).theme.breakpoints.values.sm
