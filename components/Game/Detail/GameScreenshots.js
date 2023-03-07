@@ -22,6 +22,7 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
   );
   const [open, setOpen] = React.useState(false);
   const [currIndex, setCurrIndex] = React.useState(activeIndex);
+  const [loading, setLoading] = React.useState(false);
 
   const handleOpen = () => {
     setCurrIndex(activeIndex);
@@ -30,6 +31,7 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
   const handleClose = () => setOpen(false);
 
   function handleChangeActiveIndex(type = "increment") {
+    setLoading(true);
     if (type === "decrement") {
       setCurrIndex((prev) => prev - 1);
     } else {
@@ -139,6 +141,11 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
               overflow: "hidden",
             }}
           >
+            {loading && (
+              <CircularProgress
+                sx={{ position: "absolute", top: 10, left: 10, zIndex: 2 }}
+              />
+            )}
             <Image
               alt=""
               src={screenshots.results[currIndex].image}
@@ -149,6 +156,7 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
                   ? "/img/logo-black-1200px.png"
                   : "/img/logo-white-1200px.png"
               }
+              onLoadingComplete={() => setLoading(false)}
               priority
               quality={100}
               style={{ objectFit: "cover", transition: "0.2s" }}
