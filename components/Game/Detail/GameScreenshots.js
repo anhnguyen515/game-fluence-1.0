@@ -172,6 +172,7 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
             }
             onLoadingComplete={() => setLoading(false)}
             priority
+            sizes="100vw"
             // quality={100}
             style={{ objectFit: "cover", transition: "0.2s" }}
           />
@@ -180,7 +181,10 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
           {screenshots.results.map((item, index) => (
             <Box
               key={index}
-              onClick={() => setCurrIndex(index)}
+              onClick={() => {
+                setLoading(true);
+                setCurrIndex(index);
+              }}
               sx={{
                 position: "relative",
                 aspectRatio: `1920/1080`,
@@ -200,6 +204,7 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
                     ? "/img/logo-black-600px.png"
                     : "/img/logo-white-600px.png"
                 }
+                sizes="20vw"
                 style={{ objectFit: "cover", zIndex: -1 }}
               />
             </Box>
