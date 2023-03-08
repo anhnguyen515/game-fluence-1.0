@@ -90,6 +90,13 @@ export default function GameDetailPage({
     getGameStoresAPI(slug).then((res) => setGameStores(res.data));
   }, []);
 
+  console.log(
+    gameTrailers?.results.map((item) => ({
+      src: item.data.max,
+      type: "video/mp4",
+    }))
+  );
+
   return (
     <>
       <NextSeo
@@ -121,10 +128,12 @@ export default function GameDetailPage({
         titleFontSize={"4rem"}
         subtitle={
           <Stack alignItems={"center"} direction={"row"} gap={1}>
-            <Chip
-              label={dateFormat(gameDetail.released, "MMM DD, YYYY")}
-              sx={{ mr: 1 }}
-            />
+            {gameDetail.released && (
+              <Chip
+                label={dateFormat(gameDetail.released, "MMM DD, YYYY")}
+                sx={{ mr: 1 }}
+              />
+            )}
             {gameDetail.parent_platforms.map((item, index) => (
               <span key={index}>
                 {getParentPlatform(item.platform.name, 24)}
@@ -165,9 +174,9 @@ export default function GameDetailPage({
               {
                 <Stack>
                   <CategoryTitle title={"Summary"} />
-                  {gameDetail.description_raw ? (
+                  {gameDetail.description ? (
                     <ReadMore
-                      paragraph={gameDetail.description_raw}
+                      paragraph={gameDetail.description}
                       fontSize="1rem"
                     />
                   ) : (
@@ -197,7 +206,7 @@ export default function GameDetailPage({
                     }}
                   >
                     <ReactPlayer
-                      url={gameTrailers.results[0].data["480"]}
+                      url={gameTrailers.results[0].data.max}
                       playing
                       controls
                       light={

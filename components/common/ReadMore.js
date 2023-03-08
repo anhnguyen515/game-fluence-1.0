@@ -9,7 +9,7 @@ export default function ReadMore({ paragraph, fontSize = "0.9rem" }) {
 
   const [readMore, setReadMore] = React.useState(true);
 
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
     const height = heightRef.current.clientHeight;
     setReadMore(height >= 96);
   }, []);
@@ -19,7 +19,16 @@ export default function ReadMore({ paragraph, fontSize = "0.9rem" }) {
       <Box
         className={readMore ? "line-clamp-3" : null}
         ref={heightRef}
-        sx={{ lineHeight: "32px", color: "text.dark", fontSize: fontSize }}
+        sx={{
+          lineHeight: "32px",
+          color: "text.dark",
+          fontSize: fontSize,
+          "h1, h2, h3, h4, h5, h6": {
+            fontSize: "1.3rem",
+            fontWeight: 600,
+            mt: 1,
+          },
+        }}
       >
         {parse(paragraph)}
       </Box>

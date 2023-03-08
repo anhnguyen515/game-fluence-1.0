@@ -107,7 +107,7 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
         open={open}
         onClose={handleClose}
         fullWidth
-        maxWidth="xl"
+        maxWidth="lg"
         slotProps={{
           backdrop: {
             sx: {
@@ -123,46 +123,51 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
           },
         }}
       >
-        <Stack alignItems={"center"} direction={"row"} gap={1}>
+        <Box
+          sx={{
+            position: "relative",
+            width: "100%",
+            aspectRatio: `1920/1080`,
+            borderRadius: 1,
+            overflow: "hidden",
+          }}
+        >
+          {loading && (
+            <CircularProgress
+              size={64}
+              sx={{ position: "absolute", top: 20, right: 20, zIndex: 2 }}
+            />
+          )}
+          <Image
+            alt=""
+            src={screenshots.results[currIndex].image}
+            fill
+            placeholder="blur"
+            blurDataURL={
+              getTheme(themeStore).theme.palette.mode === "light"
+                ? "/img/logo-black-1200px.png"
+                : "/img/logo-white-1200px.png"
+            }
+            onLoadingComplete={() => setLoading(false)}
+            priority
+            // quality={100}
+            style={{ objectFit: "cover", transition: "0.2s" }}
+          />
+        </Box>
+        <Stack
+          alignItems={"center"}
+          direction={"row"}
+          gap={3}
+          justifyContent={"center"}
+          mt={1}
+        >
           <IconButton
             disabled={currIndex === 0}
             onClick={() => handleChangeActiveIndex("decrement")}
           >
             <ArrowBackIosRoundedIcon fontSize="large" />
           </IconButton>
-          <Stack
-            alignItems={"center"}
-            justifyContent={"center"}
-            sx={{
-              position: "relative",
-              width: "100%",
-              aspectRatio: `1920/1080`,
-              borderRadius: 1,
-              overflow: "hidden",
-            }}
-          >
-            {loading && (
-              <CircularProgress
-                size={64}
-                sx={{ position: "absolute", top: 20, right: 20, zIndex: 2 }}
-              />
-            )}
-            <Image
-              alt=""
-              src={screenshots.results[currIndex].image}
-              fill
-              placeholder="blur"
-              blurDataURL={
-                getTheme(themeStore).theme.palette.mode === "light"
-                  ? "/img/logo-black-1200px.png"
-                  : "/img/logo-white-1200px.png"
-              }
-              onLoadingComplete={() => setLoading(false)}
-              priority
-              quality={100}
-              style={{ objectFit: "cover", transition: "0.2s" }}
-            />
-          </Stack>
+
           <IconButton
             disabled={currIndex === screenshots.count - 1}
             onClick={handleChangeActiveIndex}

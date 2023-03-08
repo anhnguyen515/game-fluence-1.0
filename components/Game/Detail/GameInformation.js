@@ -2,12 +2,14 @@ import CategoryTitle from "@/components/common/CategoryTitle";
 import { dateFormat } from "@/utils/utils";
 import { Box, Chip, Grid, Stack, Typography } from "@mui/material";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function GameInformation({
   gameDetail,
   gameAdditions,
   gamesSeries,
 }) {
+  const router = useRouter();
   return (
     <Box
       sx={{
