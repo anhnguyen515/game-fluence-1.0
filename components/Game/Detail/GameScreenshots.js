@@ -123,6 +123,28 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
           },
         }}
       >
+        <Stack
+          alignItems={"center"}
+          direction={"row"}
+          gap={3}
+          justifyContent={"center"}
+          mb={1}
+        >
+          <IconButton
+            disabled={currIndex === 0 || loading}
+            onClick={() => handleChangeActiveIndex("decrement")}
+            sx={{ transition: "color 0.2s" }}
+          >
+            <ArrowBackIosRoundedIcon fontSize="large" />
+          </IconButton>
+          <IconButton
+            disabled={currIndex === screenshots.count - 1 || loading}
+            onClick={handleChangeActiveIndex}
+            sx={{ transition: "color 0.2s" }}
+          >
+            <ArrowForwardIosRoundedIcon fontSize="large" />
+          </IconButton>
+        </Stack>
         <Box
           sx={{
             position: "relative",
@@ -154,28 +176,35 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
             style={{ objectFit: "cover", transition: "0.2s" }}
           />
         </Box>
-        <Stack
-          alignItems={"center"}
-          direction={"row"}
-          gap={3}
-          justifyContent={"center"}
-          mt={1}
-        >
-          <IconButton
-            disabled={currIndex === 0 || loading}
-            onClick={() => handleChangeActiveIndex("decrement")}
-            sx={{ transition: "color 0.2s" }}
-          >
-            <ArrowBackIosRoundedIcon fontSize="large" />
-          </IconButton>
-          <IconButton
-            disabled={currIndex === screenshots.count - 1 || loading}
-            onClick={handleChangeActiveIndex}
-            sx={{ transition: "color 0.2s" }}
-          >
-            <ArrowForwardIosRoundedIcon fontSize="large" />
-          </IconButton>
-        </Stack>
+        <div className="grid grid-cols-6 gap-2 mt-2">
+          {screenshots.results.map((item, index) => (
+            <Box
+              key={index}
+              onClick={() => setCurrIndex(index)}
+              sx={{
+                position: "relative",
+                aspectRatio: `1920/1080`,
+                borderRadius: 1,
+                overflow: "hidden",
+                backgroundColor: currIndex !== index && "rgba(0, 0, 0, 0.7)",
+                cursor: "pointer",
+              }}
+            >
+              <Image
+                alt=""
+                src={item.image}
+                fill
+                placeholder="blur"
+                blurDataURL={
+                  getTheme(themeStore).theme.palette.mode === "light"
+                    ? "/img/logo-black-600px.png"
+                    : "/img/logo-white-600px.png"
+                }
+                style={{ objectFit: "cover", zIndex: -1 }}
+              />
+            </Box>
+          ))}
+        </div>
       </Dialog>
     </div>
   );
