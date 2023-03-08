@@ -1,6 +1,6 @@
 import { selectTheme } from "@/store/slices/themeSlice";
 import { getTheme } from "@/utils/utils";
-import { Box, Container, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Container, Stack, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 
 export default function PageHeader({
@@ -9,6 +9,7 @@ export default function PageHeader({
   subtitle,
   content,
   img,
+  avatar,
 }) {
   const themeStore = useSelector(selectTheme);
   return (
@@ -37,14 +38,19 @@ export default function PageHeader({
           gap={1}
           sx={{ px: { xs: 1, md: 3 }, py: 5 }}
         >
-          <Typography
-            fontSize={titleFontSize}
-            fontWeight={600}
-            textAlign={"center"}
-            variant="h1"
-          >
-            {title}
-          </Typography>
+          <Stack alignItems={"center"} direction={"row"} gap={1}>
+            <Typography
+              fontSize={titleFontSize}
+              fontWeight={600}
+              textAlign={"center"}
+              variant="h1"
+            >
+              {title}
+            </Typography>
+            {avatar && (
+              <Avatar src={avatar} sx={{ width: "3.5rem", height: "3.5rem" }} />
+            )}
+          </Stack>
           <div>{subtitle}</div>
           <div>{content}</div>
         </Stack>

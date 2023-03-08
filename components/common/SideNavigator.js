@@ -1,3 +1,4 @@
+import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import CodeIcon from "@mui/icons-material/Code";
 import PublishIcon from "@mui/icons-material/Publish";
 import StoreIcon from "@mui/icons-material/Store";
@@ -18,6 +19,11 @@ const routes = [
     name: "Publishers",
     route: "/publishers",
     icon: <PublishIcon />,
+  },
+  {
+    name: "Creators",
+    route: "/creators",
+    icon: <AssignmentIndIcon />,
   },
   {
     name: "Stores",

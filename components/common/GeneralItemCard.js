@@ -38,8 +38,12 @@ export default function GeneralItemCard({ item }) {
         aspectRatio: "1.25/1",
         backgroundImage:
           !hover && !isSmallScreen
-            ? `linear-gradient(to bottom, rgba(21, 21, 21, 0.7), rgba(21, 21, 21, 0.7)), url(${item.image_background})`
-            : `linear-gradient(to bottom, rgba(21, 21, 21, 0.5), rgba(21, 21, 21, 0.5)), url(${item.image_background})`,
+            ? `linear-gradient(to bottom, rgba(21, 21, 21, 0.7), rgba(21, 21, 21, 0.7)), url(${
+                item.image || item.image_background
+              })`
+            : `linear-gradient(to bottom, rgba(21, 21, 21, 0.5), rgba(21, 21, 21, 0.5)), url(${
+                item.image || item.image_background
+              })`,
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",

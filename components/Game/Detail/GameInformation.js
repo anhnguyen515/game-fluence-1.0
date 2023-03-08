@@ -25,20 +25,14 @@ export default function GameInformation({
         <Grid item xs={6}>
           <CategoryTitle title={"Platforms"} />
           {gameDetail.platforms.length > 0 ? (
-            <Stack
-              alignItems={"center"}
-              direction={"row"}
-              divider={<span className="content mr-1">,</span>}
-              flexWrap={"wrap"}
-            >
-              {gameDetail.platforms.map((platform, index) => (
-                <Link key={index} href={`/platforms/${platform.platform.slug}`}>
-                  <Typography className="content link" component={"span"}>
-                    {platform.platform.name}
-                  </Typography>
-                </Link>
-              ))}
-            </Stack>
+            gameDetail.platforms.map((platform, index) => (
+              <Link key={index} href={`/platforms/${platform.platform.slug}`}>
+                <Typography className="content link" component={"span"}>
+                  {platform.platform.name}
+                </Typography>
+                {index !== gameDetail.platforms.length - 1 && ", "}
+              </Link>
+            ))
           ) : (
             <Typography className="content">-</Typography>
           )}
@@ -77,20 +71,14 @@ export default function GameInformation({
         <Grid item xs={6}>
           <CategoryTitle title={"Genres"} />
           {gameDetail.genres.length > 0 ? (
-            <Stack
-              alignItems={"center"}
-              direction={"row"}
-              divider={<span className="content mr-1">,</span>}
-              flexWrap={"wrap"}
-            >
-              {gameDetail.genres.map((genre, index) => (
-                <Link key={index} href={`/genres/${genre.slug}`}>
-                  <Typography className="content link" component={"span"}>
-                    {genre.name}
-                  </Typography>
-                </Link>
-              ))}
-            </Stack>
+            gameDetail.genres.map((genre, index) => (
+              <Link key={index} href={`/genres/${genre.slug}`}>
+                <Typography className="content link" component={"span"}>
+                  {genre.name}
+                </Typography>
+                {index !== gameDetail.genres.length - 1 && ", "}
+              </Link>
+            ))
           ) : (
             <Typography className="content">-</Typography>
           )}

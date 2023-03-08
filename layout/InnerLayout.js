@@ -9,6 +9,7 @@ export default function InnerLayout({
   subtitle,
   content,
   img,
+  avatar,
 }) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -21,6 +22,7 @@ export default function InnerLayout({
         subtitle={subtitle}
         content={content}
         img={img}
+        avatar={avatar}
       />
       <Container maxWidth="2xl">
         <Box sx={{ px: { xs: 1, md: 3 }, py: 3 }}>
