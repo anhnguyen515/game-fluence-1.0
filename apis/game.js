@@ -27,3 +27,7 @@ export function getGameStoresAPI(gameSlug, params) {
 export function getGameTrailersAPI(gameSlug, params) {
   return axiosClient.get(`games/${gameSlug}/movies`, { params });
 }
+
+export function getGameCreatorsListAPI(gameSlug, params) {
+  return axiosClient.get(`/games/${gameSlug}/development-team`, { params });
+}

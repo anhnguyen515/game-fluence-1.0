@@ -27,11 +27,20 @@ export default function GameCard({ game }) {
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+
   const [hover, setHover] = React.useState(false);
+  const [height, setHeight] = React.useState(0);
+
+  const heightRef = React.useRef(null);
+
+  React.useEffect(() => {
+    setHeight(heightRef.current.clientHeight);
+  }, []);
 
   return (
-    <Box sx={{ position: "relative", height: "100%" }}>
+    <Box sx={{ position: "relative", height: hover ? height : "100%" }}>
       <Card
+        ref={heightRef}
         elevation={hover ? 24 : 0}
         variant={hover ? "elevation" : "outlined"}
         onMouseOver={() => {
@@ -58,6 +67,7 @@ export default function GameCard({ game }) {
             : {
                 display: "flex",
                 flexDirection: "column",
+                transition: "transform 0.2s",
                 height: "100%",
               }
         }

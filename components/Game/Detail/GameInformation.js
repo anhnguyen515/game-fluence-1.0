@@ -141,7 +141,7 @@ export default function GameInformation({
         {/* games in series */}
         <Grid item xs={12}>
           <CategoryTitle title={"Other games in the series"} />
-          {gamesSeries.count > 0 ? (
+          {gamesSeries && gamesSeries.count > 0 ? (
             <Stack alignItems={"flex-start"}>
               {gamesSeries.results.map((item, index) => (
                 <Link key={index} href={item.slug}>
@@ -157,7 +157,7 @@ export default function GameInformation({
         {/* additions */}
         <Grid item xs={12}>
           <CategoryTitle title={"DLC & editions"} />
-          {gameAdditions.count > 0 ? (
+          {gameAdditions && gameAdditions.count > 0 ? (
             <Stack alignItems={"flex-start"}>
               {gameAdditions.results.map((item, index) => (
                 <Link key={index} href={item.slug}>

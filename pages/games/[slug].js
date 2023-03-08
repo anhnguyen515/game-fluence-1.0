@@ -1,5 +1,6 @@
 import {
   getGameAdditionsAPI,
+  getGameCreatorsListAPI,
   getGameDetailAPI,
   getGameScreenshotsAPI,
   getGamesSeriesAPI,
@@ -8,6 +9,7 @@ import {
 } from "@/apis/game";
 import CategoryTitle from "@/components/common/CategoryTitle";
 import ReadMore from "@/components/common/ReadMore";
+import GameCreatorsList from "@/components/Game/Detail/GameCreatorsList";
 import GameInformation from "@/components/Game/Detail/GameInformation";
 import GameRatings from "@/components/Game/Detail/GameRatings";
 import GameScreenshots from "@/components/Game/Detail/GameScreenshots";
@@ -20,6 +22,8 @@ import {
   getParentPlatform,
   getTheme,
 } from "@/utils/utils";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { LoadingButton } from "@mui/lab";
 import {
   Box,
   Breadcrumbs,
@@ -29,12 +33,14 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import axios from "axios";
 import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import ReactPlayer from "react-player";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 export async function getStaticPaths() {
   return {
@@ -45,13 +51,11 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const { slug } = context.params;
-  const [gameDetail, gameAdditions, gamesSeries, gameScreenshots] =
-    await Promise.all([
-      getGameDetailAPI(slug).then((res) => res.data),
-      getGameAdditionsAPI(slug).then((res) => res.data),
-      getGamesSeriesAPI(slug).then((res) => res.data),
-      getGameScreenshotsAPI(slug).then((res) => res.data),
-    ]);
+  const [gameDetail, gameScreenshots] = await Promise.all([
+    getGameDetailAPI(slug).then((res) => res.data),
+
+    getGameScreenshotsAPI(slug).then((res) => res.data),
+  ]);
   if (gameDetail.detail) {
     return {
       notFound: true,
@@ -62,40 +66,57 @@ export async function getStaticProps(context) {
     props: {
       slug,
       gameDetail,
-      gameAdditions,
-      gamesSeries,
       gameScreenshots,
     },
     revalidate: 60,
   };
 }
 
-export default function GameDetailPage({
-  slug,
-  gameDetail,
-  gameAdditions,
-  gamesSeries,
-  gameScreenshots,
-}) {
+export default function GameDetailPage({ slug, gameDetail, gameScreenshots }) {
   const title = gameDetail.name;
   const router = useRouter();
   const themeStore = useSelector(selectTheme);
 
+  const [gameAdditions, setGameAdditions] = React.useState(null);
+  const [gamesSeries, setGamesSeries] = React.useState(null);
   const [gameTrailers, setGameTrailers] = React.useState(null);
   const [gameStores, setGameStores] = React.useState(null);
+  const [gameCreators, setGameCreators] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
     getGameTrailersAPI(slug).then((res) => setGameTrailers(res.data));
 
     getGameStoresAPI(slug).then((res) => setGameStores(res.data));
+
+    getGameAdditionsAPI(slug).then((res) => setGameAdditions(res.data));
+
+    getGamesSeriesAPI(slug).then((res) => setGamesSeries(res.data));
+
+    getGameCreatorsListAPI(slug, { page_size: 8 }).then((res) =>
+      setGameCreators(res.data)
+    );
   }, []);
 
-  console.log(
-    gameTrailers?.results.map((item) => ({
-      src: item.data.max,
-      type: "video/mp4",
-    }))
-  );
+  function handleLoadMore() {
+    setLoading(true);
+    axios
+      .get(gameCreators.next)
+      .then((res) => {
+        const data = res.data;
+        setGameCreators((prev) => ({
+          ...prev,
+          next: data.next,
+          previous: data.previous,
+          results: [...prev.results, ...data.results],
+        }));
+        setLoading(false);
+      })
+      .catch(() => {
+        toast.error("Something went wrong");
+        setLoading(false);
+      });
+  }
 
   return (
     <>
@@ -261,6 +282,19 @@ export default function GameDetailPage({
             </Stack>
           </Grid>
         </Grid>
+        <GameCreatorsList gameCreators={gameCreators} />
+        {gameCreators?.next && (
+          <Stack alignItems={"center"} mt={3} sx={{ width: "100%" }}>
+            <LoadingButton
+              loading={loading}
+              onClick={handleLoadMore}
+              size="large"
+              startIcon={<ExpandMoreIcon />}
+            >
+              Load More
+            </LoadingButton>
+          </Stack>
+        )}
       </InnerLayout>
     </>
   );

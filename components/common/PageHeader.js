@@ -39,6 +39,9 @@ export default function PageHeader({
           sx={{ px: { xs: 1, md: 3 }, py: 5 }}
         >
           <Stack alignItems={"center"} direction={"row"} gap={1}>
+            {avatar && (
+              <Avatar src={avatar} sx={{ width: "3.5rem", height: "3.5rem" }} />
+            )}
             <Typography
               fontSize={titleFontSize}
               fontWeight={600}
@@ -47,9 +50,6 @@ export default function PageHeader({
             >
               {title}
             </Typography>
-            {avatar && (
-              <Avatar src={avatar} sx={{ width: "3.5rem", height: "3.5rem" }} />
-            )}
           </Stack>
           <div>{subtitle}</div>
           <div>{content}</div>

@@ -130,7 +130,7 @@ export const matchaTheme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      light: "#61B083",
+      light: "#66CCAF",
       main: "#5D9A66",
       dark: "#4D8054",
     },

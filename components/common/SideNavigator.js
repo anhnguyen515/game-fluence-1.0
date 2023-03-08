@@ -64,7 +64,7 @@ export default function SideNavigator() {
       {routes.map((item, index) => (
         <Button
           key={index}
-          color="text"
+          color={router.pathname.includes(item.route) ? "primary" : "text"}
           fullWidth
           onClick={() => router.push(item.route)}
           size="large"
