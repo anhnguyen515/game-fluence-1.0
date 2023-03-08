@@ -1,7 +1,7 @@
 import { selectTheme, setTheme } from "@/store/slices/themeSlice";
 import { getTheme } from "@/utils/utils";
 import PaletteIcon from "@mui/icons-material/Palette";
-import { Button, IconButton, ListItemIcon, ListItemText } from "@mui/material";
+import { Button, ListItemIcon, ListItemText } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Cookies from "js-cookie";
@@ -12,6 +12,10 @@ const themes = [
   {
     value: "defaultTheme",
     text: "Blue on White",
+  },
+  {
+    value: "matchaTheme",
+    text: "Matcha",
   },
   {
     value: "chicagoTheme",

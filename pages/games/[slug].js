@@ -206,13 +206,21 @@ export default function GameDetailPage({
                     }}
                   >
                     <ReactPlayer
-                      url={gameTrailers.results[0].data.max}
+                      url={
+                        gameTrailers.results[
+                          Math.floor(Math.random() * gameTrailers.count)
+                        ].data.max
+                      }
                       playing
                       controls
                       light={
                         <img
                           alt="Thumbnail"
-                          src={gameTrailers.results[0].preview}
+                          src={
+                            gameTrailers.results[
+                              Math.floor(Math.random() * gameTrailers.count)
+                            ].preview
+                          }
                         />
                       }
                       width={"100%"}

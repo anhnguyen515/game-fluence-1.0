@@ -102,6 +102,56 @@ export const chicagoTheme = createTheme({
   },
 });
 
+export const matchaTheme = createTheme({
+  components: {
+    MuiButton: {
+      defaultProps: {
+        disableElevation: true,
+      },
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: 2,
+        },
+      },
+    },
+  },
+  typography: {
+    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Source Sans Pro"].join(
+      ","
+    ),
+  },
+  palette: {
+    mode: "light",
+    primary: {
+      light: "#8AE597",
+      main: "#5D9A66",
+      dark: "#4D8054",
+    },
+    secondary: {
+      light: "#ffffff",
+      main: "#ffffff",
+      dark: "#ffffff",
+    },
+    background: {
+      default: "#ffffff",
+      paper: "#ffffff",
+    },
+    text: {
+      primary: grey[800],
+      light: grey[200],
+      main: grey[600],
+      dark: grey[700],
+    },
+  },
+});
+
 // dark themes
 export const blackPinkTheme = createTheme({
   components: {

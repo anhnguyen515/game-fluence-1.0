@@ -6,6 +6,7 @@ import {
   chicagoTheme,
   defaultTheme,
   laserTheme,
+  matchaTheme,
   mecha01Theme,
   nautilusTheme,
   redSamuraiTheme,
@@ -112,6 +113,11 @@ export function getTheme(themeName) {
       return {
         theme: chicagoTheme,
         avatar: <ThemeAvatar theme={chicagoTheme} />,
+      };
+    case "matchaTheme":
+      return {
+        theme: matchaTheme,
+        avatar: <ThemeAvatar theme={matchaTheme} />,
       };
     case "nautilusTheme":
       return {

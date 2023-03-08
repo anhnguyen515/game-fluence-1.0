@@ -162,15 +162,16 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
           mt={1}
         >
           <IconButton
-            disabled={currIndex === 0}
+            disabled={currIndex === 0 || loading}
             onClick={() => handleChangeActiveIndex("decrement")}
+            sx={{ transition: "color 0.2s" }}
           >
             <ArrowBackIosRoundedIcon fontSize="large" />
           </IconButton>
-
           <IconButton
-            disabled={currIndex === screenshots.count - 1}
+            disabled={currIndex === screenshots.count - 1 || loading}
             onClick={handleChangeActiveIndex}
+            sx={{ transition: "color 0.2s" }}
           >
             <ArrowForwardIosRoundedIcon fontSize="large" />
           </IconButton>
