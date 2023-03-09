@@ -115,8 +115,8 @@ export default function SearchModal() {
             <TextField
               fullWidth
               onChange={handleChangeQuery}
+              placeholder="Keywords here"
               value={q}
-              variant="standard"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -124,8 +124,8 @@ export default function SearchModal() {
                   </InputAdornment>
                 ),
                 endAdornment: (
-                  <InputAdornment position="end" sx={{ mb: 2 }}>
-                    {loading && <CircularProgress size={24} sx={{ mr: 1 }} />}
+                  <InputAdornment position="end">
+                    {loading && <CircularProgress size={24} />}
                   </InputAdornment>
                 ),
               }}
@@ -137,11 +137,11 @@ export default function SearchModal() {
             <Box sx={{ px: 3, pb: 3 }}>
               {data.count > 0 ? (
                 <>
-                  <Typography fontSize={"1.1rem"} textAlign={"center"}>
+                  <Typography textAlign={"center"}>
                     <b>{data.count.toLocaleString()}</b>{" "}
                     {data.count > 1 ? "results" : "result"} found
                   </Typography>
-                  <Stack divider={<Divider flexItem />} gap={2} mt={2}>
+                  <Stack divider={<Divider flexItem />} gap={2} mt={3}>
                     {data.results.map((item, index) => (
                       <SmallGameCard key={index} item={item} />
                     ))}

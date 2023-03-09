@@ -99,18 +99,11 @@ export default function GameCard({ game }) {
         )}
         <Link href={`/games/${game.slug}`}>
           <CardMedia
-            sx={
-              hover || isSmallScreen
-                ? {
-                    width: "100%",
-                    aspectRatio: "2/1",
-                    transition: "aspect-ratio 0.2s",
-                  }
-                : {
-                    width: "100%",
-                    aspectRatio: "3/1",
-                  }
-            }
+            sx={{
+              width: "100%",
+              aspectRatio: hover || isSmallScreen ? "2/1" : "2.5/1",
+              transition: (hover || isSmallScreen) && "aspect-ratio 0.2s",
+            }}
             image={
               game.background_image
                 ? game.background_image

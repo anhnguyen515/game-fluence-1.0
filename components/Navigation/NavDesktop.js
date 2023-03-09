@@ -6,7 +6,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 
-const SearchModal = dynamic(() => import("./SearchModal"), { ssr: false });
+const SearchModal = dynamic(() => import("../Search/SearchModal"), {
+  ssr: false,
+});
 const NavAuth = dynamic(() => import("./NavAuth"), { ssr: false });
 const ThemePicker = dynamic(() => import("../common/ThemePicker"), {
   ssr: false,

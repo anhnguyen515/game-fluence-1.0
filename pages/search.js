@@ -1,10 +1,11 @@
 import { getGamesListAPI } from "@/apis/game";
 import GameCard from "@/components/Game/GameCard";
+import Searchbar from "@/components/Search/Searchbar";
 import InnerLayout from "@/layout/InnerLayout";
 import { SITE_NAME } from "@/utils/constants";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LoadingButton } from "@mui/lab";
-import { Grid, Stack } from "@mui/material";
+import { Grid, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
@@ -26,18 +27,15 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
+      q,
       data,
     },
   };
 }
 
-export default function SearchPage({ data }) {
+export default function SearchPage({ q, data }) {
   const router = useRouter();
-  const { q } = router.query;
   const title = `Search results for ${q}`;
-  const img =
-    data.results[Math.floor(Math.random() * data.results.length)]
-      .background_image;
 
   const [games, setGames] = React.useState(data);
   const [loading, setLoading] = React.useState(false);
@@ -72,11 +70,21 @@ export default function SearchPage({ data }) {
         }}
       />
       <InnerLayout
-        title={`${data.count} results found for ${q}`}
+        title={`Search results for "${q}"`}
         titleFontSize={"2.6rem"}
+        subtitle={
+          <Typography>
+            <b>{games.count.toLocaleString()}</b>{" "}
+            {games.count > 1 ? "results" : "result"} found
+          </Typography>
+        }
         content={<SortComp />}
-        img={img}
+        img={
+          games.results[Math.floor(Math.random() * games.results.length)]
+            .background_image
+        }
       >
+        <Searchbar q={q} />
         <Grid container spacing={2}>
           {games.results.map((item, index) => (
             <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
