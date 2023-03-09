@@ -21,7 +21,7 @@ export default function GameCreatorsList({ gameCreators, loading }) {
                   item={item}
                   href={`/creators/${item.slug}`}
                   loading={loading}
-                  maxHeight={gameCreators.results.length > 1}
+                  isMaxHeight={gameCreators.results.length > 1}
                 />
               </Grid>
             ))}

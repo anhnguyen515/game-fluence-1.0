@@ -22,8 +22,6 @@ import {
   getParentPlatform,
   getTheme,
 } from "@/utils/utils";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { LoadingButton } from "@mui/lab";
 import {
   Box,
   Breadcrumbs,
@@ -34,7 +32,6 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import axios from "axios";
 import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -52,11 +49,14 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const { slug } = context.params;
-  const [gameDetail, gameScreenshots] = await Promise.all([
-    getGameDetailAPI(slug).then((res) => res.data),
-
-    getGameScreenshotsAPI(slug).then((res) => res.data),
-  ]);
+  const [gameDetail, gameScreenshots, gameStores, gameAdditions, gamesSeries] =
+    await Promise.all([
+      getGameDetailAPI(slug).then((res) => res.data),
+      getGameScreenshotsAPI(slug).then((res) => res.data),
+      getGameStoresAPI(slug).then((res) => res.data),
+      getGameAdditionsAPI(slug).then((res) => res.data),
+      getGamesSeriesAPI(slug).then((res) => res.data),
+    ]);
   if (gameDetail.detail) {
     return {
       notFound: true,
@@ -68,29 +68,33 @@ export async function getStaticProps(context) {
       slug,
       gameDetail,
       gameScreenshots,
+      gameStores,
+      gameAdditions,
+      gamesSeries,
     },
     revalidate: 60,
   };
 }
 
-export default function GameDetailPage({ slug, gameDetail, gameScreenshots }) {
+export default function GameDetailPage({
+  slug,
+  gameDetail,
+  gameScreenshots,
+  gameStores,
+  gameAdditions,
+  gamesSeries,
+}) {
   const title = gameDetail.name;
   const router = useRouter();
   const themeStore = useSelector(selectTheme);
 
-  const [gameAdditions, setGameAdditions] = React.useState(null);
-  const [gamesSeries, setGamesSeries] = React.useState(null);
   const [gameTrailers, setGameTrailers] = React.useState(null);
-  const [gameStores, setGameStores] = React.useState(null);
   const [gameCreators, setGameCreators] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
   const [page, setPage] = React.useState(1);
 
   React.useEffect(() => {
     getGameTrailersAPI(slug).then((res) => setGameTrailers(res.data));
-    getGameStoresAPI(slug).then((res) => setGameStores(res.data));
-    getGameAdditionsAPI(slug).then((res) => setGameAdditions(res.data));
-    getGamesSeriesAPI(slug).then((res) => setGamesSeries(res.data));
   }, []);
 
   React.useEffect(() => {
