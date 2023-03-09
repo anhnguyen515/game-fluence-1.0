@@ -12,7 +12,7 @@ export default function GameCreatorsList({ gameCreators, loading }) {
         title={`Creators (${gameCreators ? gameCreators.count : "-"})`}
       />
 
-      {!loading ? (
+      {loading ? (
         gameCreators.count > 0 ? (
           <Grid container spacing={2}>
             {gameCreators.results.map((item) => (

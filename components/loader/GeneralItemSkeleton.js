@@ -9,9 +9,10 @@ export default function GeneralItemSkeleton({ creator }) {
       sx={{
         width: "100%",
         aspectRatio: "1.25/1",
-        backgroundColor: "rgba(21, 21, 21, 0.7)",
-        p: 2,
+        border: 1,
+        borderColor: "divider",
         borderRadius: 1,
+        p: 2,
       }}
     >
       {creator && <Skeleton variant="circular" width={70} height={70} />}

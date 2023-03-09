@@ -70,7 +70,15 @@ export default function GeneralItemCard({ item, href, isMaxHeight }) {
               router.push(href || router.pathname + `/${item.slug}`)
             }
             src={item.image}
-            sx={{ width: "4rem", height: "4rem", cursor: "pointer" }}
+            sx={{
+              width: "4rem",
+              height: "4rem",
+              cursor: "pointer",
+              transition: "transform 0.2s",
+              "&:hover": {
+                transform: "scale(1.1) rotate(15deg)",
+              },
+            }}
           />
         )}
         <Link
