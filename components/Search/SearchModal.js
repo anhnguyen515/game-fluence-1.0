@@ -17,7 +17,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useRouter } from "next/router";
 import * as React from "react";
 import { toast } from "react-toastify";
-import SmallGameCard from "../Game/SmallGameCard";
+import SearchGameCard from "./SearchGameCard";
 
 export default function SearchModal() {
   const router = useRouter();
@@ -133,7 +133,19 @@ export default function SearchModal() {
           </form>
         </Stack>
         {data && (
-          <Box sx={{ overflow: "auto" }}>
+          <Box
+            sx={{
+              overflow: "auto",
+              "::-webkit-scrollbar": {
+                width: "0.35rem",
+              },
+              "::-webkit-scrollbar-thumb": {
+                backgroundColor: "text.main",
+                opacity: 0.5,
+                borderRadius: 1,
+              },
+            }}
+          >
             <Box sx={{ px: 3, pb: 3 }}>
               {data.count > 0 ? (
                 <>
@@ -143,7 +155,7 @@ export default function SearchModal() {
                   </Typography>
                   <Stack divider={<Divider flexItem />} gap={2} mt={3}>
                     {data.results.map((item, index) => (
-                      <SmallGameCard key={index} item={item} />
+                      <SearchGameCard key={index} item={item} />
                     ))}
                   </Stack>
                 </>
