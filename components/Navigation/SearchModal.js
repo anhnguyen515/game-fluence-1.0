@@ -1,25 +1,29 @@
 import { getGamesListAPI } from "@/apis/game";
-import { PAGINATION_LIMIT } from "@/utils/constants";
 import { Close } from "@mui/icons-material";
 import SearchIcon from "@mui/icons-material/Search";
 import {
   Box,
   CircularProgress,
+  Divider,
   IconButton,
   InputAdornment,
   Stack,
   TextField,
+  Typography,
 } from "@mui/material";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
+import { useRouter } from "next/router";
 import * as React from "react";
 import { toast } from "react-toastify";
+import SmallGameCard from "../Game/SmallGameCard";
 
 export default function SearchModal() {
+  const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
-  const [query, setQuery] = React.useState("");
+  const [q, setQ] = React.useState("");
   const [data, setData] = React.useState(null);
 
   const handleClickOpen = () => {
@@ -31,18 +35,30 @@ export default function SearchModal() {
   };
 
   function handleChangeQuery(event) {
-    setQuery(event.target.value);
+    setQ(event.target.value);
   }
 
   React.useEffect(() => {
-    let timer;
+    router.events.on("routeChangeComplete", () => {
+      handleClose();
+    });
 
-    if (open && query.length > 0) {
+    return () => {
+      router.events.off("routeChangeComplete", () => {
+        handleClose();
+      });
+    };
+  }, []);
+
+  React.useEffect(() => {
+    let timer;
+    if (open && q.length > 0) {
       timer = setTimeout(() => {
         setLoading(true);
         getGamesListAPI({
-          page_size: PAGINATION_LIMIT,
-          search: query,
+          page_size: 10,
+          search: q,
+          search_precise: true,
         })
           .then((res) => {
             setData(res.data);
@@ -54,9 +70,8 @@ export default function SearchModal() {
           });
       }, 500);
     }
-
     return () => clearTimeout(timer);
-  }, [query]);
+  }, [q]);
 
   return (
     <>
@@ -71,7 +86,7 @@ export default function SearchModal() {
       >
         Search games...
       </Button>
-      <Dialog maxWidth="lg" fullWidth open={open} onClose={handleClose}>
+      <Dialog maxWidth="md" fullWidth open={open} onClose={handleClose}>
         <DialogTitle
           sx={{
             display: "flex",
@@ -85,28 +100,74 @@ export default function SearchModal() {
             <Close />
           </IconButton>
         </DialogTitle>
-        <Stack px={3}>
-          <TextField
-            onChange={handleChangeQuery}
-            value={query}
-            variant="standard"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start" sx={{ mb: 1 }}>
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-              endAdornment: (
-                <InputAdornment position="end" sx={{ mb: 2 }}>
-                  {loading && <CircularProgress size={24} sx={{ mr: 1 }} />}
-                </InputAdornment>
-              ),
+        <Stack px={3} pb={3}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              router.push({
+                pathname: "/search",
+                query: {
+                  q,
+                },
+              });
             }}
-          />
+          >
+            <TextField
+              fullWidth
+              onChange={handleChangeQuery}
+              value={q}
+              variant="standard"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment position="end" sx={{ mb: 2 }}>
+                    {loading && <CircularProgress size={24} sx={{ mr: 1 }} />}
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </form>
         </Stack>
-        <Stack sx={{ overflow: "auto", p: 3 }}>
-          <pre>{JSON.stringify(data, null, 2)}</pre>
-        </Stack>
+        {data && (
+          <Box sx={{ overflow: "auto" }}>
+            <Box sx={{ px: 3, pb: 3 }}>
+              {data.count > 0 ? (
+                <>
+                  <Typography fontSize={"1.1rem"} textAlign={"center"}>
+                    <b>{data.count.toLocaleString()}</b>{" "}
+                    {data.count > 1 ? "results" : "result"} found
+                  </Typography>
+                  <Stack divider={<Divider flexItem />} gap={2} mt={2}>
+                    {data.results.map((item, index) => (
+                      <SmallGameCard key={index} item={item} />
+                    ))}
+                  </Stack>
+                </>
+              ) : (
+                <Typography>No result found</Typography>
+              )}
+            </Box>
+            {data.count > 10 && (
+              <Button
+                fullWidth
+                onClick={() => {
+                  router.push({
+                    pathname: "/search",
+                    query: {
+                      q,
+                    },
+                  });
+                }}
+              >
+                See all results
+              </Button>
+            )}
+          </Box>
+        )}
       </Dialog>
     </>
   );

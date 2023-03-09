@@ -2,12 +2,10 @@ import { getGamesListAPI } from "@/apis/game";
 import GameCard from "@/components/Game/GameCard";
 import InnerLayout from "@/layout/InnerLayout";
 import { SITE_NAME } from "@/utils/constants";
-import { dateFormat } from "@/utils/utils";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LoadingButton } from "@mui/lab";
 import { Grid, Stack } from "@mui/material";
 import axios from "axios";
-import dayjs from "dayjs";
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
@@ -19,67 +17,12 @@ const SortComp = dynamic(() => import("@/components/common/SortComp"), {
 });
 
 export async function getServerSideProps(context) {
-  const { category, sort, reverse } = context.query;
-  let ordering =
-    !sort || sort === "popularity"
-      ? "-added"
-      : sort === "released-date"
-      ? "-released"
-      : "-metacritic";
-  if (reverse === "true") {
-    ordering = ordering.replace("-", "");
-  }
-  let data;
-
-  // all games
-  if (!category) {
-    data = await getGamesListAPI({ ordering }).then((res) => res.data);
-  }
-  // new games
-  else if (category === "new-and-upcoming") {
-    data = await getGamesListAPI({
-      ordering,
-      dates: `${dateFormat(dayjs().subtract(3, "month"))},${dateFormat(
-        dayjs().add(6, "month")
-      )}`,
-    }).then((res) => res.data);
-  } else if (category === "last-30-days") {
-    data = await getGamesListAPI({
-      ordering,
-      dates: `${dateFormat(dayjs().subtract(30, "day"))},${dateFormat(
-        new Date()
-      )}`,
-    }).then((res) => res.data);
-  } else if (category === "this-week") {
-    data = await getGamesListAPI({
-      ordering,
-      dates: `${dateFormat(dayjs().startOf("week"))},${dateFormat(
-        dayjs().endOf("week")
-      )}`,
-    }).then((res) => res.data);
-  } else if (category === "next-week") {
-    data = await getGamesListAPI({
-      ordering,
-      dates: `${dateFormat(
-        dayjs().add(1, "week").startOf("week")
-      )},${dateFormat(dayjs().add(1, "week").endOf("week"))}`,
-    }).then((res) => res.data);
-  }
-  // popular games last year
-  else {
-    data = await getGamesListAPI({
-      ordering,
-      dates: `${dateFormat(
-        dayjs().subtract(1, "year").startOf("year")
-      )},${dateFormat(dayjs().subtract(1, "year").endOf("year"))}`,
-    }).then((res) => res.data);
-  }
-
-  if (!data) {
-    return {
-      notFound: true,
-    };
-  }
+  const { q } = context.query;
+  const data = await getGamesListAPI({
+    page_size: 20,
+    search: q,
+    search_precise: true,
+  }).then((res) => res.data);
 
   return {
     props: {
@@ -88,22 +31,10 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default function AllGamesPage({ data }) {
+export default function SearchPage({ data }) {
   const router = useRouter();
-  const { category } = router.query;
-
-  const title = !category
-    ? "All Games"
-    : category === "new-and-upcoming"
-    ? "New & Upcoming Releases"
-    : category === "last-30-days"
-    ? "Last 30 Days Releases"
-    : category === "this-week"
-    ? "This Week Releases"
-    : category === "next-week"
-    ? "Next Week Releases"
-    : `Popular In ${dayjs().subtract(1, "year").year()}`;
-
+  const { q } = router.query;
+  const title = `Search results for ${q}`;
   const img =
     data.results[Math.floor(Math.random() * data.results.length)]
       .background_image;
@@ -141,7 +72,7 @@ export default function AllGamesPage({ data }) {
         }}
       />
       <InnerLayout
-        title={title}
+        title={`${data.count} results found for ${q}`}
         titleFontSize={"2.6rem"}
         content={<SortComp />}
         img={img}

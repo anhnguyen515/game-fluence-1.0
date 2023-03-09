@@ -48,7 +48,6 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
           aspectRatio: `1920/1080`,
           borderRadius: 1,
           overflow: "hidden",
-          cursor: "pointer",
         }}
       >
         <Image
@@ -193,7 +192,7 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
                 borderRadius: 1,
                 overflow: "hidden",
                 backgroundColor: currIndex !== index && "rgba(0, 0, 0, 0.7)",
-                cursor: "pointer",
+                cursor: !loading && "pointer",
               }}
             >
               <Image

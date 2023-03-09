@@ -1,8 +1,6 @@
 import CategoryTitle from "@/components/common/CategoryTitle";
 import GeneralItemCard from "@/components/common/GeneralItemCard";
 import GeneralItemSkeleton from "@/components/loader/GeneralItemSkeleton";
-import CreatorSkeleton from "@/components/loader/GeneralItemSkeleton";
-import { PAGINATION_LIMIT } from "@/utils/constants";
 import { Box, Grid, Typography } from "@mui/material";
 
 export default function GameCreatorsList({ gameCreators, loading }) {
