@@ -172,7 +172,7 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
             }
             onLoadingComplete={() => setLoading(false)}
             priority
-            sizes="100vw"
+            sizes="80vw"
             // quality={100}
             style={{ objectFit: "cover", transition: "0.2s" }}
           />
@@ -182,8 +182,10 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
             <Box
               key={index}
               onClick={() => {
-                setLoading(true);
-                setCurrIndex(index);
+                if (!loading) {
+                  setLoading(true);
+                  setCurrIndex(index);
+                }
               }}
               sx={{
                 position: "relative",

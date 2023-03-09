@@ -13,22 +13,21 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 
-export default function GeneralItemCard({ item, href }) {
+export default function GeneralItemCard({ item, href, maxHeight }) {
   const router = useRouter();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
+  const heightRef = React.useRef(null);
   const [hover, setHover] = React.useState(false);
   const [height, setHeight] = React.useState(0);
-
-  const heightRef = React.useRef(null);
 
   React.useEffect(() => {
     setHeight(heightRef.current.clientHeight);
   }, []);
 
   return (
-    <Box className="relative" sx={{ height }}>
+    <Box className="relative" sx={{ height: maxHeight ? "100%" : height }}>
       <Paper
         ref={heightRef}
         elevation={hover ? 24 : 0}

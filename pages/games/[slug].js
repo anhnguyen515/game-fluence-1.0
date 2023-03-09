@@ -15,7 +15,7 @@ import GameRatings from "@/components/Game/Detail/GameRatings";
 import GameScreenshots from "@/components/Game/Detail/GameScreenshots";
 import InnerLayout from "@/layout/InnerLayout";
 import { selectTheme } from "@/store/slices/themeSlice";
-import { SITE_NAME } from "@/utils/constants";
+import { PAGINATION_LIMIT, SITE_NAME } from "@/utils/constants";
 import {
   dateFormat,
   getGameStore,
@@ -30,6 +30,7 @@ import {
   Button,
   Chip,
   Grid,
+  Pagination,
   Stack,
   Typography,
 } from "@mui/material";
@@ -82,40 +83,31 @@ export default function GameDetailPage({ slug, gameDetail, gameScreenshots }) {
   const [gameTrailers, setGameTrailers] = React.useState(null);
   const [gameStores, setGameStores] = React.useState(null);
   const [gameCreators, setGameCreators] = React.useState(null);
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
+  const [page, setPage] = React.useState(1);
 
   React.useEffect(() => {
     getGameTrailersAPI(slug).then((res) => setGameTrailers(res.data));
-
     getGameStoresAPI(slug).then((res) => setGameStores(res.data));
-
     getGameAdditionsAPI(slug).then((res) => setGameAdditions(res.data));
-
     getGamesSeriesAPI(slug).then((res) => setGamesSeries(res.data));
-
-    getGameCreatorsListAPI(slug, { page_size: 8 }).then((res) =>
-      setGameCreators(res.data)
-    );
   }, []);
 
-  function handleLoadMore() {
+  React.useEffect(() => {
     setLoading(true);
-    axios
-      .get(gameCreators.next)
+    getGameCreatorsListAPI(slug, { page_size: PAGINATION_LIMIT, page })
       .then((res) => {
-        const data = res.data;
-        setGameCreators((prev) => ({
-          ...prev,
-          next: data.next,
-          previous: data.previous,
-          results: [...prev.results, ...data.results],
-        }));
+        setGameCreators(res.data);
         setLoading(false);
       })
       .catch(() => {
         toast.error("Something went wrong");
         setLoading(false);
       });
+  }, [page]);
+
+  function handleChangePage(event, value) {
+    setPage(value);
   }
 
   return (
@@ -282,17 +274,16 @@ export default function GameDetailPage({ slug, gameDetail, gameScreenshots }) {
             </Stack>
           </Grid>
         </Grid>
-        <GameCreatorsList gameCreators={gameCreators} />
-        {gameCreators?.next && (
+        <GameCreatorsList gameCreators={gameCreators} loading={loading} />
+        {gameCreators?.count > PAGINATION_LIMIT && (
           <Stack alignItems={"center"} mt={3} sx={{ width: "100%" }}>
-            <LoadingButton
-              loading={loading}
-              onClick={handleLoadMore}
-              size="large"
-              startIcon={<ExpandMoreIcon />}
-            >
-              Load More
-            </LoadingButton>
+            <Pagination
+              color="primary"
+              count={Math.ceil(gameCreators.count / PAGINATION_LIMIT)}
+              onChange={handleChangePage}
+              page={page}
+              shape="rounded"
+            />
           </Stack>
         )}
       </InnerLayout>
