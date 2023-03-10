@@ -34,7 +34,7 @@ npm run start
 
 - Before starting:
 
-Go to [RAWG API Document page](https://rawg.io/apidocs), follow the instruction to ket an API key.
+Go to [RAWG API Document page](https://rawg.io/apidocs), follow the instruction to get an API key.
 Create an .env file follow [this format](https://github.com/anhnguyen515/game-fluence-2.0/blob/main/.env.sample) with the API key you just acquired.
 
 ## Author
