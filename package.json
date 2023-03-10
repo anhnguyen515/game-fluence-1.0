@@ -39,7 +39,8 @@
     "react-redux": "^8.0.5",
     "react-scroll-to-top": "^3.0.0",
     "react-toastify": "^9.1.1",
-    "readme-md-generator": "^1.0.0"
+    "readme-md-generator": "^1.0.0",
+    "sharp": "^0.31.3"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
