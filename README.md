@@ -4,7 +4,7 @@
   <a href="https://github.com/anhnguyen515/game-fluence-2.0#readme" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
-  <a href="#" target="_blank">
+  <a href="https://github.com/anhnguyen515/game-fluence-2.0/blob/main/LICENSE" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
   </a>
 </p>
