@@ -1,7 +1,8 @@
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
-import { Divider, IconButton, Stack, Typography } from "@mui/material";
+import { Divider, IconButton, Stack } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 import * as React from "react";
 import ThemePicker from "../common/ThemePicker";
 import SideNavigatorDrawer from "./SideNavigatorDrawer";
@@ -10,6 +11,7 @@ const NavAuth = dynamic(() => import("./NavAuth"), { ssr: false });
 
 export default function NavMenuDrawer() {
   const [state, setState] = React.useState(false);
+  const router = useRouter();
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -20,6 +22,18 @@ export default function NavMenuDrawer() {
     }
     setState(open);
   };
+
+  React.useEffect(() => {
+    router.events.on("routeChangeComplete", () => {
+      setState(false);
+    });
+
+    return () => {
+      router.events.off("routeChangeComplete", () => {
+        setState(false);
+      });
+    };
+  }, []);
 
   return (
     <div>
