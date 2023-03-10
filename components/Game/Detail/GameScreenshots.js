@@ -54,12 +54,6 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
           alt=""
           src={screenshots.results[activeIndex].image}
           fill
-          placeholder="blur"
-          blurDataURL={
-            getTheme(themeStore).theme.palette.mode === "light"
-              ? "/img/logo-black-600px.png"
-              : "/img/logo-white-600px.png"
-          }
           sizes={`(max-width: ${
             getTheme(themeStore).theme.breakpoints.values.sm
           }) 200vw, (max-width: ${
@@ -88,12 +82,6 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
           alt=""
           src={screenshots.results[activeIndex].image}
           fill
-          placeholder="blur"
-          blurDataURL={
-            getTheme(themeStore).theme.palette.mode === "light"
-              ? "/img/logo-black-600px.png"
-              : "/img/logo-white-600px.png"
-          }
           sizes={`(max-width: ${
             getTheme(themeStore).theme.breakpoints.values.sm
           }) 200vw, (max-width: ${
@@ -163,12 +151,6 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
             alt=""
             src={screenshots.results[currIndex].image}
             fill
-            placeholder="blur"
-            blurDataURL={
-              getTheme(themeStore).theme.palette.mode === "light"
-                ? "/img/logo-black-1200px.png"
-                : "/img/logo-white-1200px.png"
-            }
             onLoadingComplete={() => setLoading(false)}
             priority
             sizes="100vw"
@@ -199,12 +181,6 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
                 alt=""
                 src={item.image}
                 fill
-                placeholder="blur"
-                blurDataURL={
-                  getTheme(themeStore).theme.palette.mode === "light"
-                    ? "/img/logo-black-600px.png"
-                    : "/img/logo-white-600px.png"
-                }
                 sizes="20vw"
                 style={{ objectFit: "cover", zIndex: -1 }}
               />

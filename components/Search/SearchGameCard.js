@@ -46,12 +46,6 @@ export default function SearchGameCard({ item }) {
                 : "/img/logo-white-250px.png")
             }
             fill
-            placeholder="blur"
-            blurDataURL={
-              theme.palette.mode === "light"
-                ? "/img/logo-black-250px.png"
-                : "/img/logo-white-250px.png"
-            }
             sizes={`(max-width: ${theme.breakpoints.values.sm}) 200vw, (max-width: ${theme.breakpoints.values.md}) 100vw, 50vw`}
           />
         </Box>
