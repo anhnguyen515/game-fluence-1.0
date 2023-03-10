@@ -5,14 +5,10 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import ThemePicker from "../common/ThemePicker";
+import SearchModal from "../Search/SearchModal";
 
-const SearchModal = dynamic(() => import("../Search/SearchModal"), {
-  ssr: false,
-});
 const NavAuth = dynamic(() => import("./NavAuth"), { ssr: false });
-const ThemePicker = dynamic(() => import("../common/ThemePicker"), {
-  ssr: false,
-});
 
 export default function NavDesktop() {
   const themeStore = useSelector(selectTheme);

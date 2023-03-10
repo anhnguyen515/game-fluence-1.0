@@ -25,7 +25,7 @@ export default function InnerLayout({
         avatar={avatar}
       />
       <Container maxWidth="2xl">
-        <Box sx={{ px: { xs: 1, md: 3 }, py: 3 }}>
+        <Box sx={{ px: { xs: 0, md: 3 }, py: 0 }}>
           <Grid container spacing={2}>
             {/* sidebar section */}
             {!isSmallScreen && (

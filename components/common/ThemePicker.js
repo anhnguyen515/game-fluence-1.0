@@ -79,7 +79,7 @@ export default function ThemePicker() {
   }
 
   return (
-    <div>
+    <>
       <Button
         color="primary"
         onClick={handleClick}
@@ -112,6 +112,6 @@ export default function ThemePicker() {
           </MenuItem>
         ))}
       </Menu>
-    </div>
+    </>
   );
 }

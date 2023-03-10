@@ -36,7 +36,7 @@ export default function PageHeader({
           alignItems={"center"}
           justifyContent={"center"}
           gap={1}
-          sx={{ px: { xs: 1, md: 3 }, py: 5 }}
+          sx={{ px: { xs: 0, md: 3 }, py: 5 }}
         >
           <Stack alignItems={"center"} direction={"row"} gap={1}>
             {avatar && (

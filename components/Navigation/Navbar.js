@@ -14,10 +14,15 @@ export default function Navbar() {
         elevation={0}
         // variant="outlined"
         position="static"
-        sx={{ backgroundColor: "transparent" }}
+        sx={{
+          backgroundColor: "transparent",
+          color: "text.primary",
+        }}
       >
         <Container maxWidth="2xl">
-          <Toolbar>{isSmallScreen ? <NavMobile /> : <NavDesktop />}</Toolbar>
+          <Toolbar sx={{ p: 0 }}>
+            {isSmallScreen ? <NavMobile /> : <NavDesktop />}
+          </Toolbar>
         </Container>
       </AppBar>
     </nav>
