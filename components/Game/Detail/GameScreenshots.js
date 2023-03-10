@@ -62,9 +62,9 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
           }
           sizes={`(max-width: ${
             getTheme(themeStore).theme.breakpoints.values.sm
-          }) 100vw, (max-width: ${
+          }) 200vw, (max-width: ${
             getTheme(themeStore).theme.breakpoints.values.md
-          }) 50vw, 33vw`}
+          }) 100vw, 50vw`}
           style={{ objectFit: "cover" }}
         />
       </Box>
@@ -96,9 +96,9 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
           }
           sizes={`(max-width: ${
             getTheme(themeStore).theme.breakpoints.values.sm
-          }) 100vw, (max-width: ${
+          }) 200vw, (max-width: ${
             getTheme(themeStore).theme.breakpoints.values.md
-          }) 50vw, 33vw`}
+          }) 100vw, 50vw`}
           style={{ objectFit: "cover" }}
         />
       </Box>
@@ -171,7 +171,7 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
             }
             onLoadingComplete={() => setLoading(false)}
             priority
-            sizes="80vw"
+            sizes="100vw"
             // quality={100}
             style={{ objectFit: "cover", transition: "0.2s" }}
           />

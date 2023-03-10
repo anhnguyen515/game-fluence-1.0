@@ -42,17 +42,45 @@ function MyApp({ Component, ...rest }) {
             key="viewport"
           />
           <meta httpEquiv="x-ua-compatible" content="ie=edge" />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="250x181"
-            href="/img/icon-white-250px.png"
+          <meta
+            name="theme-color"
+            content={getTheme(themeStore).theme.palette.background.default}
           />
           <link
             rel="icon"
             type="image/png"
-            sizes="250x181"
-            href="/img/icon-black-250px.png"
+            sizes="250x250"
+            href="/favicon/icon-black-250px.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="250x250"
+            href="/favicon/icon-white-250px.png"
+          />
+          <link
+            rel="apple-touch-icon"
+            type="image/png"
+            sizes="180x180"
+            href="/favicon/icon-black-180px.png"
+          />
+          <link
+            rel="apple-touch-icon"
+            type="image/png"
+            sizes="180x180"
+            href="/favicon/icon-white-180px.png"
+          />
+          <link
+            rel="apple-touch-icon"
+            type="image/png"
+            sizes="192x192"
+            href="/favicon/icon-black-192px.png"
+          />
+          <link
+            rel="apple-touch-icon"
+            type="image/png"
+            sizes="192x192"
+            href="/favicon/icon-white-192px.png"
           />
         </Head>
         <DefaultSeo

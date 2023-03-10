@@ -57,14 +57,14 @@ export default function Footer() {
                   {getTheme(themeStore).theme.palette.mode === "light" ? (
                     <Image
                       alt="logo"
-                      src="/img/GameFluence-black-250px.png"
+                      src="/img/GameFluence-black-600px.png"
                       width={250}
                       height={105}
                     />
                   ) : (
                     <Image
                       alt="logo"
-                      src="/img/GameFluence-white-250px.png"
+                      src="/img/GameFluence-white-600px.png"
                       width={250}
                       height={105}
                     />
