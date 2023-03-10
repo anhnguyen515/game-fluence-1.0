@@ -11,6 +11,8 @@
 
 > A simple video games platform
 
+🏠 **[Homepage](https://gamefluence.vercel.app)**
+
 ## Install
 
 ```sh
