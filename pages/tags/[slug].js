@@ -3,7 +3,7 @@ import { getTagDetailAPI } from "@/apis/tag";
 import ReadMore from "@/components/common/ReadMore";
 import GameCard from "@/components/Game/GameCard";
 import InnerLayout from "@/layout/InnerLayout";
-import { SITE_NAME } from "@/utils/constants";
+import { PAGINATION_LIMIT, SITE_NAME } from "@/utils/constants";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LoadingButton } from "@mui/lab";
 import { Box, Grid, Stack } from "@mui/material";
@@ -32,7 +32,9 @@ export async function getServerSideProps(context) {
 
   const [tagDetail, tagGames] = await Promise.all([
     getTagDetailAPI(slug).then((res) => res.data),
-    getGamesListAPI({ ordering, tags: slug }).then((res) => res.data),
+    getGamesListAPI({ page_size: PAGINATION_LIMIT, ordering, tags: slug }).then(
+      (res) => res.data
+    ),
   ]);
   if (tagDetail.detail || tagGames.detail) {
     return {

@@ -1,7 +1,7 @@
 import { getGamesListAPI } from "@/apis/game";
 import GameCard from "@/components/Game/GameCard";
 import InnerLayout from "@/layout/InnerLayout";
-import { SITE_NAME } from "@/utils/constants";
+import { PAGINATION_LIMIT, SITE_NAME } from "@/utils/constants";
 import { dateFormat } from "@/utils/utils";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LoadingButton } from "@mui/lab";
@@ -33,11 +33,15 @@ export async function getServerSideProps(context) {
 
   // all games
   if (!category) {
-    data = await getGamesListAPI({ ordering }).then((res) => res.data);
+    data = await getGamesListAPI({
+      page_size: PAGINATION_LIMIT,
+      ordering,
+    }).then((res) => res.data);
   }
   // new games
   else if (category === "new-and-upcoming") {
     data = await getGamesListAPI({
+      page_size: PAGINATION_LIMIT,
       ordering,
       dates: `${dateFormat(dayjs().subtract(3, "month"))},${dateFormat(
         dayjs().add(6, "month")
@@ -45,6 +49,7 @@ export async function getServerSideProps(context) {
     }).then((res) => res.data);
   } else if (category === "last-30-days") {
     data = await getGamesListAPI({
+      page_size: PAGINATION_LIMIT,
       ordering,
       dates: `${dateFormat(dayjs().subtract(30, "day"))},${dateFormat(
         new Date()
@@ -52,6 +57,7 @@ export async function getServerSideProps(context) {
     }).then((res) => res.data);
   } else if (category === "this-week") {
     data = await getGamesListAPI({
+      page_size: PAGINATION_LIMIT,
       ordering,
       dates: `${dateFormat(dayjs().startOf("week"))},${dateFormat(
         dayjs().endOf("week")
@@ -59,6 +65,7 @@ export async function getServerSideProps(context) {
     }).then((res) => res.data);
   } else if (category === "next-week") {
     data = await getGamesListAPI({
+      page_size: PAGINATION_LIMIT,
       ordering,
       dates: `${dateFormat(
         dayjs().add(1, "week").startOf("week")
@@ -68,6 +75,7 @@ export async function getServerSideProps(context) {
   // popular games last year
   else {
     data = await getGamesListAPI({
+      page_size: PAGINATION_LIMIT,
       ordering,
       dates: `${dateFormat(
         dayjs().subtract(1, "year").startOf("year")

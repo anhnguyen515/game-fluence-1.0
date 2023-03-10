@@ -1,4 +1,5 @@
 import { getGamesListAPI } from "@/apis/game";
+import { PAGINATION_LIMIT } from "@/utils/constants";
 import { Close } from "@mui/icons-material";
 import SearchIcon from "@mui/icons-material/Search";
 import {
@@ -56,7 +57,7 @@ export default function SearchModal() {
       timer = setTimeout(() => {
         setLoading(true);
         getGamesListAPI({
-          page_size: 10,
+          page_size: PAGINATION_LIMIT,
           search: q,
           search_precise: true,
         })
@@ -163,7 +164,7 @@ export default function SearchModal() {
                 <Typography>No result found</Typography>
               )}
             </Box>
-            {data.count > 10 && (
+            {data.count > PAGINATION_LIMIT && (
               <Button
                 fullWidth
                 onClick={() => {

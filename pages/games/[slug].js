@@ -15,7 +15,7 @@ import GameRatings from "@/components/Game/Detail/GameRatings";
 import GameScreenshots from "@/components/Game/Detail/GameScreenshots";
 import InnerLayout from "@/layout/InnerLayout";
 import { selectTheme } from "@/store/slices/themeSlice";
-import { PAGINATION_LIMIT, SITE_NAME } from "@/utils/constants";
+import { SITE_NAME } from "@/utils/constants";
 import {
   dateFormat,
   getGameStore,
@@ -33,12 +33,18 @@ import {
   Typography,
 } from "@mui/material";
 import { NextSeo } from "next-seo";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import ReactPlayer from "react-player";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+
+const FullScreenLoader = dynamic(
+  () => import("@/components/loader/FullScreenLoader"),
+  { ssr: false }
+);
 
 export async function getStaticPaths() {
   return {
@@ -49,14 +55,8 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const { slug } = context.params;
-  const [gameDetail, gameScreenshots, gameStores, gameAdditions, gamesSeries] =
-    await Promise.all([
-      getGameDetailAPI(slug).then((res) => res.data),
-      getGameScreenshotsAPI(slug).then((res) => res.data),
-      getGameStoresAPI(slug).then((res) => res.data),
-      getGameAdditionsAPI(slug).then((res) => res.data),
-      getGamesSeriesAPI(slug).then((res) => res.data),
-    ]);
+  const gameDetail = await getGameDetailAPI(slug).then((res) => res.data);
+
   if (gameDetail.detail) {
     return {
       notFound: true,
@@ -67,39 +67,36 @@ export async function getStaticProps(context) {
     props: {
       slug,
       gameDetail,
-      gameScreenshots,
-      gameStores,
-      gameAdditions,
-      gamesSeries,
     },
     revalidate: 60,
   };
 }
 
-export default function GameDetailPage({
-  slug,
-  gameDetail,
-  gameScreenshots,
-  gameStores,
-  gameAdditions,
-  gamesSeries,
-}) {
+export default function GameDetailPage({ slug, gameDetail }) {
   const title = gameDetail.name;
   const router = useRouter();
   const themeStore = useSelector(selectTheme);
 
   const [gameTrailers, setGameTrailers] = React.useState(null);
   const [gameCreators, setGameCreators] = React.useState(null);
+  const [gameScreenshots, setGameScreenshots] = React.useState(null);
+  const [gameStores, setGameStores] = React.useState(null);
+  const [gameAdditions, setGameAdditions] = React.useState(null);
+  const [gamesSeries, setGamesSeries] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
   const [page, setPage] = React.useState(1);
 
   React.useEffect(() => {
     getGameTrailersAPI(slug).then((res) => setGameTrailers(res.data));
+    getGameScreenshotsAPI(slug).then((res) => setGameScreenshots(res.data));
+    getGameStoresAPI(slug).then((res) => setGameStores(res.data));
+    getGameAdditionsAPI(slug).then((res) => setGameAdditions(res.data));
+    getGamesSeriesAPI(slug).then((res) => setGamesSeries(res.data));
   }, []);
 
   React.useEffect(() => {
     setLoading(true);
-    getGameCreatorsListAPI(slug, { page_size: PAGINATION_LIMIT, page })
+    getGameCreatorsListAPI(slug, { page_size: 5, page })
       .then((res) => {
         setGameCreators(res.data);
         setLoading(false);
@@ -122,6 +119,14 @@ export default function GameDetailPage({
         description={gameDetail.description_raw}
         openGraph={{ url: router.asPath }}
       />
+      {!(
+        gameTrailers &&
+        gameScreenshots &&
+        gameStores &&
+        gameAdditions &&
+        gamesSeries &&
+        gameCreators
+      ) && <FullScreenLoader />}
       <Box
         sx={{
           position: "absolute",
@@ -245,13 +250,13 @@ export default function GameDetailPage({
                     />
                   </Box>
                 )}
-                {gameScreenshots.count > 0 && (
+                {gameScreenshots?.count > 0 && (
                   <GameScreenshots screenshots={gameScreenshots} />
                 )}
               </div>
               <div>
                 <CategoryTitle title={"Available at"} />
-                {gameStores && gameStores.count > 0 ? (
+                {gameStores?.count > 0 ? (
                   <Grid container spacing={1}>
                     {gameStores.results.map((item) => (
                       <Grid key={item.id} item xs={12} sm={6}>
@@ -279,11 +284,11 @@ export default function GameDetailPage({
           </Grid>
         </Grid>
         <GameCreatorsList gameCreators={gameCreators} loading={loading} />
-        {gameCreators?.count > PAGINATION_LIMIT && (
+        {gameCreators?.count > 5 && (
           <Stack alignItems={"center"} mt={3} sx={{ width: "100%" }}>
             <Pagination
               color="primary"
-              count={Math.ceil(gameCreators.count / PAGINATION_LIMIT)}
+              count={Math.ceil(gameCreators.count / 5)}
               onChange={handleChangePage}
               page={page}
               shape="rounded"

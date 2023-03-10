@@ -4,6 +4,7 @@ import { selectTheme } from "@/store/slices/themeSlice";
 import { getTheme } from "@/utils/utils";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { Box, Stack } from "@mui/material";
+import dynamic from "next/dynamic";
 import { useSelector } from "react-redux";
 import ScrollToTop from "react-scroll-to-top";
 import { ToastContainer } from "react-toastify";

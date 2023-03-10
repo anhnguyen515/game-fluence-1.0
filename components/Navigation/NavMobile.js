@@ -1,12 +1,12 @@
-import { selectTheme } from "@/store/slices/themeSlice";
-import { Divider, Stack, useTheme } from "@mui/material";
+import { Stack, useTheme } from "@mui/material";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import { useSelector } from "react-redux";
-import ThemePicker from "../common/ThemePicker";
-import SearchModal from "../Search/SearchModal";
-import NavAuth from "./NavAuth";
-import NavMenuDrawer from "./NavMenuDrawer";
+
+const NavMenuDrawer = dynamic(() => import("./NavMenuDrawer"), { ssr: false });
+const SearchModal = dynamic(() => import("../Search/SearchModal"), {
+  ssr: false,
+});
 
 export default function NavMobile() {
   const theme = useTheme();

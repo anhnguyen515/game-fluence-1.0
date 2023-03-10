@@ -6,7 +6,7 @@ import * as React from "react";
 import SideNavigator from "../common/SideNavigator";
 
 export default function SideNavigatorDrawer() {
-  const [state, setState] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
   const router = useRouter();
 
   const toggleDrawer = (open) => (event) => {
@@ -16,19 +16,17 @@ export default function SideNavigatorDrawer() {
     ) {
       return;
     }
-    setState(open);
+    setOpen(open);
   };
 
   React.useEffect(() => {
     router.events.on("routeChangeComplete", () => {
-      if (state === true) {
-        setState(false);
-      }
+      setOpen(false);
     });
 
     return () => {
       router.events.off("routeChangeComplete", () => {
-        setState(false);
+        setOpen(false);
       });
     };
   }, []);
@@ -42,7 +40,7 @@ export default function SideNavigatorDrawer() {
       >
         Categories
       </Button>
-      <Drawer anchor={"left"} open={state} onClose={toggleDrawer(false)}>
+      <Drawer anchor={"left"} open={open} onClose={toggleDrawer(false)}>
         <Box
           sx={{
             px: 1,

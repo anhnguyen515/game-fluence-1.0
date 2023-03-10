@@ -1,7 +1,7 @@
 import { getDevelopersListAPI } from "@/apis/developer";
 import GeneralItemCard from "@/components/common/GeneralItemCard";
 import InnerLayout from "@/layout/InnerLayout";
-import { SITE_NAME } from "@/utils/constants";
+import { SITE_NAME, PAGINATION_LIMIT } from "@/utils/constants";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LoadingButton } from "@mui/lab";
 import { Grid, Stack } from "@mui/material";
@@ -12,9 +12,9 @@ import React from "react";
 import { toast } from "react-toastify";
 
 export async function getStaticProps() {
-  const developers = await getDevelopersListAPI({ page_size: 20 }).then(
-    (res) => res.data
-  );
+  const developers = await getDevelopersListAPI({
+    page_size: PAGINATION_LIMIT,
+  }).then((res) => res.data);
 
   return {
     props: {

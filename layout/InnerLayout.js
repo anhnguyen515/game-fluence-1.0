@@ -1,6 +1,12 @@
 import PageHeader from "@/components/common/PageHeader";
-import SideNavigator from "@/components/common/SideNavigator";
+// import SideNavigator from "@/components/common/SideNavigator";
 import { Box, Container, Grid, useMediaQuery, useTheme } from "@mui/material";
+import dynamic from "next/dynamic";
+
+const SideNavigator = dynamic(
+  () => import("@/components/common/SideNavigator"),
+  { ssr: false }
+);
 
 export default function InnerLayout({
   children,

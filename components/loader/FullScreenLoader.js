@@ -13,9 +13,7 @@ export default function FullScreenLoader() {
         backdrop: {
           sx: {
             backgroundColor:
-              getTheme(themeStore).theme.palette.mode === "light"
-                ? "rgba(255, 255, 255, 0.5)"
-                : "rgba(48, 48, 48, 0.5)",
+              getTheme(themeStore).theme.palette.background.default + "80",
           },
         },
       }}

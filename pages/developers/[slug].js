@@ -3,7 +3,7 @@ import { getGamesListAPI } from "@/apis/game";
 import ReadMore from "@/components/common/ReadMore";
 import GameCard from "@/components/Game/GameCard";
 import InnerLayout from "@/layout/InnerLayout";
-import { SITE_NAME } from "@/utils/constants";
+import { PAGINATION_LIMIT, SITE_NAME } from "@/utils/constants";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LoadingButton } from "@mui/lab";
 import { Box, Grid, Stack } from "@mui/material";
@@ -32,7 +32,11 @@ export async function getServerSideProps(context) {
 
   const [developerDetail, developerGames] = await Promise.all([
     getDeveloperDetailAPI(slug).then((res) => res.data),
-    getGamesListAPI({ ordering, developers: slug }).then((res) => res.data),
+    getGamesListAPI({
+      page_size: PAGINATION_LIMIT,
+      ordering,
+      developers: slug,
+    }).then((res) => res.data),
   ]);
   if (developerDetail.detail || developerGames.detail) {
     return {

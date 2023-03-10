@@ -1,16 +1,14 @@
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import { Divider, IconButton, Stack } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
-import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import * as React from "react";
 import ThemePicker from "../common/ThemePicker";
+import NavAuth from "./NavAuth";
 import SideNavigatorDrawer from "./SideNavigatorDrawer";
 
-const NavAuth = dynamic(() => import("./NavAuth"), { ssr: false });
-
 export default function NavMenuDrawer() {
-  const [state, setState] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
   const router = useRouter();
 
   const toggleDrawer = (open) => (event) => {
@@ -20,19 +18,17 @@ export default function NavMenuDrawer() {
     ) {
       return;
     }
-    setState(open);
+    setOpen(open);
   };
 
   React.useEffect(() => {
     router.events.on("routeChangeComplete", () => {
-      if (state === true) {
-        setState(false);
-      }
+      setOpen(false);
     });
 
     return () => {
       router.events.off("routeChangeComplete", () => {
-        setState(false);
+        setOpen(false);
       });
     };
   }, []);
@@ -42,7 +38,7 @@ export default function NavMenuDrawer() {
       <IconButton onClick={toggleDrawer(true)}>
         <MenuRoundedIcon />
       </IconButton>
-      <Drawer anchor={"top"} open={state} onClose={toggleDrawer(false)}>
+      <Drawer anchor={"top"} open={open} onClose={toggleDrawer(false)}>
         <Stack
           alignItems={"center"}
           direction={"row"}

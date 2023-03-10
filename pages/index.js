@@ -1,7 +1,7 @@
 import { getGamesListAPI } from "@/apis/game";
 import GamesList from "@/components/Game/Homepage/GamesList";
 import InnerLayout from "@/layout/InnerLayout";
-import { SITE_NAME } from "@/utils/constants";
+import { SITE_NAME, PAGINATION_LIMIT } from "@/utils/constants";
 import { dateFormat } from "@/utils/utils";
 import { Stack, Typography } from "@mui/material";
 import dayjs from "dayjs";
@@ -12,13 +12,13 @@ export async function getStaticProps() {
       dates: `${dateFormat(dayjs().subtract(3, "month"))},${dateFormat(
         dayjs().add(6, "month")
       )}`,
-      page_size: 12,
+      page_size: PAGINATION_LIMIT,
     }).then((res) => res.data),
     getGamesListAPI({
       dates: `${dateFormat(
         dayjs().subtract(1, "year").startOf("year")
       )},${dateFormat(dayjs().subtract(1, "year").endOf("year"))}`,
-      page_size: 12,
+      page_size: PAGINATION_LIMIT,
     }).then((res) => res.data),
   ]);
 

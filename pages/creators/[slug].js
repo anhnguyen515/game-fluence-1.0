@@ -1,10 +1,9 @@
 import { getCreatorDetailAPI } from "@/apis/creator";
 import { getGamesListAPI } from "@/apis/game";
-import { getPublisherDetailAPI } from "@/apis/publisher";
 import ReadMore from "@/components/common/ReadMore";
 import GameCard from "@/components/Game/GameCard";
 import InnerLayout from "@/layout/InnerLayout";
-import { SITE_NAME } from "@/utils/constants";
+import { PAGINATION_LIMIT, SITE_NAME } from "@/utils/constants";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LoadingButton } from "@mui/lab";
 import { Box, Grid, Stack } from "@mui/material";
@@ -33,7 +32,11 @@ export async function getServerSideProps(context) {
 
   const [creatorDetail, creatorGames] = await Promise.all([
     getCreatorDetailAPI(slug).then((res) => res.data),
-    getGamesListAPI({ ordering, creators: slug }).then((res) => res.data),
+    getGamesListAPI({
+      page_size: PAGINATION_LIMIT,
+      ordering,
+      creators: slug,
+    }).then((res) => res.data),
   ]);
   if (creatorDetail.detail || creatorGames.detail) {
     return {

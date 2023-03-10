@@ -3,7 +3,7 @@ import { getStoreDetailAPI } from "@/apis/store";
 import ReadMore from "@/components/common/ReadMore";
 import GameCard from "@/components/Game/GameCard";
 import InnerLayout from "@/layout/InnerLayout";
-import { SITE_NAME } from "@/utils/constants";
+import { PAGINATION_LIMIT, SITE_NAME } from "@/utils/constants";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LoadingButton } from "@mui/lab";
 import { Box, Grid, Stack } from "@mui/material";
@@ -33,6 +33,7 @@ export async function getServerSideProps(context) {
   const storeDetail = await getStoreDetailAPI(slug).then((res) => res.data);
 
   const storeGames = await getGamesListAPI({
+    page_size: PAGINATION_LIMIT,
     ordering,
     stores: storeDetail.id,
   }).then((res) => res.data);
