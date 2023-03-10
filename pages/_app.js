@@ -15,6 +15,7 @@ import NextNProgress from "nextjs-progressbar";
 import React from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
+import { Analytics } from "@vercel/analytics/react";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -132,6 +133,7 @@ function MyApp({ Component, ...rest }) {
           </ThemeProvider>
         </Provider>
       </CacheProvider>
+      <Analytics />
     </>
   );
 }
