@@ -19,8 +19,15 @@ npm install
 
 ## Usage
 
+- For development:
+
 ```sh
 npm run dev
+```
+
+- For production:
+
+```sh
 npm run build
 npm run start
 ```
