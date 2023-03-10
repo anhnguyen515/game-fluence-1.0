@@ -10,7 +10,7 @@ export default function Searchbar({ q = "" }) {
 
   React.useEffect(() => {
     let timer;
-    if (query !== q) {
+    if (query !== q && query.length > 0) {
       setLoading(true);
       timer = setTimeout(() => {
         router.push({
