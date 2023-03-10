@@ -21,7 +21,9 @@ export default function SideNavigatorDrawer() {
 
   React.useEffect(() => {
     router.events.on("routeChangeComplete", () => {
-      setState(false);
+      if (state === true) {
+        setState(false);
+      }
     });
 
     return () => {
@@ -41,7 +43,13 @@ export default function SideNavigatorDrawer() {
         Categories
       </Button>
       <Drawer anchor={"left"} open={state} onClose={toggleDrawer(false)}>
-        <Box sx={{ px: 1, overflow: "hidden" }}>
+        <Box
+          sx={{
+            px: 1,
+            overflow: "hidden",
+            backgroundColor: "background.default",
+          }}
+        >
           <SideNavigator />
         </Box>
       </Drawer>

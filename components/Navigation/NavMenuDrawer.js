@@ -25,7 +25,9 @@ export default function NavMenuDrawer() {
 
   React.useEffect(() => {
     router.events.on("routeChangeComplete", () => {
-      setState(false);
+      if (state === true) {
+        setState(false);
+      }
     });
 
     return () => {
@@ -46,7 +48,7 @@ export default function NavMenuDrawer() {
           direction={"row"}
           flexWrap={"wrap"}
           gap={2}
-          sx={{ width: "100%", p: 2 }}
+          sx={{ width: "100%", p: 2, backgroundColor: "background.default" }}
         >
           <SideNavigatorDrawer />
           <Stack

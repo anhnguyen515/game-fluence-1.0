@@ -100,12 +100,18 @@ export default function GamesNavigator() {
                 endIcon={i.endIcon}
                 fullWidth
                 onClick={() =>
-                  router.push({
-                    pathname: "/games",
-                    query: {
-                      category: i.category,
-                    },
-                  })
+                  router.push(
+                    i.category
+                      ? {
+                          pathname: "/games",
+                          query: {
+                            category: i.category,
+                          },
+                        }
+                      : {
+                          pathname: "/games",
+                        }
+                  )
                 }
                 size="large"
                 startIcon={i.icon}

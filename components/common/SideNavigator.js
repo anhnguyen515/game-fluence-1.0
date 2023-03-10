@@ -69,7 +69,13 @@ export default function SideNavigator() {
           onClick={() => router.push(item.route)}
           size="large"
           startIcon={item.icon}
-          sx={{ fontSize: "1.1rem", justifyContent: "flex-start" }}
+          sx={{
+            fontSize: "1.1rem",
+            justifyContent: "flex-start",
+            fontWeight: router.pathname.includes(item.route)
+              ? "bold"
+              : "normal",
+          }}
         >
           {item.name}
         </Button>
