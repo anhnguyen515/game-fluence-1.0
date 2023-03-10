@@ -9,7 +9,7 @@
   </a>
 </p>
 
-> A simple video games platform
+> A simple video games website
 
 ## Install
 
