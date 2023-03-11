@@ -85,7 +85,12 @@ export default function GenreDetailPage({ slug, tagDetail, tagGames }) {
         canonical={router.pathname.replace("[slug]", slug)}
         openGraph={{
           url: router.asPath,
-          images: [{ url: tagDetail.image_background }],
+          images: [
+            {
+              url: tagDetail.image_background,
+              type: "image/png",
+            },
+          ],
         }}
       />
       <InnerLayout

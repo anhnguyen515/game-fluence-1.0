@@ -91,7 +91,12 @@ export default function PublisherDetailPage({
         canonical={router.pathname.replace("[slug]", slug)}
         openGraph={{
           url: router.asPath,
-          images: [{ url: publisherDetail.image_background }],
+          images: [
+            {
+              url: publisherDetail.image_background,
+              type: "image/png",
+            },
+          ],
         }}
       />
       <InnerLayout

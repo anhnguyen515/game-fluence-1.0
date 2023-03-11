@@ -87,7 +87,12 @@ export default function StoreDetailPage({ slug, storeDetail, storeGames }) {
         canonical={router.pathname.replace("[slug]", slug)}
         openGraph={{
           url: router.asPath,
-          images: [{ url: storeDetail.image_background }],
+          images: [
+            {
+              url: storeDetail.image_background,
+              type: "image/png",
+            },
+          ],
         }}
       />
       <InnerLayout

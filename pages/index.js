@@ -44,6 +44,7 @@ export default function Home({ newGames, popularGamesLastYear }) {
           images: [
             {
               url: heroImage,
+              type: "image/png",
             },
           ],
         }}

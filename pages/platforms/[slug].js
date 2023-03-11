@@ -93,7 +93,12 @@ export default function PlatformDetailPage({
         canonical={router.pathname.replace("[slug]", slug)}
         openGraph={{
           url: router.asPath,
-          images: [{ url: platformDetail.image_background }],
+          images: [
+            {
+              url: platformDetail.image_background,
+              type: "image/png",
+            },
+          ],
         }}
       />
       <InnerLayout

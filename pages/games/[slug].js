@@ -122,6 +122,7 @@ export default function GameDetailPage({ slug, gameDetail }) {
           images: [
             {
               url: gameDetail.background_image,
+              type: "image/png",
             },
           ],
         }}

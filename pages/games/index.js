@@ -149,6 +149,7 @@ export default function AllGamesPage({ data }) {
           images: [
             {
               url: img,
+              type: "image/png",
             },
           ],
         }}

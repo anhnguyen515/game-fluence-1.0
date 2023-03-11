@@ -94,6 +94,7 @@ export default function CreatorDetailPage({
           images: [
             {
               url: creatorDetail.image_background,
+              type: "image/png",
             },
           ],
         }}

@@ -63,6 +63,7 @@ export default function CreatorsPage({ data }) {
           images: [
             {
               url: img,
+              type: "image/png",
             },
           ],
         }}

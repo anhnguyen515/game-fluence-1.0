@@ -63,6 +63,7 @@ export default function DevelopersPage({ data }) {
           images: [
             {
               url: img,
+              type: "image/png",
             },
           ],
         }}

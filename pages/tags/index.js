@@ -60,7 +60,12 @@ export default function TagsPage({ data }) {
         canonical={router.pathname}
         openGraph={{
           url: router.asPath,
-          images: [{ url: img }],
+          images: [
+            {
+              url: img,
+              type: "image/png",
+            },
+          ],
         }}
       />
       <InnerLayout title={title} titleFontSize={"2.6rem"} img={img}>
