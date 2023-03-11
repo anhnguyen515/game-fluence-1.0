@@ -104,7 +104,7 @@ export default function GeneralItemCard({ item, href, isMaxHeight }) {
               .map((item) => upperCaseFirstLetter(item.name))
               .join(", ")}
         </Typography>
-        <Typography fontSize={"0.9rem"}>
+        <Typography fontSize={"0.9rem"} textAlign={"center"}>
           <Typography
             color="primary.light"
             component={"span"}
