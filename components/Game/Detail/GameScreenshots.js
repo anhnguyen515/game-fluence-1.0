@@ -23,6 +23,7 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
   const [open, setOpen] = React.useState(false);
   const [currIndex, setCurrIndex] = React.useState(activeIndex);
   const [loading, setLoading] = React.useState(false);
+  const [initialLoad, setInitialLoad] = React.useState(true);
 
   const handleOpen = () => {
     setCurrIndex(activeIndex);
@@ -76,18 +77,38 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
           borderRadius: 1,
           overflow: "hidden",
           cursor: "pointer",
+          backgroundColor:
+            getTheme(themeStore).theme.palette.background.default + "33",
         }}
       >
+        {initialLoad && (
+          <Stack
+            alignItems={"center"}
+            justifyContent={"center"}
+            sx={{
+              position: "absolute",
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0,
+              zIndex: 1,
+              borderRadius: 1,
+            }}
+          >
+            <CircularProgress />
+          </Stack>
+        )}
         <Image
           alt=""
           src={screenshots.results[activeIndex].image}
           fill
+          onLoadingComplete={() => setInitialLoad(false)}
           sizes={`(max-width: ${
             getTheme(themeStore).theme.breakpoints.values.sm
           }) 200vw, (max-width: ${
             getTheme(themeStore).theme.breakpoints.values.md
           }) 100vw, 50vw`}
-          style={{ objectFit: "cover" }}
+          style={{ objectFit: "cover", zIndex: -1 }}
         />
       </Box>
       <Dialog

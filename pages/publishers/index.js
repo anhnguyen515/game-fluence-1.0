@@ -26,6 +26,9 @@ export async function getStaticProps() {
 
 export default function PublishersPage({ data }) {
   const router = useRouter();
+  const img =
+    data.results[Math.floor(Math.random() * data.results.length)]
+      .image_background;
 
   const [publishers, setPublishers] = React.useState(data);
   const [loading, setLoading] = React.useState(false);
@@ -58,23 +61,13 @@ export default function PublishersPage({ data }) {
           url: router.asPath,
           images: [
             {
-              url: data.results[Math.floor(Math.random() * data.results.length)]
-                .image_background,
-              alt: data.results[Math.floor(Math.random() * data.results.length)]
-                .name,
+              url: img,
               type: "image/png",
             },
           ],
         }}
       />
-      <InnerLayout
-        title={`Publishers`}
-        titleFontSize={"2.6rem"}
-        img={
-          data.results[Math.floor(Math.random() * data.results.length)]
-            .image_background
-        }
-      >
+      <InnerLayout title={`Publishers`} titleFontSize={"2.6rem"} img={img}>
         <Grid container spacing={2}>
           {publishers.results.map((item) => (
             <Grid key={item.id} item xs={12} sm={6} md={4} lg={3}>

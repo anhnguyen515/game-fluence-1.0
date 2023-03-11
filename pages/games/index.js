@@ -99,6 +99,9 @@ export async function getServerSideProps(context) {
 export default function AllGamesPage({ data }) {
   const router = useRouter();
   const { category } = router.query;
+  const img =
+    data.results[Math.floor(Math.random() * data.results.length)]
+      .background_image;
 
   const [games, setGames] = React.useState(data);
   const [loading, setLoading] = React.useState(false);
@@ -144,10 +147,7 @@ export default function AllGamesPage({ data }) {
           url: router.asPath,
           images: [
             {
-              url: data.results[Math.floor(Math.random() * data.results.length)]
-                .background_image,
-              alt: data.results[Math.floor(Math.random() * data.results.length)]
-                .name,
+              url: img,
               type: "image/png",
             },
           ],
@@ -169,10 +169,7 @@ export default function AllGamesPage({ data }) {
         }
         titleFontSize={"2.6rem"}
         content={<SortComp />}
-        img={
-          data.results[Math.floor(Math.random() * data.results.length)]
-            .background_image
-        }
+        img={img}
       >
         <Grid container spacing={2}>
           {games.results.map((item, index) => (

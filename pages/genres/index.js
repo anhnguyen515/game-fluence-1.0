@@ -26,6 +26,9 @@ export async function getStaticProps() {
 
 export default function GenresPage({ data }) {
   const router = useRouter();
+  const img =
+    data.results[Math.floor(Math.random() * data.results.length)]
+      .image_background;
 
   const [genres, setGenres] = React.useState(data);
   const [loading, setLoading] = React.useState(false);
@@ -58,23 +61,13 @@ export default function GenresPage({ data }) {
           url: router.asPath,
           images: [
             {
-              url: data.results[Math.floor(Math.random() * data.results.length)]
-                .image_background,
-              alt: data.results[Math.floor(Math.random() * data.results.length)]
-                .name,
+              url: img,
               type: "image/png",
             },
           ],
         }}
       />
-      <InnerLayout
-        title={`Genres`}
-        titleFontSize={"2.6rem"}
-        img={
-          data.results[Math.floor(Math.random() * data.results.length)]
-            .image_background
-        }
-      >
+      <InnerLayout title={`Genres`} titleFontSize={"2.6rem"} img={img}>
         <Grid container spacing={2}>
           {genres.results.map((item) => (
             <Grid key={item.id} item xs={12} sm={6} md={4} lg={3}>

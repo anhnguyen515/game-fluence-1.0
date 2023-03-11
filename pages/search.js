@@ -5,7 +5,7 @@ import InnerLayout from "@/layout/InnerLayout";
 import { PAGINATION_LIMIT, SITE_NAME } from "@/utils/constants";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LoadingButton } from "@mui/lab";
-import { Grid, Stack, Typography } from "@mui/material";
+import { CircularProgress, Grid, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
@@ -76,7 +76,6 @@ export default function SearchPage({ q }) {
           url: router.asPath,
         }}
       />
-      {!games && <FullScreenLoader />}
       <InnerLayout
         title={`Search results for "${q}"`}
         titleFontSize={"2.6rem"}
@@ -93,24 +92,32 @@ export default function SearchPage({ q }) {
         }
       >
         <Searchbar q={q} />
-        <Grid container spacing={2}>
-          {games?.results.map((item, index) => (
-            <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
-              <GameCard game={item} />
-            </Grid>
-          ))}
-        </Grid>
-        {games?.next && (
-          <Stack alignItems={"center"} mt={3} sx={{ width: "100%" }}>
-            <LoadingButton
-              loading={loading}
-              onClick={handleLoadMore}
-              size="large"
-              startIcon={<ExpandMoreIcon />}
-            >
-              Load more
-            </LoadingButton>
+        {!games ? (
+          <Stack alignItems={"center"}>
+            <CircularProgress size={64} />
           </Stack>
+        ) : (
+          <>
+            <Grid container spacing={2}>
+              {games?.results.map((item, index) => (
+                <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+                  <GameCard game={item} />
+                </Grid>
+              ))}
+            </Grid>
+            {games?.next && (
+              <Stack alignItems={"center"} mt={3} sx={{ width: "100%" }}>
+                <LoadingButton
+                  loading={loading}
+                  onClick={handleLoadMore}
+                  size="large"
+                  startIcon={<ExpandMoreIcon />}
+                >
+                  Load more
+                </LoadingButton>
+              </Stack>
+            )}
+          </>
         )}
       </InnerLayout>
     </>

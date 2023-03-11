@@ -26,6 +26,9 @@ export async function getStaticProps() {
 
 export default function PlatformsPage({ data }) {
   const router = useRouter();
+  const img =
+    data.results[Math.floor(Math.random() * data.results.length)]
+      .image_background;
 
   const [platforms, setPlatforms] = React.useState(data);
   const [loading, setLoading] = React.useState(false);
@@ -58,23 +61,13 @@ export default function PlatformsPage({ data }) {
           url: router.asPath,
           images: [
             {
-              url: data.results[Math.floor(Math.random() * data.results.length)]
-                .image_background,
-              alt: data.results[Math.floor(Math.random() * data.results.length)]
-                .name,
+              url: img,
               type: "image/png",
             },
           ],
         }}
       />
-      <InnerLayout
-        title={`Platforms`}
-        titleFontSize={"2.6rem"}
-        img={
-          data.results[Math.floor(Math.random() * data.results.length)]
-            .image_background
-        }
-      >
+      <InnerLayout title={`Platforms`} titleFontSize={"2.6rem"} img={img}>
         <Grid container spacing={2}>
           {platforms.results.map((item) => (
             <Grid key={item.id} item xs={12} sm={6} md={4} lg={3}>
