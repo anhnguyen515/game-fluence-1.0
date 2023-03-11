@@ -44,8 +44,12 @@ export default function SideNavigatorDrawer() {
         <Box
           sx={{
             px: 1,
-            overflow: "hidden",
+            overflow: "auto",
+            "::-webkit-scrollbar": {
+              width: 0,
+            },
             backgroundColor: "background.default",
+            height: "100%",
           }}
         >
           <SideNavigator />

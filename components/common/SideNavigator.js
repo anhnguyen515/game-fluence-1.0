@@ -46,7 +46,7 @@ export default function SideNavigator() {
       sx={{
         position: "sticky",
         top: 0,
-        maxHeight: "100vh",
+        maxHeight: { md: "100vh" },
         overflow: "auto",
         "::-webkit-scrollbar": {
           width: 0,
