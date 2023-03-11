@@ -51,31 +51,13 @@ function MyApp({ Component, ...rest }) {
             rel="icon"
             type="image/png"
             sizes="250x250"
-            href="/favicon/icon-black-250px.png"
-          />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="250x250"
             href="/favicon/icon-white-250px.png"
           />
           <link
             rel="apple-touch-icon"
             type="image/png"
             sizes="180x180"
-            href="/favicon/icon-black-180px.png"
-          />
-          <link
-            rel="apple-touch-icon"
-            type="image/png"
-            sizes="180x180"
             href="/favicon/icon-white-180px.png"
-          />
-          <link
-            rel="apple-touch-icon"
-            type="image/png"
-            sizes="192x192"
-            href="/favicon/icon-black-192px.png"
           />
           <link
             rel="apple-touch-icon"
@@ -95,16 +77,7 @@ function MyApp({ Component, ...rest }) {
             url: SITE_BASE_URL,
             images: [
               {
-                url: `${SITE_BASE_URL}img/og-black-2000px.png`,
-                width: 1200,
-                height: 503,
-                alt: `${SITE_NAME} black logo`,
-                type: "image/png",
-              },
-              {
-                url: `${SITE_BASE_URL}img/og-white-2000px.png`,
-                width: 1200,
-                height: 503,
+                url: `${SITE_BASE_URL}img/og-white-1200px.png`,
                 alt: `${SITE_NAME} white logo`,
                 type: "image/png",
               },
