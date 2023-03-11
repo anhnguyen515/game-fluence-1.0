@@ -95,14 +95,14 @@ function MyApp({ Component, ...rest }) {
             url: SITE_BASE_URL,
             images: [
               {
-                url: `${SITE_BASE_URL}img/GameFluence-black-2000px.png`,
+                url: `${SITE_BASE_URL}img/og-black-2000px.png`,
                 width: 1200,
                 height: 503,
                 alt: `${SITE_NAME} black logo`,
                 type: "image/png",
               },
               {
-                url: `${SITE_BASE_URL}img/GameFluence-white-2000px.png`,
+                url: `${SITE_BASE_URL}img/og-white-2000px.png`,
                 width: 1200,
                 height: 503,
                 alt: `${SITE_NAME} white logo`,
