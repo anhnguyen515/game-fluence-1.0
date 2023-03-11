@@ -89,7 +89,14 @@ export default function CreatorDetailPage({
       <NextSeo
         title={`${title} - ${SITE_NAME}`}
         canonical={router.pathname.replace("[slug]", slug)}
-        openGraph={{ url: router.asPath }}
+        openGraph={{
+          url: router.asPath,
+          images: [
+            {
+              url: creatorDetail.image_background,
+            },
+          ],
+        }}
       />
       <InnerLayout
         title={title}

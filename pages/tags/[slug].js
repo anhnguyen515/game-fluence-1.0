@@ -83,7 +83,10 @@ export default function GenreDetailPage({ slug, tagDetail, tagGames }) {
       <NextSeo
         title={`${title} - ${SITE_NAME}`}
         canonical={router.pathname.replace("[slug]", slug)}
-        openGraph={{ url: router.asPath }}
+        openGraph={{
+          url: router.asPath,
+          images: [{ url: tagDetail.image_background }],
+        }}
       />
       <InnerLayout
         title={title}

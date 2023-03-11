@@ -146,6 +146,11 @@ export default function AllGamesPage({ data }) {
         canonical={router.pathname}
         openGraph={{
           url: router.asPath,
+          images: [
+            {
+              url: img,
+            },
+          ],
         }}
       />
       <InnerLayout

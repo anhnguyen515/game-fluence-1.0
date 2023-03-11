@@ -60,6 +60,7 @@ export default function PublishersPage({ data }) {
         canonical={router.pathname}
         openGraph={{
           url: router.asPath,
+          images: [{ url: img }],
         }}
       />
       <InnerLayout title={title} titleFontSize={"2.6rem"} img={img}>

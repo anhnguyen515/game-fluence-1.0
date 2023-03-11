@@ -117,7 +117,14 @@ export default function GameDetailPage({ slug, gameDetail }) {
         title={`${title} - ${SITE_NAME}`}
         canonical={router.pathname.replace("[slug]", slug)}
         description={gameDetail.description_raw}
-        openGraph={{ url: router.asPath }}
+        openGraph={{
+          url: router.asPath,
+          images: [
+            {
+              url: gameDetail.background_image,
+            },
+          ],
+        }}
       />
       {!(
         gameTrailers &&

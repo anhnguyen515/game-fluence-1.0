@@ -5,6 +5,7 @@ import { SITE_NAME, PAGINATION_LIMIT } from "@/utils/constants";
 import { dateFormat } from "@/utils/utils";
 import { Stack, Typography } from "@mui/material";
 import dayjs from "dayjs";
+import { NextSeo } from "next-seo";
 
 export async function getStaticProps() {
   const [newGames, popularGamesLastYear] = await Promise.all([
@@ -38,6 +39,15 @@ export default function Home({ newGames, popularGamesLastYear }) {
 
   return (
     <>
+      <NextSeo
+        openGraph={{
+          images: [
+            {
+              url: heroImage,
+            },
+          ],
+        }}
+      />
       <InnerLayout
         title={
           <>

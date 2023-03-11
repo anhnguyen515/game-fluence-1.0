@@ -89,7 +89,10 @@ export default function DeveloperDetailPage({
       <NextSeo
         title={`${title} - ${SITE_NAME}`}
         canonical={router.pathname.replace("[slug]", slug)}
-        openGraph={{ url: router.asPath }}
+        openGraph={{
+          url: router.asPath,
+          images: [{ url: developerDetail.image_background }],
+        }}
       />
       <InnerLayout
         title={title}

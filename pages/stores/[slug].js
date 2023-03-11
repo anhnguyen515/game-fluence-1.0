@@ -85,7 +85,10 @@ export default function StoreDetailPage({ slug, storeDetail, storeGames }) {
       <NextSeo
         title={`${title} - ${SITE_NAME}`}
         canonical={router.pathname.replace("[slug]", slug)}
-        openGraph={{ url: router.asPath }}
+        openGraph={{
+          url: router.asPath,
+          images: [{ url: storeDetail.image_background }],
+        }}
       />
       <InnerLayout
         title={title}
