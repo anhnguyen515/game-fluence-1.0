@@ -92,32 +92,24 @@ export default function SearchPage({ q }) {
         }
       >
         <Searchbar q={q} />
-        {!games ? (
-          <Stack alignItems={"center"}>
-            <CircularProgress size={64} />
-          </Stack>
-        ) : (
-          <>
-            <Grid container spacing={2}>
-              {games?.results.map((item, index) => (
-                <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
-                  <GameCard game={item} />
-                </Grid>
-              ))}
+        <Grid container spacing={2}>
+          {games?.results.map((item, index) => (
+            <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+              <GameCard game={item} />
             </Grid>
-            {games?.next && (
-              <Stack alignItems={"center"} mt={3} sx={{ width: "100%" }}>
-                <LoadingButton
-                  loading={loading}
-                  onClick={handleLoadMore}
-                  size="large"
-                  startIcon={<ExpandMoreIcon />}
-                >
-                  Load more
-                </LoadingButton>
-              </Stack>
-            )}
-          </>
+          ))}
+        </Grid>
+        {games?.next && (
+          <Stack alignItems={"center"} mt={3} sx={{ width: "100%" }}>
+            <LoadingButton
+              loading={loading}
+              onClick={handleLoadMore}
+              size="large"
+              startIcon={<ExpandMoreIcon />}
+            >
+              Load more
+            </LoadingButton>
+          </Stack>
         )}
       </InnerLayout>
     </>
