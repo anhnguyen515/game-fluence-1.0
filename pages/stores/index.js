@@ -25,11 +25,7 @@ export async function getStaticProps() {
 }
 
 export default function StoresPage({ data }) {
-  const title = `Stores`;
   const router = useRouter();
-  const img =
-    data.results[Math.floor(Math.random() * data.results.length)]
-      .image_background;
 
   const [stores, setStores] = React.useState(data);
   const [loading, setLoading] = React.useState(false);
@@ -56,19 +52,29 @@ export default function StoresPage({ data }) {
   return (
     <>
       <NextSeo
-        title={`${title} - ${SITE_NAME}`}
+        title={`Stores - ${SITE_NAME}`}
         canonical={router.pathname}
         openGraph={{
           url: router.asPath,
           images: [
             {
-              url: img,
+              url: data.results[Math.floor(Math.random() * data.results.length)]
+                .image_background,
+              alt: data.results[Math.floor(Math.random() * data.results.length)]
+                .name,
               type: "image/png",
             },
           ],
         }}
       />
-      <InnerLayout title={title} titleFontSize={"2.6rem"} img={img}>
+      <InnerLayout
+        title={`Stores`}
+        titleFontSize={"2.6rem"}
+        img={
+          data.results[Math.floor(Math.random() * data.results.length)]
+            .image_background
+        }
+      >
         <Grid container spacing={2}>
           {stores.results.map((item) => (
             <Grid key={item.id} item xs={12} sm={6} md={4} lg={3}>

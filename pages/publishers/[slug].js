@@ -58,7 +58,6 @@ export default function PublisherDetailPage({
   publisherDetail,
   publisherGames,
 }) {
-  const title = `Published by ${publisherDetail.name}`;
   const router = useRouter();
 
   const [games, setGames] = React.useState(publisherGames);
@@ -87,20 +86,21 @@ export default function PublisherDetailPage({
   return (
     <>
       <NextSeo
-        title={`${title} - ${SITE_NAME}`}
+        title={`Published by ${publisherDetail.name} - ${SITE_NAME}`}
         canonical={router.pathname.replace("[slug]", slug)}
         openGraph={{
           url: router.asPath,
           images: [
             {
               url: publisherDetail.image_background,
+              alt: publisherDetail.name,
               type: "image/png",
             },
           ],
         }}
       />
       <InnerLayout
-        title={title}
+        title={`Published by ${publisherDetail.name}`}
         titleFontSize={"2.6rem"}
         content={<SortComp />}
         img={publisherDetail.image_background}

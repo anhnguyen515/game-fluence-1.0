@@ -52,7 +52,6 @@ export async function getServerSideProps(context) {
 }
 
 export default function GenreDetailPage({ slug, tagDetail, tagGames }) {
-  const title = `${tagDetail.name} Games`;
   const router = useRouter();
 
   const [games, setGames] = React.useState(tagGames);
@@ -81,20 +80,21 @@ export default function GenreDetailPage({ slug, tagDetail, tagGames }) {
   return (
     <>
       <NextSeo
-        title={`${title} - ${SITE_NAME}`}
+        title={`${tagDetail.name} Games - ${SITE_NAME}`}
         canonical={router.pathname.replace("[slug]", slug)}
         openGraph={{
           url: router.asPath,
           images: [
             {
               url: tagDetail.image_background,
+              alt: tagDetail.name,
               type: "image/png",
             },
           ],
         }}
       />
       <InnerLayout
-        title={title}
+        title={`${tagDetail.name} Games`}
         titleFontSize={"2.6rem"}
         content={<SortComp />}
         img={tagDetail.image_background}

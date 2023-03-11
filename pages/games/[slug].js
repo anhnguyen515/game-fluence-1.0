@@ -73,7 +73,6 @@ export async function getStaticProps(context) {
 }
 
 export default function GameDetailPage({ slug, gameDetail }) {
-  const title = gameDetail.name;
   const router = useRouter();
   const themeStore = useSelector(selectTheme);
 
@@ -114,7 +113,7 @@ export default function GameDetailPage({ slug, gameDetail }) {
   return (
     <>
       <NextSeo
-        title={`${title} - ${SITE_NAME}`}
+        title={`${gameDetail.name} - ${SITE_NAME}`}
         canonical={router.pathname.replace("[slug]", slug)}
         description={gameDetail.description_raw}
         openGraph={{
@@ -122,6 +121,7 @@ export default function GameDetailPage({ slug, gameDetail }) {
           images: [
             {
               url: gameDetail.background_image,
+              alt: gameDetail.name,
               type: "image/png",
             },
           ],
@@ -154,7 +154,7 @@ export default function GameDetailPage({ slug, gameDetail }) {
         }}
       />
       <InnerLayout
-        title={title}
+        title={gameDetail.name}
         titleFontSize={"4rem"}
         subtitle={
           <Stack alignItems={"center"} direction={"row"} gap={1}>

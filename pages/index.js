@@ -33,17 +33,18 @@ export async function getStaticProps() {
 }
 
 export default function Home({ newGames, popularGamesLastYear }) {
-  const heroImage =
-    newGames.results[Math.floor(Math.random() * newGames.results.length)]
-      .background_image;
-
   return (
     <>
       <NextSeo
         openGraph={{
           images: [
             {
-              url: heroImage,
+              url: newGames.results[
+                Math.floor(Math.random() * newGames.results.length)
+              ].background_image,
+              alt: newGames.results[
+                Math.floor(Math.random() * newGames.results.length)
+              ].name,
               type: "image/png",
             },
           ],
@@ -66,7 +67,10 @@ export default function Home({ newGames, popularGamesLastYear }) {
         }
         titleFontSize={"2.4rem"}
         subtitle={"Everything you need for video games is here"}
-        img={heroImage}
+        img={
+          newGames.results[Math.floor(Math.random() * newGames.results.length)]
+            .background_image
+        }
       >
         <Stack gap={6}>
           <GamesList

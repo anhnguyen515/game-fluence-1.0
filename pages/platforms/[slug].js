@@ -60,7 +60,6 @@ export default function PlatformDetailPage({
   platformDetail,
   platformGames,
 }) {
-  const title = `Games for ${platformDetail.name}`;
   const router = useRouter();
 
   const [games, setGames] = React.useState(platformGames);
@@ -89,20 +88,21 @@ export default function PlatformDetailPage({
   return (
     <>
       <NextSeo
-        title={`${title} - ${SITE_NAME}`}
+        title={`Games for ${platformDetail.name} - ${SITE_NAME}`}
         canonical={router.pathname.replace("[slug]", slug)}
         openGraph={{
           url: router.asPath,
           images: [
             {
               url: platformDetail.image_background,
+              alt: platformDetail.name,
               type: "image/png",
             },
           ],
         }}
       />
       <InnerLayout
-        title={title}
+        title={`Games for ${platformDetail.name}`}
         titleFontSize={"2.6rem"}
         content={<SortComp />}
         img={platformDetail.image_background}

@@ -58,7 +58,6 @@ export default function CreatorDetailPage({
   creatorDetail,
   creatorGames,
 }) {
-  const title = `${creatorDetail.name}`;
   const router = useRouter();
 
   const [games, setGames] = React.useState(creatorGames);
@@ -87,20 +86,21 @@ export default function CreatorDetailPage({
   return (
     <>
       <NextSeo
-        title={`${title} - ${SITE_NAME}`}
+        title={`${creatorDetail.name} - ${SITE_NAME}`}
         canonical={router.pathname.replace("[slug]", slug)}
         openGraph={{
           url: router.asPath,
           images: [
             {
               url: creatorDetail.image_background,
+              alt: creatorDetail.name,
               type: "image/png",
             },
           ],
         }}
       />
       <InnerLayout
-        title={title}
+        title={creatorDetail.name}
         titleFontSize={"2.6rem"}
         content={<SortComp />}
         img={creatorDetail.image_background}

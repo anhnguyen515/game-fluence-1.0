@@ -100,22 +100,6 @@ export default function AllGamesPage({ data }) {
   const router = useRouter();
   const { category } = router.query;
 
-  const title = !category
-    ? "All Games"
-    : category === "new-and-upcoming"
-    ? "New & Upcoming Releases"
-    : category === "last-30-days"
-    ? "Last 30 Days Releases"
-    : category === "this-week"
-    ? "This Week Releases"
-    : category === "next-week"
-    ? "Next Week Releases"
-    : `Popular In ${dayjs().subtract(1, "year").year()}`;
-
-  const img =
-    data.results[Math.floor(Math.random() * data.results.length)]
-      .background_image;
-
   const [games, setGames] = React.useState(data);
   const [loading, setLoading] = React.useState(false);
 
@@ -142,23 +126,53 @@ export default function AllGamesPage({ data }) {
   return (
     <>
       <NextSeo
-        title={`${title} - ${SITE_NAME}`}
+        title={`${
+          !category
+            ? "All Games"
+            : category === "new-and-upcoming"
+            ? "New & Upcoming Releases"
+            : category === "last-30-days"
+            ? "Last 30 Days Releases"
+            : category === "this-week"
+            ? "This Week Releases"
+            : category === "next-week"
+            ? "Next Week Releases"
+            : `Popular In ${dayjs().subtract(1, "year").year()}`
+        } - ${SITE_NAME}`}
         canonical={router.pathname}
         openGraph={{
           url: router.asPath,
           images: [
             {
-              url: img,
+              url: data.results[Math.floor(Math.random() * data.results.length)]
+                .background_image,
+              alt: data.results[Math.floor(Math.random() * data.results.length)]
+                .name,
               type: "image/png",
             },
           ],
         }}
       />
       <InnerLayout
-        title={title}
+        title={
+          !category
+            ? "All Games"
+            : category === "new-and-upcoming"
+            ? "New & Upcoming Releases"
+            : category === "last-30-days"
+            ? "Last 30 Days Releases"
+            : category === "this-week"
+            ? "This Week Releases"
+            : category === "next-week"
+            ? "Next Week Releases"
+            : `Popular In ${dayjs().subtract(1, "year").year()}`
+        }
         titleFontSize={"2.6rem"}
         content={<SortComp />}
-        img={img}
+        img={
+          data.results[Math.floor(Math.random() * data.results.length)]
+            .background_image
+        }
       >
         <Grid container spacing={2}>
           {games.results.map((item, index) => (

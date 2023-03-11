@@ -54,7 +54,6 @@ export async function getServerSideProps(context) {
 }
 
 export default function StoreDetailPage({ slug, storeDetail, storeGames }) {
-  const title = `Games available at ${storeDetail.name}`;
   const router = useRouter();
 
   const [games, setGames] = React.useState(storeGames);
@@ -83,20 +82,21 @@ export default function StoreDetailPage({ slug, storeDetail, storeGames }) {
   return (
     <>
       <NextSeo
-        title={`${title} - ${SITE_NAME}`}
+        title={`Games available at ${storeDetail.name} - ${SITE_NAME}`}
         canonical={router.pathname.replace("[slug]", slug)}
         openGraph={{
           url: router.asPath,
           images: [
             {
               url: storeDetail.image_background,
+              alt: storeDetail.name,
               type: "image/png",
             },
           ],
         }}
       />
       <InnerLayout
-        title={title}
+        title={`Games available at ${storeDetail.name}`}
         titleFontSize={"2.6rem"}
         content={<SortComp />}
         img={storeDetail.image_background}

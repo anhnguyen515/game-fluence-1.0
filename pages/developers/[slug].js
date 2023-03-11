@@ -58,7 +58,6 @@ export default function DeveloperDetailPage({
   developerDetail,
   developerGames,
 }) {
-  const title = `Developed by ${developerDetail.name}`;
   const router = useRouter();
 
   const [games, setGames] = React.useState(developerGames);
@@ -87,20 +86,21 @@ export default function DeveloperDetailPage({
   return (
     <>
       <NextSeo
-        title={`${title} - ${SITE_NAME}`}
+        title={`Developed by ${developerDetail.name} - ${SITE_NAME}`}
         canonical={router.pathname.replace("[slug]", slug)}
         openGraph={{
           url: router.asPath,
           images: [
             {
               url: developerDetail.image_background,
+              alt: developerDetail.name,
               type: "image/png",
             },
           ],
         }}
       />
       <InnerLayout
-        title={title}
+        title={`Developed by ${developerDetail.name}`}
         titleFontSize={"2.6rem"}
         content={<SortComp />}
         img={developerDetail.image_background}
