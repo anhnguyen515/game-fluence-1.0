@@ -179,7 +179,7 @@ export default function GameDetailPage({ slug, gameDetail }) {
             <Link href={"/games"}>
               <Typography color={"text.dark"}>Games</Typography>
             </Link>
-            <Typography>{title}</Typography>
+            <Typography>{gameDetail.name}</Typography>
           </Breadcrumbs>
         }
         // img={gameDetail.background_image}
