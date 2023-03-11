@@ -98,11 +98,13 @@ export default function GeneralItemCard({ item, href, isMaxHeight }) {
             {item.name}
           </Typography>
         </Link>
-        {item.positions &&
-          item.positions
-            .map((item) => upperCaseFirstLetter(item.name))
-            .join(", ")}
-        <Typography fontSize={"0.95rem"}>
+        <Typography fontSize={"0.9rem"} textAlign={"center"}>
+          {item.positions &&
+            item.positions
+              .map((item) => upperCaseFirstLetter(item.name))
+              .join(", ")}
+        </Typography>
+        <Typography fontSize={"0.9rem"}>
           <Typography
             color="primary.light"
             component={"span"}
