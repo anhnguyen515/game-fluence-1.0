@@ -15,7 +15,7 @@ import GameRatings from "@/components/Game/Detail/GameRatings";
 import GameScreenshots from "@/components/Game/Detail/GameScreenshots";
 import InnerLayout from "@/layout/InnerLayout";
 import { selectTheme } from "@/store/slices/themeSlice";
-import { SITE_NAME } from "@/utils/constants";
+import { PAGINATION_LIMIT, SITE_NAME } from "@/utils/constants";
 import {
   dateFormat,
   getGameStore,
@@ -95,7 +95,7 @@ export default function GameDetailPage({ slug, gameDetail }) {
 
   React.useEffect(() => {
     setLoading(true);
-    getGameCreatorsListAPI(slug, { page_size: 5, page })
+    getGameCreatorsListAPI(slug, { page_size: PAGINATION_LIMIT, page })
       .then((res) => {
         setGameCreators(res.data);
         setLoading(false);
@@ -292,11 +292,11 @@ export default function GameDetailPage({ slug, gameDetail }) {
           </Grid>
         </Grid>
         <GameCreatorsList gameCreators={gameCreators} loading={loading} />
-        {gameCreators?.count > 5 && (
+        {gameCreators?.count > PAGINATION_LIMIT && (
           <Stack alignItems={"center"} mt={3} sx={{ width: "100%" }}>
             <Pagination
               color="primary"
-              count={Math.ceil(gameCreators.count / 5)}
+              count={Math.ceil(gameCreators.count / PAGINATION_LIMIT)}
               onChange={handleChangePage}
               page={page}
               shape="rounded"

@@ -27,7 +27,7 @@ export default function GeneralItemCard({ item, href, isMaxHeight }) {
   }, []);
 
   return (
-    <Box className="relative" sx={{ height: isMaxHeight ? "100%" : height }}>
+    <Box className="relative" sx={{ height }}>
       <Paper
         ref={heightRef}
         elevation={hover ? 24 : 0}
