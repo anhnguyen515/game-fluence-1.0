@@ -77,17 +77,18 @@ export default function SearchGameCard({ item }) {
           flexWrap={"wrap"}
           gap={1}
         >
-          {item.parent_platforms.map((item, index) => (
-            <Tooltip key={index} title={item.platform.name} placement="top">
-              <Chip
-                label={getParentPlatform(
-                  item.platform.name,
-                  isSmallScreen ? 12 : 16
-                )}
-                size="small"
-              />
-            </Tooltip>
-          ))}
+          {item.parent_platforms &&
+            item.parent_platforms.map((item, index) => (
+              <Tooltip key={index} title={item.platform.name} placement="top">
+                <Chip
+                  label={getParentPlatform(
+                    item.platform.name,
+                    isSmallScreen ? 12 : 16
+                  )}
+                  size="small"
+                />
+              </Tooltip>
+            ))}
         </Stack>
         <Stack
           alignItems={"center"}
@@ -95,14 +96,15 @@ export default function SearchGameCard({ item }) {
           flexWrap={"wrap"}
           gap={1}
         >
-          {item.genres.map((item, index) => (
-            <Chip
-              key={index}
-              label={item.name}
-              onClick={() => router.push(`/genres/${item.slug}`)}
-              size="small"
-            />
-          ))}
+          {item.genres &&
+            item.genres.map((item, index) => (
+              <Chip
+                key={index}
+                label={item.name}
+                onClick={() => router.push(`/genres/${item.slug}`)}
+                size="small"
+              />
+            ))}
         </Stack>
       </Stack>
     </Stack>
