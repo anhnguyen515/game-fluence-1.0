@@ -163,10 +163,24 @@ function ScreenshotComponent({ screenshots, activeIndex }) {
           }}
         >
           {loading && (
-            <CircularProgress
-              size={64}
-              sx={{ position: "absolute", top: 20, right: 20, zIndex: 2 }}
-            />
+            <Stack
+              alignItems={"center"}
+              justifyContent={"center"}
+              sx={{
+                p: 2,
+                position: "absolute",
+                top: 0,
+                right: 0,
+                zIndex: 2,
+                // width: "auto",
+                // height: "auto",
+                borderRadius: 1,
+                backgroundColor:
+                  getTheme(themeStore).theme.palette.background.default + "26",
+              }}
+            >
+              <CircularProgress size={48} />
+            </Stack>
           )}
           <Image
             alt=""

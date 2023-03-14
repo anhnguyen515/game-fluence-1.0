@@ -2,6 +2,7 @@ import { getParentPlatform } from "@/utils/utils";
 import {
   Box,
   Chip,
+  CircularProgress,
   Stack,
   Tooltip,
   Typography,
@@ -16,6 +17,7 @@ export default function SearchGameCard({ item }) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const router = useRouter();
+
   return (
     <Stack direction={"row"} gap={1}>
       <Box sx={{ flex: 1 }}>
@@ -37,15 +39,16 @@ export default function SearchGameCard({ item }) {
           }}
         >
           <Image
-            className="img"
             alt=""
+            className="img"
+            fill
+            priority
             src={
               item.background_image ||
               (theme.palette.mode === "light"
                 ? "/img/logo-black-250px.png"
                 : "/img/logo-white-250px.png")
             }
-            fill
             sizes={`(max-width: ${theme.breakpoints.values.sm}) 200vw, (max-width: ${theme.breakpoints.values.md}) 100vw, 50vw`}
           />
         </Box>

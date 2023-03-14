@@ -101,7 +101,7 @@ export default function SearchModal() {
             <Close />
           </IconButton>
         </DialogTitle>
-        <Stack px={3} pb={3}>
+        <Stack gap={2} px={2} pb={2}>
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -132,9 +132,17 @@ export default function SearchModal() {
               }}
             />
           </form>
+          {data && (
+            <Typography textAlign={"center"}>
+              <b>{data.count.toLocaleString()}</b>{" "}
+              {data.count > 1 ? "results" : "result"} found
+            </Typography>
+          )}
         </Stack>
+        <Divider />
         {data && (
           <Box
+            pt={2}
             sx={{
               overflow: "auto",
               "::-webkit-scrollbar": {
@@ -147,14 +155,10 @@ export default function SearchModal() {
               },
             }}
           >
-            <Box sx={{ px: 3, pb: 3 }}>
+            <Box sx={{ px: 2, pb: 2 }}>
               {data.count > 0 ? (
                 <>
-                  <Typography textAlign={"center"}>
-                    <b>{data.count.toLocaleString()}</b>{" "}
-                    {data.count > 1 ? "results" : "result"} found
-                  </Typography>
-                  <Stack divider={<Divider flexItem />} gap={2} mt={3}>
+                  <Stack gap={2}>
                     {data.results.map((item, index) => (
                       <SearchGameCard key={index} item={item} />
                     ))}
