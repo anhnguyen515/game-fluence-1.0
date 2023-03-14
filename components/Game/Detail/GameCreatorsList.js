@@ -31,7 +31,7 @@ export default function GameCreatorsList({ gameCreators, loading }) {
       ) : (
         <Grid container spacing={2}>
           {[...Array(PAGINATION_LIMIT)].map((item, index) => (
-            <Grid key={index} item xs={12} sm={6} md={4} lg={2.4}>
+            <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
               <GeneralItemSkeleton creator />
             </Grid>
           ))}
