@@ -13,14 +13,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 
-export default function GeneralItemCard({ item, href, isMaxHeight }) {
+export default function GeneralItemCard({ item, href }) {
   const router = useRouter();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const heightRef = React.useRef(null);
   const [hover, setHover] = React.useState(false);
-  const [height, setHeight] = React.useState(0);
+  const [height, setHeight] = React.useState("100%");
 
   React.useEffect(() => {
     setHeight(heightRef.current.clientHeight);
@@ -71,12 +71,12 @@ export default function GeneralItemCard({ item, href, isMaxHeight }) {
             }
             src={item.image}
             sx={{
-              width: "4rem",
-              height: "4rem",
+              width: "3rem",
+              height: "3rem",
               cursor: "pointer",
               transition: "transform 0.2s",
               "&:hover": {
-                transform: "scale(1.1) rotate(15deg)",
+                transform: "scale(1.3) rotate(15deg)",
               },
             }}
           />

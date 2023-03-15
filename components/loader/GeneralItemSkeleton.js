@@ -15,7 +15,7 @@ export default function GeneralItemSkeleton({ creator }) {
         p: 2,
       }}
     >
-      {creator && <Skeleton variant="circular" width={70} height={70} />}
+      {creator && <Skeleton variant="circular" width={60} height={60} />}
       <Skeleton variant="rounded" width={210} height={30} />
       <Skeleton variant="rounded" width={120} height={15} />
       <Skeleton variant="rounded" width={80} height={15} />
