@@ -29,7 +29,7 @@ export default function GameCard({ game }) {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const [hover, setHover] = React.useState(false);
-  const [height, setHeight] = React.useState("100%");
+  const [height, setHeight] = React.useState(0);
 
   const heightRef = React.useRef(null);
 
@@ -38,7 +38,7 @@ export default function GameCard({ game }) {
   }, []);
 
   return (
-    <Box sx={{ position: "relative", height }}>
+    <Box sx={{ position: "relative", height: hover ? height : "100%" }}>
       <Card
         ref={heightRef}
         elevation={hover ? 24 : 0}
