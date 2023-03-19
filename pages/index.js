@@ -3,7 +3,7 @@ import GamesList from "@/components/Game/Homepage/GamesList";
 import InnerLayout from "@/layout/InnerLayout";
 import { SITE_NAME, PAGINATION_LIMIT } from "@/utils/constants";
 import { dateFormat } from "@/utils/utils";
-import { Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography, useTheme } from "@mui/material";
 import dayjs from "dayjs";
 import { NextSeo } from "next-seo";
 
@@ -33,18 +33,18 @@ export async function getStaticProps() {
 }
 
 export default function Home({ newGames, popularGamesLastYear }) {
+  const img =
+    newGames.results[Math.floor(Math.random() * newGames.results.length)]
+      .background_image;
+
+  const theme = useTheme();
   return (
     <>
       <NextSeo
         openGraph={{
           images: [
             {
-              url: newGames.results[
-                Math.floor(Math.random() * newGames.results.length)
-              ].background_image,
-              alt: newGames.results[
-                Math.floor(Math.random() * newGames.results.length)
-              ].name,
+              url: img,
               type: "image/png",
             },
           ],
@@ -66,11 +66,10 @@ export default function Home({ newGames, popularGamesLastYear }) {
           </>
         }
         titleFontSize={"2.4rem"}
-        subtitle={"Everything you need for video games is here"}
-        img={
-          newGames.results[Math.floor(Math.random() * newGames.results.length)]
-            .background_image
+        subtitle={
+          "Want to know more about your favorite games? We have everything right here."
         }
+        img={img}
       >
         <Stack gap={6}>
           <GamesList

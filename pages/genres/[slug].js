@@ -55,7 +55,6 @@ export async function getServerSideProps(context) {
 
 export default function GenreDetailPage({ slug, genreDetail, genreGames }) {
   const router = useRouter();
-
   const [games, setGames] = React.useState(genreGames);
   const [loading, setLoading] = React.useState(false);
 

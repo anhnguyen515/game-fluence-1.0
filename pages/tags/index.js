@@ -26,10 +26,15 @@ export async function getStaticProps() {
 
 export default function TagsPage({ data }) {
   const router = useRouter();
-  const img =
-    data.results[Math.floor(Math.random() * data.results.length)]
-      .image_background;
+  // const img =
+  //   data.results[Math.floor(Math.random() * data.results.length)]
+  //     .image_background;
 
+  const [img] = React.useState(
+    () =>
+      data.results[Math.floor(Math.random() * data.results.length)]
+        .image_background
+  );
   const [tags, setTags] = React.useState(data);
   const [loading, setLoading] = React.useState(false);
 

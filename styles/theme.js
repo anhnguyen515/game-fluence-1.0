@@ -23,9 +23,7 @@ export const defaultTheme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Source Sans Pro"].join(
-      ","
-    ),
+    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Play"].join(","),
   },
   palette: {
     mode: "light",
@@ -73,9 +71,7 @@ export const chicagoTheme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Source Sans Pro"].join(
-      ","
-    ),
+    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Play"].join(","),
   },
   palette: {
     mode: "light",
@@ -123,9 +119,7 @@ export const matchaTheme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Source Sans Pro"].join(
-      ","
-    ),
+    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Play"].join(","),
   },
   palette: {
     mode: "light",
@@ -174,9 +168,7 @@ export const blackPinkTheme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Source Sans Pro"].join(
-      ","
-    ),
+    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Play"].join(","),
   },
   palette: {
     mode: "dark",
@@ -223,9 +215,7 @@ export const blackGoldTheme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Source Sans Pro"].join(
-      ","
-    ),
+    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Play"].join(","),
   },
   palette: {
     mode: "dark",
@@ -272,9 +262,7 @@ export const blackCyanTheme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Source Sans Pro"].join(
-      ","
-    ),
+    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Play"].join(","),
   },
   palette: {
     mode: "dark",
@@ -321,9 +309,7 @@ export const wavezTheme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Source Sans Pro"].join(
-      ","
-    ),
+    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Play"].join(","),
   },
   palette: {
     mode: "dark",
@@ -370,9 +356,7 @@ export const mecha01Theme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Source Sans Pro"].join(
-      ","
-    ),
+    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Play"].join(","),
   },
   palette: {
     mode: "dark",
@@ -419,9 +403,7 @@ export const nautilusTheme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Source Sans Pro"].join(
-      ","
-    ),
+    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Play"].join(","),
   },
   palette: {
     mode: "dark",
@@ -468,9 +450,7 @@ export const laserTheme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Source Sans Pro"].join(
-      ","
-    ),
+    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Play"].join(","),
   },
   palette: {
     mode: "dark",
@@ -517,9 +497,7 @@ export const blueSamuraiTheme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Source Sans Pro"].join(
-      ","
-    ),
+    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Play"].join(","),
   },
   palette: {
     mode: "dark",
@@ -566,9 +544,7 @@ export const redSamuraiTheme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Source Sans Pro"].join(
-      ","
-    ),
+    fontFamily: ["-apple-system", "BlinkMacSystemFont", "Play"].join(","),
   },
   palette: {
     mode: "dark",

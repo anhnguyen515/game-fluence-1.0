@@ -25,15 +25,15 @@ export default function NavMobile() {
           <Image
             alt="logo"
             src="/img/GameFluence-black-250px.png"
-            width={100}
-            height={42}
+            width={120}
+            height={50}
           />
         ) : (
           <Image
             alt="logo"
             src="/img/GameFluence-white-250px.png"
-            width={100}
-            height={42}
+            width={120}
+            height={50}
           />
         )}
       </Link>

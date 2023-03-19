@@ -30,15 +30,15 @@ export default function NavDesktop() {
           <Image
             alt="logo"
             src="/img/GameFluence-black-250px.png"
-            width={150}
-            height={63}
+            width={180}
+            height={75}
           />
         ) : (
           <Image
             alt="logo"
             src="/img/GameFluence-white-250px.png"
-            width={150}
-            height={63}
+            width={180}
+            height={75}
           />
         )}
       </Link>

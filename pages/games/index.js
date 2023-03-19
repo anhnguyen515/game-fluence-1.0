@@ -99,10 +99,15 @@ export async function getServerSideProps(context) {
 export default function AllGamesPage({ data }) {
   const router = useRouter();
   const { category } = router.query;
-  const img =
-    data.results[Math.floor(Math.random() * data.results.length)]
-      .background_image;
+  // const img =
+  //   data.results[Math.floor(Math.random() * data.results.length)]
+  //     .background_image;
 
+  const [img] = React.useState(
+    () =>
+      data.results[Math.floor(Math.random() * data.results.length)]
+        .background_image
+  ); // setState not needed
   const [games, setGames] = React.useState(data);
   const [loading, setLoading] = React.useState(false);
 

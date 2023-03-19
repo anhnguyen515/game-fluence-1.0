@@ -1,7 +1,7 @@
 import { getGenresListAPI } from "@/apis/genre";
 import GeneralItemCard from "@/components/common/GeneralItemCard";
 import InnerLayout from "@/layout/InnerLayout";
-import { SITE_NAME, PAGINATION_LIMIT } from "@/utils/constants";
+import { PAGINATION_LIMIT, SITE_NAME } from "@/utils/constants";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LoadingButton } from "@mui/lab";
 import { Grid, Stack } from "@mui/material";
@@ -26,10 +26,15 @@ export async function getStaticProps() {
 
 export default function GenresPage({ data }) {
   const router = useRouter();
-  const img =
-    data.results[Math.floor(Math.random() * data.results.length)]
-      .image_background;
+  // const img =
+  //   data.results[Math.floor(Math.random() * data.results.length)]
+  //     .image_background;
 
+  const [img] = React.useState(
+    () =>
+      data.results[Math.floor(Math.random() * data.results.length)]
+        .image_background
+  ); // setState not needed
   const [genres, setGenres] = React.useState(data);
   const [loading, setLoading] = React.useState(false);
 
