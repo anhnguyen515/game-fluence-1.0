@@ -47,7 +47,7 @@ export default function GameCard({ game }) {
     >
       <Card
         ref={heightRef}
-        elevation={hover ? 24 : 0}
+        // elevation={hover ? 24 : 0}
         variant={hover ? "elevation" : "outlined"}
         onMouseOver={() => {
           if (!isSmallScreen) {
@@ -69,12 +69,14 @@ export default function GameCard({ game }) {
                 transform: "scale(1.1)",
                 width: "100%",
                 zIndex: 1,
+                boxShadow: `0 0 10px 2px ${theme.palette.primary.main + "40"}`,
               }
             : {
                 display: "flex",
                 flexDirection: "column",
                 transition: "transform 0.3s",
                 height: "100%",
+                borderColor: theme.palette.primary.main + "40",
               }
         }
       >
