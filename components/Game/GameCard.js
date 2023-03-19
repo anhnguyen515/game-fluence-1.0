@@ -29,7 +29,7 @@ export default function GameCard({ game }) {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const [hover, setHover] = React.useState(false);
-  const [height, setHeight] = React.useState(0);
+  const [height, setHeight] = React.useState("auto");
 
   const heightRef = React.useRef(null);
 
@@ -38,7 +38,13 @@ export default function GameCard({ game }) {
   }, []);
 
   return (
-    <Box sx={{ position: "relative", height: hover ? height : "100%" }}>
+    <Box
+      sx={{
+        position: "relative",
+        // height: hover ? height : "100%",
+        height,
+      }}
+    >
       <Card
         ref={heightRef}
         elevation={hover ? 24 : 0}
@@ -58,7 +64,7 @@ export default function GameCard({ game }) {
             ? {
                 display: "flex",
                 flexDirection: "column",
-                transition: "transform 0.2s",
+                transition: "transform 0.3s",
                 position: "absolute",
                 transform: "scale(1.1)",
                 width: "100%",
@@ -67,7 +73,7 @@ export default function GameCard({ game }) {
             : {
                 display: "flex",
                 flexDirection: "column",
-                transition: "transform 0.2s",
+                transition: "transform 0.3s",
                 height: "100%",
               }
         }
@@ -102,7 +108,8 @@ export default function GameCard({ game }) {
             sx={{
               width: "100%",
               aspectRatio: hover || isSmallScreen ? "2/1" : "2.5/1",
-              transition: (hover || isSmallScreen) && "aspect-ratio 0.2s",
+              // transition: (hover || isSmallScreen) && "aspect-ratio 0.3s",
+              transition: "aspect-ratio 0.3s",
             }}
             image={
               game.background_image
@@ -132,7 +139,31 @@ export default function GameCard({ game }) {
           {/* platforms */}
           {game.parent_platforms && (
             <>
-              {!isSmallScreen && !hover ? (
+              {isSmallScreen || hover ? (
+                <Stack
+                  alignItems={"center"}
+                  direction={"row"}
+                  flexWrap={"wrap"}
+                  gap={1}
+                  mb={1}
+                >
+                  {game.parent_platforms.map((item, index) => (
+                    <Tooltip
+                      key={index}
+                      title={item.platform.name}
+                      placement="top"
+                    >
+                      <Chip
+                        label={getParentPlatform(
+                          item.platform.name,
+                          isSmallScreen ? 12 : 16
+                        )}
+                        size="small"
+                      />
+                    </Tooltip>
+                  ))}
+                </Stack>
+              ) : (
                 <Stack
                   alignItems={"center"}
                   direction={"row"}
@@ -157,30 +188,6 @@ export default function GameCard({ game }) {
                     />
                   )}
                 </Stack>
-              ) : (
-                <Stack
-                  alignItems={"center"}
-                  direction={"row"}
-                  flexWrap={"wrap"}
-                  gap={1}
-                  mb={1}
-                >
-                  {game.parent_platforms.map((item, index) => (
-                    <Tooltip
-                      key={index}
-                      title={item.platform.name}
-                      placement="top"
-                    >
-                      <Chip
-                        label={getParentPlatform(
-                          item.platform.name,
-                          isSmallScreen ? 12 : 16
-                        )}
-                        size="small"
-                      />
-                    </Tooltip>
-                  ))}
-                </Stack>
               )}
             </>
           )}
@@ -188,7 +195,24 @@ export default function GameCard({ game }) {
           {/* genres */}
           {game.genres && (
             <>
-              {!isSmallScreen && !hover ? (
+              {isSmallScreen || hover ? (
+                <Stack
+                  alignItems={"center"}
+                  direction={"row"}
+                  flexWrap={"wrap"}
+                  gap={1}
+                  mb={1}
+                >
+                  {game.genres.map((item, index) => (
+                    <Chip
+                      key={index}
+                      label={item.name}
+                      onClick={() => router.push(`/genres/${item.slug}`)}
+                      size="small"
+                    />
+                  ))}
+                </Stack>
+              ) : (
                 <Stack
                   alignItems={"center"}
                   direction={"row"}
@@ -211,47 +235,39 @@ export default function GameCard({ game }) {
                     />
                   )}
                 </Stack>
-              ) : (
-                <Stack
-                  alignItems={"center"}
-                  direction={"row"}
-                  flexWrap={"wrap"}
-                  gap={1}
-                  mb={1}
-                >
-                  {game.genres.map((item, index) => (
-                    <Chip
-                      key={index}
-                      label={item.name}
-                      onClick={() => router.push(`/genres/${item.slug}`)}
-                      size="small"
-                    />
-                  ))}
-                </Stack>
               )}
             </>
           )}
 
           {/* others */}
-          {(isSmallScreen || hover) && (
-            <Stack gap={1} mt={2} sx={{ color: "text.dark" }}>
-              {game.released && (
-                <Stack alignItems={"center"} direction={"row"} gap={1}>
-                  <EventIcon sx={{ fontSize: "0.9rem" }} />
-                  <Typography fontSize={"0.8rem"}>
-                    {dateFormat(game.released, "MMM DD, YYYY")}
-                  </Typography>
-                </Stack>
-              )}
-              {game.added > 0 && (
+          {/* {(isSmallScreen || hover) && ( */}
+          <Stack
+            gap={1}
+            mt={2}
+            sx={{
+              color: "text.dark",
+              opacity: isSmallScreen || hover ? 1 : 0,
+              height: isSmallScreen || hover ? "auto" : 0,
+              transition: "opacity 0.3s, height 0.3s",
+            }}
+          >
+            {game.released && (
+              <Stack alignItems={"center"} direction={"row"} gap={1}>
+                <EventIcon sx={{ fontSize: "0.9rem" }} />
                 <Typography fontSize={"0.8rem"}>
-                  <b>{game.added.toLocaleString()}</b>{" "}
-                  {game.added > 1 ? "players" : "player"} have this game on
-                  their platforms
+                  {dateFormat(game.released, "MMM DD, YYYY")}
                 </Typography>
-              )}
-            </Stack>
-          )}
+              </Stack>
+            )}
+            {game.added > 0 && (
+              <Typography fontSize={"0.8rem"}>
+                <b>{game.added.toLocaleString()}</b>{" "}
+                {game.added > 1 ? "players" : "player"} have this game on their
+                platforms
+              </Typography>
+            )}
+          </Stack>
+          {/* )} */}
         </CardContent>
       </Card>
     </Box>
