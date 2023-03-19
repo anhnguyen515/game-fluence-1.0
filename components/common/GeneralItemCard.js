@@ -20,7 +20,7 @@ export default function GeneralItemCard({ item, href }) {
 
   const heightRef = React.useRef(null);
   const [hover, setHover] = React.useState(false);
-  const [height, setHeight] = React.useState("100%");
+  const [height, setHeight] = React.useState("auto");
 
   React.useEffect(() => {
     setHeight(heightRef.current.clientHeight);
@@ -56,7 +56,7 @@ export default function GeneralItemCard({ item, href }) {
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           borderRadius: 1,
-          transition: "transform 0.2s",
+          transition: "transform 0.3s",
           color: "white",
           p: 2,
           position: hover && "absolute",
@@ -74,7 +74,7 @@ export default function GeneralItemCard({ item, href }) {
               width: "3rem",
               height: "3rem",
               cursor: "pointer",
-              transition: "transform 0.2s",
+              transition: "transform 0.3s",
               "&:hover": {
                 transform: "scale(1.3) rotate(15deg)",
               },
@@ -98,12 +98,13 @@ export default function GeneralItemCard({ item, href }) {
             {item.name}
           </Typography>
         </Link>
-        <Typography fontSize={"0.9rem"} textAlign={"center"}>
-          {item.positions &&
-            item.positions
+        {item.positions && (
+          <Typography fontSize={"0.9rem"} textAlign={"center"}>
+            {item.positions
               .map((item) => upperCaseFirstLetter(item.name))
               .join(", ")}
-        </Typography>
+          </Typography>
+        )}
         <Typography fontSize={"0.9rem"} textAlign={"center"}>
           <Typography
             color="primary.light"
@@ -115,52 +116,51 @@ export default function GeneralItemCard({ item, href }) {
           </Typography>{" "}
           {item.games_count > 1 ? "games" : "game"}
         </Typography>
-        {(hover || isSmallScreen) && (
-          <Stack
-            gap={1}
-            mt={3}
-            sx={{
-              width: "100%",
-            }}
-          >
-            <Typography
-              fontSize={"0.9rem"}
-              fontWeight={600}
-              textAlign={"center"}
-            >
-              Popular items
-            </Typography>
-            <Stack gap={1}>
-              {item.games.slice(0, 3).map((i) => (
-                <Stack
-                  key={i.id}
-                  alignItems={"center"}
-                  direction={"row"}
-                  gap={1}
-                  justifyContent={"space-between"}
-                >
-                  <Link href={`/games/${i.slug}`}>
-                    <Typography
-                      className="line-clamp-1"
-                      fontSize={"0.8rem"}
-                      fontWeight={600}
-                      sx={{ "&:hover": { color: "primary.light" } }}
-                    >
-                      {i.name}
-                    </Typography>
-                  </Link>
+        {/* {(hover || isSmallScreen) && ( */}
+        <Stack
+          gap={1}
+          mt={3}
+          sx={{
+            width: "100%",
+            opacity: hover || isSmallScreen ? 1 : 0,
+            height: hover || isSmallScreen ? "auto" : 0,
+            transition: "opacity 0.3s, height 0.3s",
+          }}
+        >
+          <Typography fontSize={"0.9rem"} fontWeight={600} textAlign={"center"}>
+            Popular items
+          </Typography>
+          <Stack gap={1}>
+            {item.games.slice(0, 3).map((i) => (
+              <Stack
+                key={i.id}
+                alignItems={"center"}
+                direction={"row"}
+                gap={1}
+                justifyContent={"space-between"}
+              >
+                <Link href={`/games/${i.slug}`}>
                   <Typography
+                    className="line-clamp-1"
                     fontSize={"0.8rem"}
-                    sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
+                    fontWeight={600}
+                    sx={{ "&:hover": { color: "primary.light" } }}
                   >
-                    {i.added.toLocaleString()}{" "}
-                    <PersonIcon sx={{ fontSize: "0.8rem" }} />
+                    {i.name}
                   </Typography>
-                </Stack>
-              ))}
-            </Stack>
+                </Link>
+                <Typography
+                  fontSize={"0.8rem"}
+                  sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
+                >
+                  {i.added.toLocaleString()}{" "}
+                  <PersonIcon sx={{ fontSize: "0.8rem" }} />
+                </Typography>
+              </Stack>
+            ))}
           </Stack>
-        )}
+        </Stack>
+        {/* )} */}
       </Paper>
     </Box>
   );
