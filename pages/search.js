@@ -5,47 +5,34 @@ import InnerLayout from "@/layout/InnerLayout";
 import { PAGINATION_LIMIT, SITE_NAME } from "@/utils/constants";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LoadingButton } from "@mui/lab";
-import { CircularProgress, Grid, Stack, Typography } from "@mui/material";
+import { Grid, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { NextSeo } from "next-seo";
-import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import React from "react";
 import { toast } from "react-toastify";
 
-const FullScreenLoader = dynamic(
-  () => import("@/components/loader/FullScreenLoader"),
-  { ssr: false }
-);
-
-const SortComp = dynamic(() => import("@/components/common/SortComp"), {
-  ssr: false,
-});
-
 export async function getServerSideProps(context) {
   const { q } = context.query;
+  const data = await getGamesListAPI({
+    page_size: PAGINATION_LIMIT,
+    search: q,
+    search_precise: true,
+  }).then((res) => res.data);
 
   return {
     props: {
       q,
+      data,
     },
   };
 }
 
-export default function SearchPage({ q }) {
+export default function SearchPage({ q, data }) {
   const router = useRouter();
-  const title = `Search results for ${q}`;
 
-  const [games, setGames] = React.useState(null);
+  const [games, setGames] = React.useState(data);
   const [loading, setLoading] = React.useState(false);
-
-  React.useEffect(() => {
-    getGamesListAPI({
-      page_size: PAGINATION_LIMIT,
-      search: q,
-      search_precise: true,
-    }).then((res) => setGames(res.data));
-  }, []);
 
   function handleLoadMore() {
     setLoading(true);
@@ -70,7 +57,7 @@ export default function SearchPage({ q }) {
   return (
     <>
       <NextSeo
-        title={`${title} - ${SITE_NAME}`}
+        title={`Search results for ${q} - ${SITE_NAME}`}
         canonical={router.pathname}
         openGraph={{
           url: router.asPath,
@@ -81,25 +68,24 @@ export default function SearchPage({ q }) {
         titleFontSize={"2.6rem"}
         subtitle={
           <Typography>
-            <b>{games?.count.toLocaleString() || "..."}</b>{" "}
-            {games?.count > 1 ? "results" : "result"} found
+            <b>{games.count.toLocaleString() || "..."}</b>{" "}
+            {games.count > 1 ? "results" : "result"} found
           </Typography>
         }
         img={
-          games &&
           games.results[Math.floor(Math.random() * games.results.length)]
             .background_image
         }
       >
         <Searchbar q={q} />
         <Grid container spacing={2}>
-          {games?.results.map((item, index) => (
+          {games.results.map((item, index) => (
             <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
               <GameCard game={item} />
             </Grid>
           ))}
         </Grid>
-        {games?.next && (
+        {games.next && (
           <Stack alignItems={"center"} mt={3} sx={{ width: "100%" }}>
             <LoadingButton
               loading={loading}

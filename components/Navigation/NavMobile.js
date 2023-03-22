@@ -16,7 +16,7 @@ export default function NavMobile() {
       alignItems={"center"}
       direction={"row"}
       flexWrap={"wrap"}
-      gap={2}
+      gap={1}
       justifyContent={"space-between"}
       sx={{ width: "100%" }}
     >
