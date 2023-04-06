@@ -2,10 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
-  value: {
-    isAuthenticated: false,
-    user: null,
-  },
+  user: null,
 };
 
 export const userSlice = createSlice({
@@ -13,8 +10,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.value.isAuthenticated = true;
-      state.value.user = action.payload;
+      state.user = action.payload;
     },
 
     extraReducers: {
@@ -29,5 +25,5 @@ export const userSlice = createSlice({
 });
 
 export const { setUser } = userSlice.actions;
-export const selectUser = (state) => state.user.value;
+export const selectUser = (state) => state.user.user;
 export default userSlice.reducer;
