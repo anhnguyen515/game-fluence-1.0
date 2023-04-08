@@ -33,6 +33,11 @@ export default function SearchPage({ q, data }) {
 
   const [games, setGames] = React.useState(data);
   const [loading, setLoading] = React.useState(false);
+  const [img] = React.useState(
+    () =>
+      games.results[Math.floor(Math.random() * games.results.length)]
+        .background_image
+  );
 
   function handleLoadMore() {
     setLoading(true);
@@ -72,10 +77,7 @@ export default function SearchPage({ q, data }) {
             {games.count > 1 ? "results" : "result"} found
           </Typography>
         }
-        img={
-          games.results[Math.floor(Math.random() * games.results.length)]
-            .background_image
-        }
+        img={img}
       >
         <Searchbar q={q} />
         <Grid container spacing={2}>

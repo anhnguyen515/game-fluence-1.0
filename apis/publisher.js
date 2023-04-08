@@ -1,4 +1,4 @@
-import axiosClient from "@/utils/axiosConfig";
+import { axiosClient } from "@/utils/axiosConfig";
 
 export function getPublishersListAPI(params) {
   return axiosClient.get("publishers", { params });

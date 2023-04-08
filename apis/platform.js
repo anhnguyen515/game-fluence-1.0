@@ -1,4 +1,4 @@
-import axiosClient from "@/utils/axiosConfig";
+import { axiosClient } from "@/utils/axiosConfig";
 
 export function getPlatformsListAPI(params) {
   return axiosClient.get("platforms", { params });

@@ -1,4 +1,4 @@
-import axiosClient from "@/utils/axiosConfig";
+import { axiosClient } from "@/utils/axiosConfig";
 
 export function getCreatorsListAPI(params) {
   return axiosClient.get("creators", { params });

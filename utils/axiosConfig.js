@@ -1,7 +1,7 @@
 import axios from "axios";
-import { API_KEY, API_URL } from "./constants";
+import { API_KEY, API_URL, BACKEND_URL } from "./constants";
 
-const axiosClient = axios.create({
+export const axiosClient = axios.create({
   baseURL: API_URL + "api/",
   headers: {
     "Content-Type": "application/json",
@@ -11,4 +11,9 @@ const axiosClient = axios.create({
   },
 });
 
-export default axiosClient;
+export const axiosNodeBe = axios.create({
+  baseURL: BACKEND_URL + "api/",
+  header: {
+    "Content-Type": "application/json",
+  },
+});

@@ -1,4 +1,4 @@
-import axiosClient from "@/utils/axiosConfig";
+import { axiosClient } from "@/utils/axiosConfig";
 
 export function getDevelopersListAPI(params) {
   return axiosClient.get("developers", { params });

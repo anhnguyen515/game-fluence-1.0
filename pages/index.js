@@ -1,11 +1,12 @@
 import { getGamesListAPI } from "@/apis/game";
 import GamesList from "@/components/Game/Homepage/GamesList";
 import InnerLayout from "@/layout/InnerLayout";
-import { SITE_NAME, PAGINATION_LIMIT } from "@/utils/constants";
+import { PAGINATION_LIMIT, SITE_NAME } from "@/utils/constants";
 import { dateFormat } from "@/utils/utils";
-import { Box, Stack, Typography, useTheme } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import dayjs from "dayjs";
 import { NextSeo } from "next-seo";
+import React from "react";
 
 export async function getStaticProps() {
   const [newGames, popularGamesLastYear] = await Promise.all([
@@ -33,11 +34,12 @@ export async function getStaticProps() {
 }
 
 export default function Home({ newGames, popularGamesLastYear }) {
-  const img =
-    newGames.results[Math.floor(Math.random() * newGames.results.length)]
-      .background_image;
+  const [img] = React.useState(
+    () =>
+      newGames.results[Math.floor(Math.random() * newGames.results.length)]
+        .background_image
+  );
 
-  const theme = useTheme();
   return (
     <>
       <NextSeo

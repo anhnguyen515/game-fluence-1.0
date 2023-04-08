@@ -117,13 +117,7 @@ export default function GeneralItemCard({ item, href }) {
           {item.games_count > 1 ? "games" : "game"}
         </Typography>
         {(hover || isSmallScreen) && (
-          <Stack
-            gap={1}
-            mt={3}
-            sx={{
-              width: "100%",
-            }}
-          >
+          <Stack gap={1} mt={3} sx={{ width: "100%" }}>
             <Typography
               fontSize={"0.9rem"}
               fontWeight={600}

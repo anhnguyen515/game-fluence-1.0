@@ -1,27 +1,27 @@
-import { selectTheme } from "@/store/slices/themeSlice";
-import { getTheme } from "@/utils/utils";
-import { Box, Container, Grid, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  Grid,
+  Stack,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import {
+  BsGithub,
   BsLinkedin,
   BsMailbox2,
   BsTelephoneFill,
-  BsGithub,
 } from "react-icons/bs";
-import { useSelector } from "react-redux";
 
 export default function Footer() {
-  const themeStore = useSelector(selectTheme);
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <footer>
-      <Box
-      // sx={{
-      //   borderTop: 1,
-      //   borderColor: "divider",
-      //   backgroundColor: "background.default",
-      // }}
-      >
+      <Box>
         <Container maxWidth="2xl">
           <Box sx={{ px: { xs: 1, md: 3 }, py: 3 }}>
             <Grid container spacing={2}>
@@ -53,27 +53,43 @@ export default function Footer() {
                 </Stack>
               </Grid>
               <Grid item xs={12} md={4}>
-                <Stack alignItems={"center"}>
-                  {getTheme(themeStore).theme.palette.mode === "light" ? (
-                    <Image
-                      alt="logo"
-                      src="/img/GameFluence-black-600px.png"
-                      width={250}
-                      height={105}
-                    />
-                  ) : (
-                    <Image
-                      alt="logo"
-                      src="/img/GameFluence-white-600px.png"
-                      width={250}
-                      height={105}
-                    />
-                  )}
-                  {/* <Typography variant="caption">
-                    I made this website mainly to hone my Front-end skills
-                    (〜￣▽￣)〜
-                  </Typography> */}
-                </Stack>
+                {isSmallScreen ? (
+                  <Stack alignItems={"center"}>
+                    {theme.palette.mode === "light" ? (
+                      <Image
+                        alt="logo"
+                        src="/img/GameFluence-black-250px.png"
+                        width={180}
+                        height={75}
+                      />
+                    ) : (
+                      <Image
+                        alt="logo"
+                        src="/img/GameFluence-white-250px.png"
+                        width={180}
+                        height={75}
+                      />
+                    )}
+                  </Stack>
+                ) : (
+                  <Stack alignItems={"center"}>
+                    {theme.palette.mode === "light" ? (
+                      <Image
+                        alt="logo"
+                        src="/img/GameFluence-black-250px.png"
+                        width={250}
+                        height={105}
+                      />
+                    ) : (
+                      <Image
+                        alt="logo"
+                        src="/img/GameFluence-white-250px.png"
+                        width={250}
+                        height={105}
+                      />
+                    )}
+                  </Stack>
+                )}
               </Grid>
               <Grid item xs={12} md={4}>
                 <Stack alignItems={{ xs: "center", md: "flex-end" }}>
