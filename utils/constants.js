@@ -59,4 +59,8 @@ export const backgroundImages = [
     img: `/img/login_backgrounds/13.jpg`,
     src: "https://pin.it/6WYnYU6",
   },
+  {
+    img: `/img/login_backgrounds/14.jpg`,
+    src: "https://pin.it/1I91vvE",
+  },
 ];
