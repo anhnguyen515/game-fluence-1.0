@@ -10,6 +10,7 @@ import {
   ListItemText,
   Menu,
   MenuItem,
+  Stack,
   Typography,
 } from "@mui/material";
 import Cookies from "js-cookie";
@@ -37,20 +38,28 @@ export default function NavAuthMenu({ user }) {
   return (
     <>
       <Button
+        color="text"
         onClick={handleClick}
         size="small"
         startIcon={
           <Avatar
             alt={user.displayName}
             src={user.imageUrl}
-            sx={{ width: "1.2rem", height: "1.2rem" }}
+            sx={{ bgcolor: "primary.main", width: "2rem", height: "2rem" }}
           >
             <Typography fontSize={"0.8rem"}>{user.displayName[0]}</Typography>
           </Avatar>
         }
         variant="outlined"
       >
-        {user.displayName}
+        <Stack alignItems={"flex-start"}>
+          <Typography color={"text.primary"} fontSize={"0.85rem"}>
+            {user.displayName}
+          </Typography>
+          <Typography color={"text.dark"} fontSize={"0.75rem"}>
+            {user.email}
+          </Typography>
+        </Stack>
       </Button>
       <Menu
         id="basic-menu"

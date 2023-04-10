@@ -46,8 +46,7 @@ export default function NavDesktop() {
       <Stack
         alignItems={"center"}
         direction={"row"}
-        divider={<Divider orientation="vertical" flexItem />}
-        gap={1}
+        gap={2}
         sx={{ ml: "auto" }}
       >
         <NavAuth />

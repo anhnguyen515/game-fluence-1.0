@@ -80,12 +80,7 @@ export default function ThemePicker() {
 
   return (
     <>
-      <Button
-        color="primary"
-        onClick={handleClick}
-        size="small"
-        startIcon={<PaletteIcon />}
-      >
+      <Button onClick={handleClick} size="small" startIcon={<PaletteIcon />}>
         Theme
       </Button>
       <Menu

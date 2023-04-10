@@ -6,6 +6,7 @@ import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
 import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
 import { LoadingButton } from "@mui/lab";
 import {
+  Alert,
   Box,
   Button,
   CircularProgress,
@@ -36,6 +37,7 @@ export default function LoginPage() {
   const [password, setPassword] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  const [errorMsg, setErrorMsg] = React.useState("");
 
   function handleLogin(e) {
     e.preventDefault();
@@ -51,7 +53,7 @@ export default function LoginPage() {
           router.back();
         } else {
           setLoading(false);
-          toast.error(data.msg);
+          setErrorMsg(data.msg);
         }
       })
       .catch((err) => {
@@ -120,7 +122,6 @@ export default function LoginPage() {
               justifyContent={"center"}
               sx={{
                 width: { xs: "100%", md: "50%" },
-                height: "60vh",
               }}
             >
               <Stack
@@ -193,6 +194,15 @@ export default function LoginPage() {
                       </Button>
                       <Button>I forgot my password</Button>
                     </Stack>
+                    {errorMsg !== "" && (
+                      <Alert
+                        onClose={() => setErrorMsg("")}
+                        severity="error"
+                        variant="outlined"
+                      >
+                        {errorMsg}
+                      </Alert>
+                    )}
                   </Stack>
                 </form>
               </Stack>
