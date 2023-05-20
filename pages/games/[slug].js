@@ -49,10 +49,13 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const { slug } = context.params;
-  const gameDetail = await getGameDetailAPI(slug).then((res) => res.data);
-  const gameStores = await getGameStoresAPI(slug).then((res) => res.data);
-  const gameAdditions = await getGameAdditionsAPI(slug).then((res) => res.data);
-  const gamesSeries = await getGamesSeriesAPI(slug).then((res) => res.data);
+  const [gameDetail, gameStores, gameAdditions, gamesSeries] =
+    await Promise.all([
+      getGameDetailAPI(slug).then((res) => res.data),
+      getGameStoresAPI(slug).then((res) => res.data),
+      getGameAdditionsAPI(slug).then((res) => res.data),
+      getGamesSeriesAPI(slug).then((res) => res.data),
+    ]);
 
   if (gameDetail.detail) {
     return {
