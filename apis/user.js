@@ -7,3 +7,7 @@ export function loginAPI(body) {
 export function signupAPI(body) {
   return axiosNodeBe.post("user/signup", body);
 }
+
+export function getUserDetailAPI(userID, params) {
+  return axiosNodeBe.get(`user/${userID}`, { params });
+}

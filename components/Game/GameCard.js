@@ -243,32 +243,32 @@ export default function GameCard({ game }) {
 
           {/* others */}
           {/* {(isSmallScreen || hover) && ( */}
-          <Stack
-            gap={1}
-            mt={2}
-            sx={{
-              color: "text.dark",
-              opacity: isSmallScreen || hover ? 1 : 0,
-              height: isSmallScreen || hover ? "auto" : 0,
-              transition: "opacity 0.3s, height 0.3s",
-            }}
-          >
-            {game.released && (
-              <Stack alignItems={"center"} direction={"row"} gap={1}>
-                <EventIcon sx={{ fontSize: "0.9rem" }} />
+          {(isSmallScreen || hover) && (
+            <Stack
+              gap={1}
+              mt={2}
+              sx={{
+                color: "text.dark",
+                transition: "opacity 0.3s, height 0.3s",
+              }}
+            >
+              {game.released && (
+                <Stack alignItems={"center"} direction={"row"} gap={1}>
+                  <EventIcon sx={{ fontSize: "0.9rem" }} />
+                  <Typography fontSize={"0.8rem"}>
+                    {dateFormat(game.released, "MMM DD, YYYY")}
+                  </Typography>
+                </Stack>
+              )}
+              {game.added > 0 && (
                 <Typography fontSize={"0.8rem"}>
-                  {dateFormat(game.released, "MMM DD, YYYY")}
+                  <b>{game.added.toLocaleString()}</b>{" "}
+                  {game.added > 1 ? "players" : "player"} have this game on
+                  their platforms
                 </Typography>
-              </Stack>
-            )}
-            {game.added > 0 && (
-              <Typography fontSize={"0.8rem"}>
-                <b>{game.added.toLocaleString()}</b>{" "}
-                {game.added > 1 ? "players" : "player"} have this game on their
-                platforms
-              </Typography>
-            )}
-          </Stack>
+              )}
+            </Stack>
+          )}
           {/* )} */}
         </CardContent>
       </Card>

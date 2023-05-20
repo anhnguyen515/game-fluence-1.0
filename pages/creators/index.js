@@ -20,15 +20,20 @@ export async function getStaticProps() {
     props: {
       data: creators,
     },
-    revalidate: 60,
+    revalidate: 3600,
   };
 }
 
 export default function CreatorsPage({ data }) {
   const router = useRouter();
-  const img =
-    data.results[Math.floor(Math.random() * data.results.length)]
-      .image_background;
+  // const img =
+  //   data.results[Math.floor(Math.random() * data.results.length)]
+  //     .image_background;
+  const [img] = React.useState(
+    () =>
+      data.results[Math.floor(Math.random() * data.results.length)]
+        .image_background
+  );
 
   const [creators, setCreators] = React.useState(data);
   const [loading, setLoading] = React.useState(false);

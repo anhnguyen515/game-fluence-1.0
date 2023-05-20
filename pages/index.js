@@ -29,7 +29,7 @@ export async function getStaticProps() {
       newGames,
       popularGamesLastYear,
     },
-    revalidate: 60,
+    revalidate: 3600,
   };
 }
 

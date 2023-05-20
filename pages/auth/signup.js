@@ -1,4 +1,5 @@
 import { signupAPI } from "@/apis/user";
+import useAuth from "@/hooks/useAuth";
 import { selectUser, setUser } from "@/store/slices/userSlice";
 import { backgroundImages } from "@/utils/constants";
 import { getRandomInt } from "@/utils/utils";
@@ -26,7 +27,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 export default function SignupPage() {
-  const userStore = useSelector(selectUser);
+  const isLoggedIn = useAuth();
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -69,15 +70,12 @@ export default function SignupPage() {
   }
 
   React.useEffect(() => {
-    const user = Cookies.get("user");
-    if (user) {
-      router.replace("/");
-    }
-  }, []);
-
-  React.useEffect(() => {
     setRandomInt(getRandomInt(backgroundImages.length - 1, 0));
   }, []);
+
+  if (isLoggedIn) {
+    router.replace("/");
+  }
 
   return (
     <>
@@ -101,6 +99,7 @@ export default function SignupPage() {
       />
       {randomInt !== null && (
         <Button
+          color="text"
           component={"a"}
           href={backgroundImages[randomInt].src}
           size="small"
@@ -117,7 +116,7 @@ export default function SignupPage() {
             py: 3,
           }}
         >
-          {!userStore ? (
+          {!isLoggedIn ? (
             <Stack
               alignItems={"center"}
               justifyContent={"center"}

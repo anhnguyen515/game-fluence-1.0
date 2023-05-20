@@ -40,7 +40,16 @@ export default function PageHeader({
         >
           <Stack alignItems={"center"} direction={"row"} gap={1}>
             {avatar && (
-              <Avatar src={avatar} sx={{ width: "3.5rem", height: "3.5rem" }} />
+              <Avatar
+                src={avatar}
+                sx={{
+                  width: "3.5rem",
+                  height: "3.5rem",
+                  bgcolor: "primary.main",
+                }}
+              >
+                <Typography fontSize={"1.6rem"}>{avatar}</Typography>
+              </Avatar>
             )}
             <Typography
               fontSize={titleFontSize}

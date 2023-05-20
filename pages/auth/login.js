@@ -1,5 +1,6 @@
 import { loginAPI } from "@/apis/user";
-import { selectUser, setUser } from "@/store/slices/userSlice";
+import useAuth from "@/hooks/useAuth";
+import { setUser } from "@/store/slices/userSlice";
 import { backgroundImages } from "@/utils/constants";
 import { getRandomInt } from "@/utils/utils";
 import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
@@ -22,11 +23,11 @@ import {
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 export default function LoginPage() {
-  const userStore = useSelector(selectUser);
+  const isLoggedIn = useAuth();
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -68,15 +69,12 @@ export default function LoginPage() {
   }
 
   React.useEffect(() => {
-    const user = Cookies.get("user");
-    if (user) {
-      router.replace("/");
-    }
-  }, []);
-
-  React.useEffect(() => {
     setRandomInt(getRandomInt(backgroundImages.length - 1, 0));
   }, []);
+
+  if (isLoggedIn) {
+    router.replace("/");
+  }
 
   return (
     <>
@@ -100,6 +98,7 @@ export default function LoginPage() {
       />
       {randomInt !== null && (
         <Button
+          color="text"
           component={"a"}
           href={backgroundImages[randomInt].src}
           size="small"
@@ -116,7 +115,7 @@ export default function LoginPage() {
             py: 3,
           }}
         >
-          {!userStore ? (
+          {!isLoggedIn ? (
             <Stack
               alignItems={"center"}
               justifyContent={"center"}

@@ -41,7 +41,7 @@ export default function MainLayout({ children }) {
       />
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={3000}
         hideProgressBar
         newestOnTop
         theme={getTheme(themeStore).theme.palette.mode}

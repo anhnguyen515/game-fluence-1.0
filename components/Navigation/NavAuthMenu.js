@@ -1,4 +1,4 @@
-import { setUser } from "@/store/slices/userSlice";
+import { selectUser, setUser } from "@/store/slices/userSlice";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
@@ -12,13 +12,21 @@ import {
   MenuItem,
   Stack,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function NavAuthMenu({ user }) {
+  const router = useRouter();
+
+  const userStore = useSelector(selectUser);
   const dispatch = useDispatch();
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -37,30 +45,52 @@ export default function NavAuthMenu({ user }) {
 
   return (
     <>
-      <Button
-        color="text"
-        onClick={handleClick}
-        size="small"
-        startIcon={
+      {isSmallScreen ? (
+        <Button
+          color="text"
+          onClick={handleClick}
+          size="small"
+          sx={{ width: "auto" }}
+          variant="outlined"
+        >
           <Avatar
             alt={user.displayName}
-            src={user.imageUrl}
-            sx={{ bgcolor: "primary.main", width: "2rem", height: "2rem" }}
+            src={user.avatarUrl}
+            sx={{
+              bgcolor: "primary.main",
+              width: "1.6rem",
+              height: "1.6rem",
+            }}
           >
             <Typography fontSize={"0.8rem"}>{user.displayName[0]}</Typography>
           </Avatar>
-        }
-        variant="outlined"
-      >
-        <Stack alignItems={"flex-start"}>
-          <Typography color={"text.primary"} fontSize={"0.85rem"}>
-            {user.displayName}
-          </Typography>
-          <Typography color={"text.dark"} fontSize={"0.75rem"}>
-            {user.email}
-          </Typography>
-        </Stack>
-      </Button>
+        </Button>
+      ) : (
+        <Button
+          color="text"
+          onClick={handleClick}
+          size="small"
+          startIcon={
+            <Avatar
+              alt={user.displayName}
+              src={user.avatarUrl}
+              sx={{ bgcolor: "primary.main", width: "2rem", height: "2rem" }}
+            >
+              <Typography fontSize={"0.8rem"}>{user.displayName[0]}</Typography>
+            </Avatar>
+          }
+          variant="outlined"
+        >
+          <Stack alignItems={"flex-start"}>
+            <Typography color={"text.primary"} fontSize={"0.85rem"}>
+              {user.displayName}
+            </Typography>
+            <Typography color={"text.dark"} fontSize={"0.75rem"}>
+              {user.email}
+            </Typography>
+          </Stack>
+        </Button>
+      )}
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
@@ -70,13 +100,23 @@ export default function NavAuthMenu({ user }) {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem
+          onClick={() => {
+            router.push(`/user/${userStore.id}`);
+            handleClose();
+          }}
+        >
           <ListItemIcon>
             <AccountCircleRoundedIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText>My profile</ListItemText>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem
+          onClick={() => {
+            router.push("/account/settings");
+            handleClose();
+          }}
+        >
           <ListItemIcon>
             <ManageAccountsRoundedIcon fontSize="small" />
           </ListItemIcon>

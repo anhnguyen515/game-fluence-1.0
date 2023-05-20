@@ -1,5 +1,5 @@
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
-import { Divider, IconButton, Stack } from "@mui/material";
+import { IconButton, Stack } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
 import { useRouter } from "next/router";
 import * as React from "react";

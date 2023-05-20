@@ -33,18 +33,12 @@ import {
   Typography,
 } from "@mui/material";
 import { NextSeo } from "next-seo";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import ReactPlayer from "react-player";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-
-const FullScreenLoader = dynamic(
-  () => import("@/components/loader/FullScreenLoader"),
-  { ssr: false }
-);
 
 export async function getStaticPaths() {
   return {
@@ -56,6 +50,9 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   const { slug } = context.params;
   const gameDetail = await getGameDetailAPI(slug).then((res) => res.data);
+  const gameStores = await getGameStoresAPI(slug).then((res) => res.data);
+  const gameAdditions = await getGameAdditionsAPI(slug).then((res) => res.data);
+  const gamesSeries = await getGamesSeriesAPI(slug).then((res) => res.data);
 
   if (gameDetail.detail) {
     return {
@@ -67,30 +64,33 @@ export async function getStaticProps(context) {
     props: {
       slug,
       gameDetail,
+      gameStores,
+      gameAdditions,
+      gamesSeries,
     },
-    revalidate: 60,
+    revalidate: 3600,
   };
 }
 
-export default function GameDetailPage({ slug, gameDetail }) {
+export default function GameDetailPage({
+  slug,
+  gameDetail,
+  gameStores,
+  gameAdditions,
+  gamesSeries,
+}) {
   const router = useRouter();
   const themeStore = useSelector(selectTheme);
 
   const [gameTrailers, setGameTrailers] = React.useState(null);
   const [gameCreators, setGameCreators] = React.useState(null);
   const [gameScreenshots, setGameScreenshots] = React.useState(null);
-  const [gameStores, setGameStores] = React.useState(null);
-  const [gameAdditions, setGameAdditions] = React.useState(null);
-  const [gamesSeries, setGamesSeries] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
   const [page, setPage] = React.useState(1);
 
   React.useEffect(() => {
     getGameTrailersAPI(slug).then((res) => setGameTrailers(res.data));
     getGameScreenshotsAPI(slug).then((res) => setGameScreenshots(res.data));
-    getGameStoresAPI(slug).then((res) => setGameStores(res.data));
-    getGameAdditionsAPI(slug).then((res) => setGameAdditions(res.data));
-    getGamesSeriesAPI(slug).then((res) => setGamesSeries(res.data));
   }, []);
 
   React.useEffect(() => {
@@ -127,14 +127,6 @@ export default function GameDetailPage({ slug, gameDetail }) {
           ],
         }}
       />
-      {!(
-        gameTrailers &&
-        gameScreenshots &&
-        gameStores &&
-        gameAdditions &&
-        gamesSeries &&
-        gameCreators
-      ) && <FullScreenLoader />}
       <Box
         sx={{
           position: "absolute",
@@ -225,46 +217,52 @@ export default function GameDetailPage({ slug, gameDetail }) {
           </Grid>
           <Grid item xs={12} md={4}>
             <Stack gap={3}>
-              <div>
-                {gameTrailers?.count > 0 && (
-                  <Box
-                    sx={{
-                      borderRadius: 1,
-                      overflow: "hidden",
-                      mb: 1,
-                      aspectRatio: "1920/1080",
-                    }}
-                  >
-                    <ReactPlayer
-                      url={
-                        gameTrailers.results[
-                          Math.floor(Math.random() * gameTrailers.count)
-                        ].data.max
-                      }
-                      playing
-                      controls
-                      light={
-                        <img
-                          alt="Thumbnail"
-                          src={
-                            gameTrailers.results[
-                              Math.floor(Math.random() * gameTrailers.count)
-                            ].preview
-                          }
-                        />
-                      }
-                      width={"100%"}
-                      height={"100%"}
-                    />
-                  </Box>
-                )}
-                {gameScreenshots?.count > 0 && (
-                  <GameScreenshots screenshots={gameScreenshots} />
-                )}
-              </div>
+              {!gameTrailers || !gameScreenshots ? (
+                <Typography textAlign={"center"}>
+                  Loading video & images...
+                </Typography>
+              ) : (
+                <div>
+                  {gameTrailers.count > 0 && (
+                    <Box
+                      sx={{
+                        borderRadius: 1,
+                        overflow: "hidden",
+                        mb: 1,
+                        aspectRatio: "1920/1080",
+                      }}
+                    >
+                      <ReactPlayer
+                        url={
+                          gameTrailers.results[
+                            Math.floor(Math.random() * gameTrailers.count)
+                          ].data.max
+                        }
+                        playing
+                        controls
+                        light={
+                          <img
+                            alt="Thumbnail"
+                            src={
+                              gameTrailers.results[
+                                Math.floor(Math.random() * gameTrailers.count)
+                              ].preview
+                            }
+                          />
+                        }
+                        width={"100%"}
+                        height={"100%"}
+                      />
+                    </Box>
+                  )}
+                  {gameScreenshots.count > 0 && (
+                    <GameScreenshots screenshots={gameScreenshots} />
+                  )}
+                </div>
+              )}
               <div>
                 <CategoryTitle title={"Available at"} />
-                {gameStores?.count > 0 ? (
+                {gameStores.count > 0 ? (
                   <Grid container spacing={1}>
                     {gameStores.results.map((item) => (
                       <Grid key={item.id} item xs={12} sm={6}>
