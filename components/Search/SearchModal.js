@@ -71,7 +71,9 @@ export default function SearchModal() {
           });
       }, 500);
     }
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+    };
   }, [q]);
 
   return (
