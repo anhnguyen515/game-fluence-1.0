@@ -18,26 +18,11 @@ export const axiosClient = axios.create({
 });
 
 axiosClient.interceptors.request.use(async (request) => {
-  const headers = {
-    ...request.headers.common,
-    ...request.headers[request.method],
-    ...request.headers,
-  };
-
-  ["common", "get", "post", "head", "put", "patch", "delete"].forEach(
-    (header) => {
-      delete headers[header];
-    }
-  );
-
-  const log = `${new Date()}\nRequest: ${request.method.toUpperCase()}\nURL: ${
-    request.url
-  }\nData: ${JSON.stringify(request.data)}\nHeaders: ${JSON.stringify(
-    headers
-  )}`;
-
-  await sendMessage(log);
   return request;
+});
+
+axiosClient.interceptors.response.use(async (response) => {
+  return response;
 });
 
 export const axiosNodeBe = axios.create({
